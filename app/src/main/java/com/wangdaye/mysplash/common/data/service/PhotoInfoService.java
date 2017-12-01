@@ -2,6 +2,7 @@ package com.wangdaye.mysplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.PhotoInfoApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.utils.widget.interceptor.AuthInterceptor;
@@ -26,7 +27,7 @@ public class PhotoInfoService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .addInterceptor(new AuthInterceptor())
                 .build();
     }

@@ -1,9 +1,9 @@
 package com.wangdaye.mysplash.main.presenter.fragment;
 
-import com.wangdaye.mysplash.common.i.model.PagerManageModel;
-import com.wangdaye.mysplash.common.i.presenter.PagerManagePresenter;
-import com.wangdaye.mysplash.common.i.view.PagerManageView;
-import com.wangdaye.mysplash.common.i.view.PagerView;
+import com.wangdaye.mysplash.common.interfaces.model.PagerManageModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.PagerManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.PagerManageView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerView;
 
 /**
  * Pager manage implementor.

@@ -7,9 +7,9 @@ import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.PhotosModel;
-import com.wangdaye.mysplash.common.i.presenter.PhotosPresenter;
-import com.wangdaye.mysplash.common.i.view.PhotosView;
+import com.wangdaye.mysplash.common.interfaces.model.PhotosModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.PhotosPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.PhotosView;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
@@ -44,7 +44,7 @@ public class PhotosImplementor
     // HTTP request.
 
     @Override
-    public void requestPhotos(Context c, int page, boolean refresh) {
+    public void requestPhotos(Context c, int page, boolean refresh, String query) {
         if (!model.isLoading() && !model.isRefreshing()) {
             if (refresh) {
                 model.setRefreshing(true);
@@ -77,25 +77,25 @@ public class PhotosImplementor
     // load data interface.
 
     @Override
-    public void refreshNew(Context c, boolean notify) {
+    public void refreshNew(Context c, boolean notify, String query) {
         if (notify) {
             view.setRefreshing(true);
         }
-        requestPhotos(c, model.getPhotosPage(), true);
+        requestPhotos(c, model.getPhotosPage(), true, query);
     }
 
     @Override
-    public void loadMore(Context c, boolean notify) {
+    public void loadMore(Context c, boolean notify, String query) {
         if (notify) {
             view.setLoading(true);
         }
-        requestPhotos(c, model.getPhotosPage(), false);
+        requestPhotos(c, model.getPhotosPage(), false, query);
     }
 
     @Override
-    public void initRefresh(Context c) {
+    public void initRefresh(Context c, String query) {
         cancelRequest();
-        refreshNew(c, false);
+        refreshNew(c, false, query);
         view.initRefreshStart();
     }
 

@@ -74,6 +74,13 @@
 
                 </RelativeLayout>
 
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/dialog_select_collection_cover_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:scaleType="centerCrop"
+                    tools:ignore="ContentDescription" />
+
                 <com.wangdaye.mysplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout
                     android:id="@+id/dialog_select_collection_selectorRefreshView"
                     android:layout_width="match_parent"

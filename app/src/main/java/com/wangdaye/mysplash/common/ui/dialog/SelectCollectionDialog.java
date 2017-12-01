@@ -182,17 +182,21 @@ public class SelectCollectionDialog extends MysplashDialogFragment
     private void initWidget(View v) {
         setCancelable(true);
 
-        ImageView cover = ButterKnife.findById(v, R.id.dialog_select_collection_cover);
+        ImageView cover = v.findViewById(R.id.dialog_select_collection_cover);
+        ImageView mobile = v.findViewById(R.id.dialog_select_collection_cover_mobile);
         if (DisplayUtils.isTabletDevice(getActivity())) {
+            mobile.setVisibility(View.GONE);
             ImageHelper.loadRegularPhoto(getActivity(), cover, photo, 0, null);
         } else {
             cover.setVisibility(View.GONE);
+            mobile.setVisibility(View.VISIBLE);
+            ImageHelper.loadRegularPhoto(getActivity(), mobile, photo, 0, null);
         }
 
         progressContainer.setVisibility(View.GONE);
         selectorContainer.setVisibility(View.VISIBLE);
 
-        ImageButton refreshBtn = ButterKnife.findById(v, R.id.dialog_select_collection_selectorRefreshBtn);
+        ImageButton refreshBtn = v.findViewById(R.id.dialog_select_collection_selectorRefreshBtn);
         ThemeManager.setImageResource(refreshBtn, R.drawable.ic_refresh_light, R.drawable.ic_refresh_dark);
 
         refreshLayout.setColorSchemeColors(ThemeManager.getContentColor(getActivity()));

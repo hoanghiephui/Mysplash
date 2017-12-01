@@ -1,8 +1,8 @@
 package com.wangdaye.mysplash.photo.presenter;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
-import com.wangdaye.mysplash.common.i.model.PhotoListManageModel;
-import com.wangdaye.mysplash.common.i.presenter.PhotoListManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.model.PhotoListManageModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.PhotoListManagePresenter;
 
 import java.util.List;
 

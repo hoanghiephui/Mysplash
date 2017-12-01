@@ -6,14 +6,15 @@ import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.api.PhotoApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Photos;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.PhotosModel;
-import com.wangdaye.mysplash.common.i.presenter.PhotosPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.PhotosModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.PhotosPresenter;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
 import com.wangdaye.mysplash.common.utils.ValueUtils;
-import com.wangdaye.mysplash.common.i.view.PhotosView;
+import com.wangdaye.mysplash.common.interfaces.view.PhotosView;
 import com.wangdaye.mysplash.main.model.widget.PhotosObject;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class PhotosImplementor
     private PhotosView view;
 
     private OnRequestPhotosListener listener;
+    private OnRequestPhotosByTagListen listenerByTag;
 
     public PhotosImplementor(PhotosModel model, PhotosView view) {
         this.model = model;
@@ -40,7 +42,7 @@ public class PhotosImplementor
     }
 
     @Override
-    public void requestPhotos(Context c, int page, boolean refresh) {
+    public void requestPhotos(Context c, int page, boolean refresh, String query) {
         if (!model.isRefreshing() && !model.isLoading()) {
             if (refresh) {
                 model.setRefreshing(true);
@@ -63,6 +65,9 @@ public class PhotosImplementor
                         requestFeaturePhotosOrders(c, page, refresh);
                     }
                     break;
+                case PhotosObject.PHOTOS_TYPE_TAG:
+                    requestPhotoByTag(c, query, page, refresh);
+                    break;
             }
         }
     }
@@ -72,31 +77,34 @@ public class PhotosImplementor
         if (listener != null) {
             listener.cancel();
         }
+        if (listenerByTag != null) {
+            listenerByTag.cancel();
+        }
         model.getService().cancel();
         model.setRefreshing(false);
         model.setLoading(false);
     }
 
     @Override
-    public void refreshNew(Context c, boolean notify) {
+    public void refreshNew(Context c, boolean notify, String query) {
         if (notify) {
             view.setRefreshing(true);
         }
-        requestPhotos(c, model.getPhotosPage(), true);
+        requestPhotos(c, model.getPhotosPage(), true, query);
     }
 
     @Override
-    public void loadMore(Context c, boolean notify) {
+    public void loadMore(Context c, boolean notify, String query) {
         if (notify) {
             view.setLoading(true);
         }
-        requestPhotos(c, model.getPhotosPage(), false);
+        requestPhotos(c, model.getPhotosPage(), false, query);
     }
 
     @Override
-    public void initRefresh(Context c) {
+    public void initRefresh(Context c, String query) {
         cancelRequest();
-        refreshNew(c, false);
+        refreshNew(c, false, query);
         view.initRefreshStart();
     }
 
@@ -221,7 +229,91 @@ public class PhotosImplementor
                         listener);
     }
 
+    private void requestPhotoByTag(Context context, String query, int page, boolean refresh) {
+        page = Math.max(1, refresh ? 1 : page + 1);
+        if (refresh) {
+            model.setPageList(ValueUtils.getPageListByCategory(Mysplash.CATEGORY_PHOTO_TAG));
+        }
+        listenerByTag = new OnRequestPhotosByTagListen(context, page, refresh, false);
+        model.getService().requestPhotoByQuery(query, page, Mysplash.DEFAULT_PER_PAGE, listenerByTag);
+    }
+
     // interface.
+
+    private class OnRequestPhotosByTagListen implements PhotoService.OnRequestPhotoByQueryListener {
+        // data
+        private Context c;
+        private int page;
+        private boolean refresh;
+        private boolean random;
+        private boolean canceled;
+
+        OnRequestPhotosByTagListen(Context c, int page, boolean refresh, boolean random) {
+            this.c = c;
+            this.page = page;
+            this.refresh = refresh;
+            this.random = random;
+            this.canceled = false;
+        }
+
+        public void cancel() {
+            canceled = true;
+        }
+
+        @Override
+        public void onRequestPhotosSuccesss(Call<Photos> call, Response<Photos> response) {
+            if (canceled) {
+                return;
+            }
+
+            model.setRefreshing(false);
+            model.setLoading(false);
+            if (refresh) {
+                view.setRefreshing(false);
+            } else {
+                view.setLoading(false);
+            }
+            if (response.isSuccessful()
+                    && model.getAdapter().getRealItemCount() + response.body().getResults().size() > 0) {
+                if (random) {
+                    model.setPhotosPage(page + 1);
+                } else {
+                    model.setPhotosPage(page);
+                }
+                if (refresh) {
+                    model.getAdapter().clearItem();
+                    setOver(false);
+                }
+                for (int i = 0; i < response.body().getResults().size(); i ++) {
+                    model.getAdapter().insertItem(response.body().getResults().get(i));
+                }
+                if (response.body().getResults().size() < Mysplash.DEFAULT_PER_PAGE) {
+                    setOver(true);
+                }
+                view.requestPhotosSuccess();
+            } else {
+                view.requestPhotosFailed(c.getString(R.string.feedback_load_nothing_tv));
+            }
+        }
+
+        @Override
+        public void onRequestPhotosFailedd(Call<Photos> call, Throwable t) {
+            if (canceled) {
+                return;
+            }
+            model.setRefreshing(false);
+            model.setLoading(false);
+            if (refresh) {
+                view.setRefreshing(false);
+            } else {
+                view.setLoading(false);
+            }
+            NotificationHelper.showSnackbar(
+                    c.getString(R.string.feedback_load_failed_toast)
+                            + " (" + t.getMessage() + ")");
+            view.requestPhotosFailed(c.getString(R.string.feedback_load_failed_tv));
+        }
+    }
 
     private class OnRequestPhotosListener implements PhotoService.OnRequestPhotosListener {
         // data

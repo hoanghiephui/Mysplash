@@ -3,7 +3,7 @@ package com.wangdaye.mysplash.main.model.widget;
 import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.PhotosModel;
+import com.wangdaye.mysplash.common.interfaces.model.PhotosModel;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.utils.manager.SettingsOptionManager;
@@ -35,6 +35,7 @@ public class PhotosObject
 
     public static final int PHOTOS_TYPE_NEW = 0;
     public static final int PHOTOS_TYPE_FEATURED = 1;
+    public static final int PHOTOS_TYPE_TAG = 5;
     private final String RANDOM_TXT;
 
     public PhotosObject(MysplashActivity a,

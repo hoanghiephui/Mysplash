@@ -5,27 +5,29 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.wangdaye.mysplash.R;
-import com.wangdaye.mysplash.common.i.model.FragmentManageModel;
-import com.wangdaye.mysplash.common.i.presenter.FragmentManagePresenter;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common._basic.fragment.MysplashFragment;
+import com.wangdaye.mysplash.common.interfaces.model.FragmentManageModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.FragmentManagePresenter;
 import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.main.view.fragment.CategoryFragment;
 import com.wangdaye.mysplash.main.view.fragment.CollectionFragment;
 import com.wangdaye.mysplash.main.view.fragment.FollowingFragment;
 import com.wangdaye.mysplash.main.view.fragment.HomeFragment;
 import com.wangdaye.mysplash.main.view.fragment.MultiFilterFragment;
+import com.wangdaye.mysplash.main.view.fragment.SearchQueryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.wangdaye.mysplash.Mysplash.SEARCH_QUERY_ID;
+
 /**
  * Fragment manage implementor.
- *
+ * <p>
  * A {@link FragmentManagePresenter} for
  * {@link com.wangdaye.mysplash.main.view.activity.MainActivity}.
- *
- * */
+ */
 
 public class FragmentManageImplementor
         implements FragmentManagePresenter {
@@ -43,7 +45,7 @@ public class FragmentManageImplementor
             fragmentList = new ArrayList<>();
         }
         List<MysplashFragment> resultList = new ArrayList<>();
-        for (int i = 0; i < fragmentList.size(); i ++) {
+        for (int i = 0; i < fragmentList.size(); i++) {
             if (fragmentList.get(i) instanceof MysplashFragment
                     && (includeHidden || !fragmentList.get(i).isHidden())) {
                 resultList.add((MysplashFragment) fragmentList.get(i));
@@ -64,7 +66,7 @@ public class FragmentManageImplementor
     }
 
     @Override
-    public void changeFragment(MysplashActivity a, int code) {
+    public void changeFragment(MysplashActivity a, int code, String title) {
         int oldCode = model.getId();
         model.setId(code);
 
@@ -72,7 +74,7 @@ public class FragmentManageImplementor
         MysplashFragment oldF = null;
 
         List<MysplashFragment> list = getFragmentList(a, true);
-        for (int i = 0; i < list.size(); i ++) {
+        for (int i = 0; i < list.size(); i++) {
             if (getFragmentCode(list.get(i)) == oldCode) {
                 oldF = list.get(i);
             }
@@ -85,11 +87,11 @@ public class FragmentManageImplementor
         }
         if (oldF == null) {
             if (newF == null) {
-                newF = buildFragmentByCode(code);
+                newF = buildFragmentByCode(code, title);
             }
             replaceFragment(a, newF);
         } else if (newF == null) {
-            newF = buildFragmentByCode(code);
+            newF = buildFragmentByCode(code, title);
             showAndHideNewFragment(a, newF, oldF);
         } else {
             showAndHideFragment(a, newF, oldF);
@@ -138,7 +140,7 @@ public class FragmentManageImplementor
     private void showAndHideFragment(MysplashActivity a, MysplashFragment newF, MysplashFragment oldF) {
         a.getSupportFragmentManager()
                 .beginTransaction()
-                .hide(oldF)
+                .remove(oldF)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .show(newF)
                 .commit();
@@ -158,7 +160,7 @@ public class FragmentManageImplementor
         DisplayUtils.setNavigationBarStyle(a, false, true);
     }
 
-    private MysplashFragment buildFragmentByCode(int code) {
+    private MysplashFragment buildFragmentByCode(int code, String title) {
         switch (code) {
             case R.id.action_following:
                 return new FollowingFragment();
@@ -171,6 +173,8 @@ public class FragmentManageImplementor
 
             case R.id.action_category:
                 return new CategoryFragment();
+            case SEARCH_QUERY_ID:
+                return SearchQueryFragment.Companion.newInstance(title);
 
             default:
                 return new HomeFragment();
@@ -186,6 +190,8 @@ public class FragmentManageImplementor
             return R.id.action_collection;
         } else if (f instanceof MultiFilterFragment) {
             return R.id.action_multi_filter;
+        } else if (f instanceof SearchQueryFragment) {
+            return SEARCH_QUERY_ID;
         } else { // CategoryFragment.
             return R.id.action_category;
         }

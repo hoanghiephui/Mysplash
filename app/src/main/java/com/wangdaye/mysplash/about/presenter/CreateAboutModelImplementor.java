@@ -3,7 +3,7 @@ package com.wangdaye.mysplash.about.presenter;
 import android.content.Context;
 
 import com.wangdaye.mysplash.R;
-import com.wangdaye.mysplash.common.i.model.AboutModel;
+import com.wangdaye.mysplash.common.interfaces.model.AboutModel;
 import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
 import com.wangdaye.mysplash.about.model.AppObject;
 import com.wangdaye.mysplash.about.model.CategoryObject;

@@ -68,7 +68,7 @@
             android:launchMode="singleInstance">
             <intent-filter>
                 <data
-                    android:scheme="mysplash"
+                    android:scheme="livingphoto"
                     android:host="unsplash-auth-callback" />
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

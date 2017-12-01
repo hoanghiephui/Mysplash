@@ -1,7 +1,7 @@
 package com.wangdaye.mysplash.user.presenter.activity;
 
-import com.wangdaye.mysplash.common.i.presenter.SwipeBackManagePresenter;
-import com.wangdaye.mysplash.common.i.view.SwipeBackManageView;
+import com.wangdaye.mysplash.common.interfaces.presenter.SwipeBackManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.SwipeBackManageView;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 
 /**

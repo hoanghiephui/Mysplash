@@ -3,6 +3,9 @@ package com.wangdaye.mysplash.common.data.api;
 import com.wangdaye.mysplash.common.data.entity.unsplash.PhotoStats;
 import com.wangdaye.mysplash.common.data.entity.unsplash.LikePhotoResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
+import com.wangdaye.mysplash.common.data.entity.unsplash.PhotorResponse;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Photos;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Users;
 
 import java.util.List;
 
@@ -52,6 +55,9 @@ public interface PhotoApi {
     @GET("photos/{id}")
     Call<Photo> getAPhoto(@Path("id") String id);
 
+    @GET("napi/photos/{id}/info")
+    Call<Photo> getPhotoInfo(@Path("id") String id);
+
     @GET("photos/{id}")
     Call<Photo> getAPhoto(@Path("id") String id,
                           @Query("w") int w,
@@ -86,4 +92,19 @@ public interface PhotoApi {
                                              @Query("query") String query,
                                              @Query("orientation") String orientation,
                                              @Query("count") int count);
+
+    @GET("napi/search")
+    Call<PhotorResponse> getPhotoByTag(@Query("query") String query, @Query("per_page") int perPage);
+
+    /**
+     * @method {@link com.wangdaye.mysplash.common.data.service.PhotoService#requestPhotoByQuery}
+     * @param query
+     * @param perPage
+     * @param page
+     * @return {@link Photos}
+     */
+    @GET("napi/search/photos")
+    Call<Photos> getPhotoByTag(@Query("query") String query, @Query("per_page") int perPage, @Query("page") int page);
+
+
 }

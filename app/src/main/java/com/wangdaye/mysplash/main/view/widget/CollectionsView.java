@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -18,23 +17,23 @@ import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
-import com.wangdaye.mysplash.common.i.model.CollectionsModel;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.PagerModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.presenter.CollectionsPresenter;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PagerPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.CollectionsModel;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.PagerModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.CollectionsPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PagerPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.adapter.CollectionAdapter;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
 import com.wangdaye.mysplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout;
 import com.wangdaye.mysplash.common.utils.AnimUtils;
 import com.wangdaye.mysplash.common.utils.BackToTopUtils;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.PagerView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
 import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
 import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
@@ -64,7 +63,7 @@ import butterknife.OnClick;
 
 @SuppressLint("ViewConstructor")
 public class CollectionsView extends NestedScrollFrameLayout
-        implements com.wangdaye.mysplash.common.i.view.CollectionsView, PagerView, LoadView, ScrollView,
+        implements com.wangdaye.mysplash.common.interfaces.view.CollectionsView, PagerView, LoadView, ScrollView,
         BothWaySwipeRefreshLayout.OnRefreshAndLoadListener {
 
     @BindView(R.id.container_loading_view_large_progressView)
@@ -93,6 +92,7 @@ public class CollectionsView extends NestedScrollFrameLayout
 
     private ScrollModel scrollModel;
     private ScrollPresenter scrollPresenter;
+    private String query;
 
     private static class SavedState implements Parcelable {
 
@@ -143,9 +143,16 @@ public class CollectionsView extends NestedScrollFrameLayout
         this.initialize(a, type, index, selected);
     }
 
+    public CollectionsView(MysplashActivity a, @Mysplash.CollectionTypeRule int type, int id,
+                           int index, boolean selected, String query) {
+        super(a);
+        this.setId(id);
+        this.initialize(a, type, index, selected);
+        this.query = query;
+    }
+
     // init.
 
-    @SuppressLint("InflateParams")
     private void initialize(MysplashActivity a, @Mysplash.CollectionTypeRule int type,
                             int index, boolean selected) {
         View loadingView = LayoutInflater.from(getContext())
@@ -264,19 +271,19 @@ public class CollectionsView extends NestedScrollFrameLayout
     // on click listener.
 
     @OnClick(R.id.container_loading_view_large_feedbackBtn) void retryRefresh() {
-        collectionsPresenter.initRefresh(getContext());
+        collectionsPresenter.initRefresh(getContext(), query);
     }
 
     // on refresh an load listener.
 
     @Override
     public void onRefresh() {
-        collectionsPresenter.refreshNew(getContext(), false);
+        collectionsPresenter.refreshNew(getContext(), false, query);
     }
 
     @Override
     public void onLoad() {
-        collectionsPresenter.loadMore(getContext(), false);
+        collectionsPresenter.loadMore(getContext(), false, query);
     }
 
     // on scroll listener.
@@ -372,7 +379,7 @@ public class CollectionsView extends NestedScrollFrameLayout
 
     @Override
     public void refreshPager() {
-        collectionsPresenter.initRefresh(getContext());
+        collectionsPresenter.initRefresh(getContext(),  query);
     }
 
     @Override
@@ -476,14 +483,14 @@ public class CollectionsView extends NestedScrollFrameLayout
                 && lastVisibleItems[lastVisibleItems.length - 1] >= totalItemCount - 10
                 && totalItemCount > 0
                 && dy > 0) {
-            collectionsPresenter.loadMore(getContext(), false);
+            collectionsPresenter.loadMore(getContext(), false, query);
         }
-        if (!ViewCompat.canScrollVertically(recyclerView, -1)) {
+        if (!recyclerView.canScrollVertically(-1)) {
             scrollPresenter.setToTop(true);
         } else {
             scrollPresenter.setToTop(false);
         }
-        if (!ViewCompat.canScrollVertically(recyclerView, 1) && collectionsPresenter.isLoading()) {
+        if (!recyclerView.canScrollVertically(1) && collectionsPresenter.isLoading()) {
             refreshLayout.setLoading(true);
         }
     }

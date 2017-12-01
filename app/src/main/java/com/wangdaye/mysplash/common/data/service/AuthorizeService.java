@@ -3,9 +3,12 @@ package com.wangdaye.mysplash.common.data.service;
 import android.content.Context;
 
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.AuthorizeApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.AccessToken;
+import com.wangdaye.mysplash.common.utils.widget.interceptor.LogInterceptor;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -24,10 +27,15 @@ public class AuthorizeService {
         return new AuthorizeService();
     }
 
+    private OkHttpClient buildClient() {
+        return new BaseOkHttpClient().invoke()
+                .build();
+    }
     private AuthorizeApi buildApi() {
         return new Retrofit.Builder()
                 .baseUrl(Mysplash.UNSPLASH_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(buildClient())
                 .build()
                 .create((AuthorizeApi.class));
     }
@@ -37,7 +45,7 @@ public class AuthorizeService {
                 .getAccessToken(
                         Mysplash.getAppId(c, true),
                         Mysplash.getSecret(c),
-                        "mysplash://" + Mysplash.UNSPLASH_LOGIN_CALLBACK,
+                        "livingphoto://" + Mysplash.UNSPLASH_LOGIN_CALLBACK,
                         code,
                         "authorization_code");
         getAccessToken.enqueue(new Callback<AccessToken>() {

@@ -1,7 +1,7 @@
 package com.wangdaye.mysplash.search.presenter.activity;
 
-import com.wangdaye.mysplash.common.i.presenter.MessageManagePresenter;
-import com.wangdaye.mysplash.common.i.view.MessageManageView;
+import com.wangdaye.mysplash.common.interfaces.presenter.MessageManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.MessageManageView;
 
 /**
  * Message manage implementor.

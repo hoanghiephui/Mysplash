@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="trending">Trending</string>
+    <string name="new_">New</string>
+    <string name="featured">Featured</string>
+</resources>

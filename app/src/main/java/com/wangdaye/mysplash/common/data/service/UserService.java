@@ -2,9 +2,11 @@ package com.wangdaye.mysplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.UserApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Me;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Users;
 import com.wangdaye.mysplash.common.utils.widget.interceptor.AuthInterceptor;
 
 import java.util.List;
@@ -19,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * User service.
- * */
+ */
 
 public class UserService {
 
@@ -30,7 +32,7 @@ public class UserService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .addInterceptor(new AuthInterceptor())
                 .readTimeout(15, TimeUnit.SECONDS)
                 .writeTimeout(15, TimeUnit.SECONDS)
@@ -40,6 +42,19 @@ public class UserService {
     private UserApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(Mysplash.UNSPLASH_API_BASE_URL)
+                .client(client)
+                .addConverterFactory(
+                        GsonConverterFactory.create(
+                                new GsonBuilder()
+                                        .setDateFormat(Mysplash.DATE_FORMAT)
+                                        .create()))
+                .build()
+                .create((UserApi.class));
+    }
+
+    private UserApi buildApiFull(OkHttpClient client) {
+        return new Retrofit.Builder()
+                .baseUrl(Mysplash.UNSPLASH_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
@@ -160,20 +175,58 @@ public class UserService {
         }
     }
 
+    /**
+     * @param query
+     * @param perPage
+     * @param page
+     */
+    public void requestUserByQuery(String query,
+                                   @Mysplash.PerPageRule int perPage,
+                                   @Mysplash.PageRule int page,
+                                   final OnRequestUsersByQueryListener listener) {
+        Call<Users> resultUsers = buildApiFull(buildClient())
+                .getListUserByQuery(query, perPage, page);
+        resultUsers.enqueue(new Callback<Users>() {
+            @Override
+            public void onResponse(Call<Users> call, Response<Users> response) {
+                if (listener != null) {
+                    listener.onRequestPhotosSuccesss(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Users> call, Throwable t) {
+                if (listener != null) {
+                    listener.onRequestPhotosFailedd(call, t);
+                }
+            }
+        });
+        call = resultUsers;
+    }
+
     // interface.
 
     public interface OnRequestUserProfileListener {
         void onRequestUserProfileSuccess(Call<User> call, Response<User> response);
+
         void onRequestUserProfileFailed(Call<User> call, Throwable t);
     }
 
     public interface OnRequestMeProfileListener {
         void onRequestMeProfileSuccess(Call<Me> call, Response<Me> response);
+
         void onRequestMeProfileFailed(Call<Me> call, Throwable t);
     }
 
     public interface OnRequestUsersListener {
         void onRequestUsersSuccess(Call<List<User>> call, Response<List<User>> response);
+
         void onRequestUsersFailed(Call<List<User>> call, Throwable t);
+    }
+
+    public interface OnRequestUsersByQueryListener {
+        void onRequestPhotosSuccesss(Call<Users> call, retrofit2.Response<Users> response);
+
+        void onRequestPhotosFailedd(Call<Users> call, Throwable t);
     }
 }

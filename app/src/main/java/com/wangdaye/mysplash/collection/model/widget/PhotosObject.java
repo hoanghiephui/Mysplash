@@ -3,7 +3,7 @@ package com.wangdaye.mysplash.collection.model.widget;
 import android.support.annotation.IntDef;
 
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.PhotosModel;
+import com.wangdaye.mysplash.common.interfaces.model.PhotosModel;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 
 import java.util.List;

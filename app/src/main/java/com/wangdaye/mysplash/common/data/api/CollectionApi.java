@@ -2,6 +2,7 @@ package com.wangdaye.mysplash.common.data.api;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.ChangeCollectionPhotoResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Collections;
 
 import java.util.List;
 
@@ -68,4 +69,7 @@ public interface CollectionApi {
     @DELETE("collections/{collection_id}/remove")
     Call<ChangeCollectionPhotoResult> deletePhotoFromCollection(@Path("collection_id") int collection_id,
                                                                 @Query("photo_id") String photo_id);
+    @GET("napi/search/collections")
+    Call<Collections> getCollectionsByTag(@Query("query") String query, @Query("page") int page,
+                                          @Query("per_page") int per_page);
 }

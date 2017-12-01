@@ -23,15 +23,15 @@ import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.MultiFilterModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.MultiFilterPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.MultiFilterView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.MultiFilterModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.MultiFilterPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.MultiFilterView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.ui.dialog.SelectCollectionDialog;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
@@ -189,7 +189,7 @@ public class MultiFilterPhotosView extends NestedScrollFrameLayout
                         getContext(),
                         new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE),
                         this,
-                        null));
+                        null, false));
         this.loadModel = new LoadObject(LoadModel.FAILED_STATE);
         this.scrollModel = new ScrollObject(true);
     }

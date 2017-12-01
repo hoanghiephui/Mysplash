@@ -3,7 +3,7 @@ package com.wangdaye.mysplash.user.model.widget;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
 import com.wangdaye.mysplash.common.data.service.FeedService;
 import com.wangdaye.mysplash.common.data.service.UserService;
-import com.wangdaye.mysplash.common.i.model.UserModel;
+import com.wangdaye.mysplash.common.interfaces.model.UserModel;
 
 /**
  * User object.

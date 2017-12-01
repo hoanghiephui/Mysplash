@@ -14,51 +14,51 @@ import android.widget.TextView;
 
 import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
-import com.wangdaye.mysplash.collection.presenter.activity.PopupManageImplementor;
-import com.wangdaye.mysplash.common._basic.activity.LoadableActivity;
-import com.wangdaye.mysplash.common.data.entity.table.WallpaperSource;
-import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
-import com.wangdaye.mysplash.common.i.model.DownloadModel;
-import com.wangdaye.mysplash.common.i.presenter.DownloadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PopupManagePresenter;
-import com.wangdaye.mysplash.common.i.view.PopupManageView;
-import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
-import com.wangdaye.mysplash.common.ui.dialog.DownloadRepeatDialog;
-import com.wangdaye.mysplash.common.ui.popup.CollectionMenuPopupWindow;
-import com.wangdaye.mysplash.common.ui.widget.CircleImageView;
-import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
-import com.wangdaye.mysplash.common.ui.widget.SwipeBackCoordinatorLayout;
-import com.wangdaye.mysplash.common.utils.DisplayUtils;
-import com.wangdaye.mysplash.common.utils.FileUtils;
-import com.wangdaye.mysplash.common.utils.helper.DatabaseHelper;
-import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
-import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
-import com.wangdaye.mysplash.common.utils.helper.IntentHelper;
-import com.wangdaye.mysplash.common.utils.manager.AuthManager;
-import com.wangdaye.mysplash.common.i.model.BrowsableModel;
-import com.wangdaye.mysplash.common.i.model.EditResultModel;
-import com.wangdaye.mysplash.common.i.presenter.BrowsablePresenter;
-import com.wangdaye.mysplash.common.i.presenter.EditResultPresenter;
-import com.wangdaye.mysplash.common.i.presenter.SwipeBackManagePresenter;
-import com.wangdaye.mysplash.common.i.view.BrowsableView;
-import com.wangdaye.mysplash.common.i.view.EditResultView;
-import com.wangdaye.mysplash.common.i.view.SwipeBackManageView;
-import com.wangdaye.mysplash.common.ui.dialog.RequestBrowsableDataDialog;
-import com.wangdaye.mysplash.common.ui.dialog.UpdateCollectionDialog;
-import com.wangdaye.mysplash.common.utils.BackToTopUtils;
-import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
 import com.wangdaye.mysplash.collection.model.activity.BorwsableObject;
 import com.wangdaye.mysplash.collection.model.activity.DownloadObject;
 import com.wangdaye.mysplash.collection.model.activity.EditResultObject;
 import com.wangdaye.mysplash.collection.presenter.activity.BrowsableImplementor;
 import com.wangdaye.mysplash.collection.presenter.activity.DownloadImplementor;
 import com.wangdaye.mysplash.collection.presenter.activity.EditResultImplementor;
+import com.wangdaye.mysplash.collection.presenter.activity.PopupManageImplementor;
 import com.wangdaye.mysplash.collection.presenter.activity.SwipeBackManageImplementor;
 import com.wangdaye.mysplash.collection.presenter.activity.ToolbarImplementor;
 import com.wangdaye.mysplash.collection.view.widget.CollectionPhotosView;
+import com.wangdaye.mysplash.common._basic.activity.LoadableActivity;
+import com.wangdaye.mysplash.common.data.entity.table.WallpaperSource;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
-import com.wangdaye.mysplash.common.i.presenter.ToolbarPresenter;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
+import com.wangdaye.mysplash.common.interfaces.model.BrowsableModel;
+import com.wangdaye.mysplash.common.interfaces.model.DownloadModel;
+import com.wangdaye.mysplash.common.interfaces.model.EditResultModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.BrowsablePresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.DownloadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.EditResultPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PopupManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.SwipeBackManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ToolbarPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.BrowsableView;
+import com.wangdaye.mysplash.common.interfaces.view.EditResultView;
+import com.wangdaye.mysplash.common.interfaces.view.PopupManageView;
+import com.wangdaye.mysplash.common.interfaces.view.SwipeBackManageView;
+import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
+import com.wangdaye.mysplash.common.ui.dialog.DownloadRepeatDialog;
+import com.wangdaye.mysplash.common.ui.dialog.RequestBrowsableDataDialog;
+import com.wangdaye.mysplash.common.ui.dialog.UpdateCollectionDialog;
+import com.wangdaye.mysplash.common.ui.popup.CollectionMenuPopupWindow;
+import com.wangdaye.mysplash.common.ui.widget.CircleImageView;
+import com.wangdaye.mysplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wangdaye.mysplash.common.ui.widget.coordinatorView.StatusBarView;
+import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
+import com.wangdaye.mysplash.common.utils.BackToTopUtils;
+import com.wangdaye.mysplash.common.utils.DisplayUtils;
+import com.wangdaye.mysplash.common.utils.FileUtils;
+import com.wangdaye.mysplash.common.utils.helper.DatabaseHelper;
+import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
+import com.wangdaye.mysplash.common.utils.helper.IntentHelper;
+import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
+import com.wangdaye.mysplash.common.utils.manager.AuthManager;
+import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
 import com.wangdaye.mysplash.me.view.activity.MeActivity;
 import com.wangdaye.mysplash.user.view.activity.UserActivity;
 
@@ -70,10 +70,9 @@ import butterknife.OnClick;
 
 /**
  * Collection activity.
- *
+ * <p>
  * This activity is used to show a collection.
- *
- * */
+ */
 
 public class CollectionActivity extends LoadableActivity<Photo>
         implements SwipeBackManageView, PopupManageView, EditResultView, BrowsableView,
@@ -101,7 +100,7 @@ public class CollectionActivity extends LoadableActivity<Photo>
     CollectionPhotosView photosView;
 
     private RequestBrowsableDataDialog requestDialog;
-    
+
     private ToolbarPresenter toolbarPresenter;
 
     private SwipeBackManagePresenter swipeBackManagePresenter;
@@ -277,30 +276,28 @@ public class CollectionActivity extends LoadableActivity<Photo>
         if (init && browsablePresenter.isBrowsable() && editResultPresenter.getEditKey() == null) {
             browsablePresenter.requestBrowsableData();
         } else {
-            Collection c = (Collection) editResultPresenter.getEditKey();
+            Collection collection = (Collection) editResultPresenter.getEditKey();
 
-            SwipeBackCoordinatorLayout swipeBackView = ButterKnife.findById(
-                    this, R.id.activity_collection_swipeBackView);
+            SwipeBackCoordinatorLayout swipeBackView = findViewById(R.id.activity_collection_swipeBackView);
             swipeBackView.setOnSwipeListener(this);
 
             appBar.setOnNestedScrollingListener(this);
 
-            ImageView coverImage = ButterKnife.findById(this, R.id.activity_collection_coverImage);
-            ImageHelper.loadCollectionCover(this, coverImage, c);
+            ImageView coverImage = findViewById(R.id.activity_collection_coverImage);
+            ImageHelper.loadCollectionCover(this, coverImage, collection);
 
-            TextView title = ButterKnife.findById(this, R.id.activity_collection_title);
-            title.setText(c.title);
+            TextView title = findViewById(R.id.activity_collection_title);
+            title.setText(collection.title);
 
-            StatusBarView titleStatusBar = ButterKnife.findById(
-                    this, R.id.activity_collection_titleStatusBar);
+            StatusBarView titleStatusBar = findViewById(R.id.activity_collection_titleStatusBar);
 
-            TextView description = ButterKnife.findById(this, R.id.activity_collection_description);
-            if (TextUtils.isEmpty(c.description)) {
+            TextView description = findViewById(R.id.activity_collection_description);
+            if (TextUtils.isEmpty(collection.description)) {
                 titleStatusBar.setVisibility(View.GONE);
                 description.setVisibility(View.GONE);
             } else {
                 DisplayUtils.setTypeface(this, description);
-                description.setText(c.description);
+                description.setText(collection.description);
             }
 
             if (Mysplash.getInstance().getActivityCount() == 1) {
@@ -322,11 +319,11 @@ public class CollectionActivity extends LoadableActivity<Photo>
                 toolbar.getMenu().getItem(1).setVisible(false);
             }
 
-            ImageHelper.loadAvatar(this, avatarImage, c.user);
+            ImageHelper.loadAvatar(this, avatarImage, collection.user);
 
-            TextView subtitle = ButterKnife.findById(this, R.id.activity_collection_subtitle);
+            TextView subtitle = findViewById(R.id.activity_collection_subtitle);
             DisplayUtils.setTypeface(this, subtitle);
-            subtitle.setText(getString(R.string.by) + " " + c.user.name);
+            subtitle.setText(getString(R.string.by) + " " + collection.user.name);
 
             photosView.initMP(this, (Collection) editResultPresenter.getEditKey());
 
@@ -403,7 +400,8 @@ public class CollectionActivity extends LoadableActivity<Photo>
         }
     }
 
-    @OnClick(R.id.activity_collection_touchBar) void checkAuthor() {
+    @OnClick(R.id.activity_collection_touchBar)
+    void checkAuthor() {
         IntentHelper.startUserActivity(
                 this,
                 avatarImage,

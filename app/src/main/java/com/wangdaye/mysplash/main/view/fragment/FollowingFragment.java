@@ -12,7 +12,7 @@ import android.view.animation.Transformation;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.fragment.LoadableFragment;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
-import com.wangdaye.mysplash.common.i.presenter.ToolbarPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ToolbarPresenter;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
@@ -187,7 +187,7 @@ public class FollowingFragment extends LoadableFragment<Photo>
     private void initView(View v, Bundle saveInstanceState) {
         appBar.setOnNestedScrollingListener(this);
 
-        Toolbar toolbar = ButterKnife.findById(v, R.id.fragment_following_toolbar);
+        Toolbar toolbar = v.findViewById(R.id.fragment_following_toolbar);
         toolbar.setTitle(getString(R.string.action_following));
         ThemeManager.setNavigationIcon(
                 toolbar, R.drawable.ic_toolbar_menu_light, R.drawable.ic_toolbar_menu_dark);

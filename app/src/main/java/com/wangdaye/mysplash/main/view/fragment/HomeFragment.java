@@ -2,8 +2,9 @@ package com.wangdaye.mysplash.main.view.fragment;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextPaint;
@@ -14,22 +15,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.fragment.LoadableFragment;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
-import com.wangdaye.mysplash.common.i.model.PagerManageModel;
-import com.wangdaye.mysplash.common.i.presenter.PagerManagePresenter;
-import com.wangdaye.mysplash.common.i.presenter.ToolbarPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.PagerManageModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.PagerManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ToolbarPresenter;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.widget.AutoHideInkPageIndicator;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
 import com.wangdaye.mysplash.common.utils.BackToTopUtils;
-import com.wangdaye.mysplash.common.i.view.PagerManageView;
-import com.wangdaye.mysplash.common.i.view.PagerView;
-import com.wangdaye.mysplash.common.i.view.PopupManageView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerManageView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerView;
+import com.wangdaye.mysplash.common.interfaces.view.PopupManageView;
 import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
 import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
@@ -50,6 +52,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.wangdaye.mysplash.common.utils.DisplayUtils.getNavigationBarHeight;
 
 /**
  * Home fragment.
@@ -87,6 +91,10 @@ public class HomeFragment extends LoadableFragment<Photo>
 
     @BindView(R.id.fragment_home_indicator)
     AutoHideInkPageIndicator indicator;
+    @BindView(R.id.bottom_navigation)
+    BottomNavigationView bottomNavigationView;
+    @BindView(R.id.layout_bottom)
+    LinearLayout layoutBottom;
 
     private PagerView[] pagers = new PagerView[3];
 
@@ -275,7 +283,7 @@ public class HomeFragment extends LoadableFragment<Photo>
         toolbar.setOnMenuItemClickListener(this);
         toolbar.setNavigationOnClickListener(this);
 
-        TextView title = ButterKnife.findById(v, R.id.container_notification_bar_title);
+        TextView title = v.findViewById(R.id.container_notification_bar_title);
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             title.setTextSize(
                     TypedValue.COMPLEX_UNIT_PX,
@@ -292,6 +300,18 @@ public class HomeFragment extends LoadableFragment<Photo>
         bellBtn.setEnabled(false);
         redDot.setAlpha(0F);
         redDot.setEnabled(false);
+
+        if (getNavigationBarHeight(getActivity().getResources()) != 0) {
+            bottomNavigationView.getLayoutParams().height =
+                    getResources().getDimensionPixelSize(R.dimen.bottom_navigation_height);
+            bottomNavigationView.setPadding(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.navigation_bar_padding));
+            bottomNavigationView.requestLayout();
+        } else {
+            bottomNavigationView.getLayoutParams().height =
+                    getResources().getDimensionPixelSize(android.R.dimen.app_icon_size);
+            bottomNavigationView.setPadding(0, 0, 0, 0);
+            bottomNavigationView.requestLayout();
+        }
 /*
         notificationBarPresenter.setVisible(bellBtn, redDot);
         if (AuthManager.getInstance().isAuthorized()
@@ -336,9 +356,27 @@ public class HomeFragment extends LoadableFragment<Photo>
         viewPager.setCurrentItem(pagerManagePresenter.getPagerPosition(), false);
         viewPager.addOnPageChangeListener(this);
 
-        TabLayout tabLayout = ButterKnife.findById(v, R.id.fragment_home_tabLayout);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.navigation_trending:
+                        viewPager.setCurrentItem(0, true);
+                        return true;
+                    case R.id.navigation_new:
+                        viewPager.setCurrentItem(1, true);
+                        return true;
+                    case R.id.navigation_featured:
+                        viewPager.setCurrentItem(2, true);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+        /*TabLayout tabLayout = ButterKnife.findById(v, R.id.fragment_home_tabLayout);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);*/
 
         indicator.setViewPager(viewPager);
         indicator.setAlpha(0f);
@@ -415,6 +453,17 @@ public class HomeFragment extends LoadableFragment<Photo>
     public void onPageSelected(int position) {
         for (int i = 0; i < pagers.length; i ++) {
             pagers[i].setSelected(i == position);
+        }
+        switch (position) {
+            case 1:
+                bottomNavigationView.setSelectedItemId(R.id.navigation_new);
+                break;
+            case 2:
+                bottomNavigationView.setSelectedItemId(R.id.navigation_featured);
+                break;
+            default:
+                bottomNavigationView.setSelectedItemId(R.id.navigation_trending);
+                break;
         }
         pagerManagePresenter.setPagerPosition(position);
         pagerManagePresenter.checkToRefresh(position);

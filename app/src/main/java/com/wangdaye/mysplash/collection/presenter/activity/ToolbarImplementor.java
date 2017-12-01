@@ -4,7 +4,7 @@ import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
-import com.wangdaye.mysplash.common.i.presenter.ToolbarPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ToolbarPresenter;
 import com.wangdaye.mysplash.common.utils.ShareUtils;
 import com.wangdaye.mysplash.collection.view.activity.CollectionActivity;
 

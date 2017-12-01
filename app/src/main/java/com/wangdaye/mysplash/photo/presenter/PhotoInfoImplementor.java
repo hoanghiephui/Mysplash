@@ -6,9 +6,9 @@ import com.wangdaye.mysplash.common.data.entity.unsplash.LikePhotoResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.service.PhotoInfoService;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.PhotoInfoModel;
-import com.wangdaye.mysplash.common.i.presenter.PhotoInfoPresenter;
-import com.wangdaye.mysplash.common.i.view.PhotoInfoView;
+import com.wangdaye.mysplash.common.interfaces.model.PhotoInfoModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.PhotoInfoPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.PhotoInfoView;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoInfoAdapter;
 
 import retrofit2.Call;

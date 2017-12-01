@@ -22,20 +22,20 @@ import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.CategoryModel;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.presenter.CategoryPresenter;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.CategoryModel;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.CategoryPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.ui.dialog.SelectCollectionDialog;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
 import com.wangdaye.mysplash.common.utils.AnimUtils;
 import com.wangdaye.mysplash.common.utils.BackToTopUtils;
-import com.wangdaye.mysplash.common.i.view.CategoryView;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.view.CategoryView;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
 import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
 import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
@@ -202,7 +202,7 @@ public class CategoryPhotosView extends NestedScrollFrameLayout
                         getContext(),
                         new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE),
                         this,
-                        null));
+                        null, false));
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
         this.scrollModel = new ScrollObject(true);
     }

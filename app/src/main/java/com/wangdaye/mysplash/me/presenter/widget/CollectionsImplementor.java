@@ -8,9 +8,9 @@ import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.service.CollectionService;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
-import com.wangdaye.mysplash.common.i.model.CollectionsModel;
-import com.wangdaye.mysplash.common.i.presenter.CollectionsPresenter;
-import com.wangdaye.mysplash.common.i.view.CollectionsView;
+import com.wangdaye.mysplash.common.interfaces.model.CollectionsModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.CollectionsPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.CollectionsView;
 import com.wangdaye.mysplash.common.ui.adapter.CollectionAdapter;
 import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
 
@@ -37,7 +37,7 @@ public class CollectionsImplementor
     }
 
     @Override
-    public void requestCollections(Context c, int page, boolean refresh) {
+    public void requestCollections(Context c, int page, boolean refresh, String query) {
         if (!model.isRefreshing() && !model.isLoading()
                 && AuthManager.getInstance().getMe() != null) {
             if (refresh) {
@@ -67,25 +67,25 @@ public class CollectionsImplementor
     }
 
     @Override
-    public void refreshNew(Context c, boolean notify) {
+    public void refreshNew(Context c, boolean notify, String query) {
         if (notify) {
             view.setRefreshing(true);
         }
-        requestCollections(c, model.getCollectionsPage(), true);
+        requestCollections(c, model.getCollectionsPage(), true, query);
     }
 
     @Override
-    public void loadMore(Context c, boolean notify) {
+    public void loadMore(Context c, boolean notify, String query) {
         if (notify) {
             view.setLoading(true);
         }
-        requestCollections(c, model.getCollectionsPage(), false);
+        requestCollections(c, model.getCollectionsPage(), false, query);
     }
 
     @Override
-    public void initRefresh(Context c) {
+    public void initRefresh(Context c, String query) {
         cancelRequest();
-        refreshNew(c, false);
+        refreshNew(c, false, query);
         view.initRefreshStart();
     }
 

@@ -4,10 +4,14 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.GsonBuilder;
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.PhotoApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.LikePhotoResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.PhotoStats;
+import com.wangdaye.mysplash.common.data.entity.unsplash.PhotorResponse;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Photos;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Users;
 import com.wangdaye.mysplash.common.utils.widget.interceptor.AuthInterceptor;
 
 import java.io.IOException;
@@ -22,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Photo service.
- * */
+ */
 
 public class PhotoService {
     // widget
@@ -33,7 +37,7 @@ public class PhotoService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .addInterceptor(new AuthInterceptor())
                 .build();
     }
@@ -41,6 +45,19 @@ public class PhotoService {
     private PhotoApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(Mysplash.UNSPLASH_API_BASE_URL)
+                .client(client)
+                .addConverterFactory(
+                        GsonConverterFactory.create(
+                                new GsonBuilder()
+                                        .setDateFormat(Mysplash.DATE_FORMAT)
+                                        .create()))
+                .build()
+                .create((PhotoApi.class));
+    }
+
+    private PhotoApi buildApiInfo(OkHttpClient client) {
+        return new Retrofit.Builder()
+                .baseUrl(Mysplash.UNSPLASH_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
@@ -162,7 +179,7 @@ public class PhotoService {
     }
 
     public void requestAPhoto(String id, final PhotoInfoService.OnRequestSinglePhotoListener l) {
-        Call<Photo> getAPhoto = buildApi(buildClient()).getAPhoto(id);
+        Call<Photo> getAPhoto = buildApiInfo(buildClient()).getPhotoInfo(id);
         getAPhoto.enqueue(new Callback<Photo>() {
             @Override
             public void onResponse(Call<Photo> call, Response<Photo> response) {
@@ -256,8 +273,8 @@ public class PhotoService {
 
     @Nullable
     public List<Photo> requestCollectionPhotos(int collectionId,
-                                        @Mysplash.PageRule int page,
-                                        @Mysplash.PerPageRule int per_page) {
+                                               @Mysplash.PageRule int page,
+                                               @Mysplash.PerPageRule int per_page) {
         Call<List<Photo>> getCollectionPhotos = buildApi(buildClient())
                 .getCollectionPhotos(collectionId, page, per_page);
         try {
@@ -337,6 +354,34 @@ public class PhotoService {
         call = getRandomPhotos;
     }
 
+    /**
+     * @param query
+     * @param page
+     * @param per_pag
+     * @param listener
+     * @method use {@link com.wangdaye.mysplash.main.presenter.widget.PhotosImplementor#requestPhotoByTag}
+     */
+    public void requestPhotoByQuery(String query, @Mysplash.PageRule int page,
+                                    @Mysplash.PerPageRule int per_pag, final OnRequestPhotoByQueryListener listener) {
+        Call<Photos> resultPhoto = buildApiInfo(buildClient()).getPhotoByTag(query, per_pag, page);
+        resultPhoto.enqueue(new Callback<Photos>() {
+            @Override
+            public void onResponse(Call<Photos> call, Response<Photos> response) {
+                if (listener != null) {
+                    listener.onRequestPhotosSuccesss(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Photos> call, Throwable t) {
+                if (listener != null) {
+                    listener.onRequestPhotosFailedd(call, t);
+                }
+            }
+        });
+        call = resultPhoto;
+    }
+
     public void cancel() {
         if (call != null) {
             call.cancel();
@@ -347,16 +392,32 @@ public class PhotoService {
 
     public interface OnRequestPhotosListener {
         void onRequestPhotosSuccess(Call<List<Photo>> call, retrofit2.Response<List<Photo>> response);
+
         void onRequestPhotosFailed(Call<List<Photo>> call, Throwable t);
+
     }
 
     public interface OnRequestStatsListener {
         void onRequestStatsSuccess(Call<PhotoStats> call, retrofit2.Response<PhotoStats> response);
+
         void onRequestStatsFailed(Call<PhotoStats> call, Throwable t);
     }
 
     public interface OnSetLikeListener {
         void onSetLikeSuccess(Call<LikePhotoResult> call, retrofit2.Response<LikePhotoResult> response);
+
         void onSetLikeFailed(Call<LikePhotoResult> call, Throwable t);
+    }
+
+    public interface OnRequestPhotosByQueryListener {
+        void onRequestPhotosSuccess(Call<PhotorResponse> call, retrofit2.Response<PhotorResponse> response);
+
+        void onRequestPhotosFailed(Call<PhotorResponse> call, Throwable t);
+    }
+
+    public interface OnRequestPhotoByQueryListener {
+        void onRequestPhotosSuccesss(Call<Photos> call, retrofit2.Response<Photos> response);
+
+        void onRequestPhotosFailedd(Call<Photos> call, Throwable t);
     }
 }

@@ -26,20 +26,20 @@ import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.PagerModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.model.SearchModel;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PagerPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
-import com.wangdaye.mysplash.common.i.presenter.SearchPresenter;
-import com.wangdaye.mysplash.common.i.presenter.SwipeBackPresenter;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.PagerView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
-import com.wangdaye.mysplash.common.i.view.SearchView;
-import com.wangdaye.mysplash.common.i.view.SwipeBackView;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.PagerModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.model.SearchModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PagerPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.SearchPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.SwipeBackPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.view.SearchView;
+import com.wangdaye.mysplash.common.interfaces.view.SwipeBackView;
 import com.wangdaye.mysplash.common.ui.adapter.CollectionAdapter;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.ui.adapter.UserAdapter;
@@ -207,7 +207,7 @@ public class SearchPageView extends NestedScrollFrameLayout
                                 getContext(),
                                 new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE),
                                 this,
-                                a));
+                                a, false));
                 break;
 
             case SEARCH_COLLECTIONS_TYPE:

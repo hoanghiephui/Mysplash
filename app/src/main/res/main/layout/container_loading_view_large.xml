@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_loading_view_large"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -27,27 +27,37 @@
             android:id="@+id/container_loading_view_large_feedbackImg"
             android:layout_width="@dimen/feedback_icon_size"
             android:layout_height="@dimen/feedback_icon_size"
-            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_centerHorizontal="true"
-            tools:src="@drawable/feedback_no_photos"
-            tools:ignore="ContentDescription" />
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:visibility="gone"
+            tools:ignore="ContentDescription"
+            tools:src="@drawable/feedback_no_photos" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/giffy"
+            android:layout_width="match_parent"
+            android:layout_height="380dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/giff" />
 
         <TextView
             android:id="@+id/container_loading_view_large_feedbackTxt"
+            style="@style/subtitle_text"
+            android:layout_below="@+id/giffy"
+            android:layout_centerHorizontal="true"
             android:text="@string/feedback_load_failed_tv"
-            android:textStyle="bold"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/container_loading_view_large_feedbackImg"
-            style="@style/subtitle_text" />
+            android:textStyle="bold" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/container_loading_view_large_feedbackBtn"
-            android:text="@string/feedback_click_retry"
-            android:textStyle="bold"
+            style="@style/material_button"
+            android:layout_below="@+id/container_loading_view_large_feedbackTxt"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/container_loading_view_large_feedbackTxt"
             android:layout_marginBottom="@dimen/normal_icon_size"
-            style="@style/material_button" />
+            android:text="@string/feedback_click_retry"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

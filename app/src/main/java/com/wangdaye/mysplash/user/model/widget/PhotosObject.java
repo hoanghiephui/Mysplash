@@ -6,7 +6,7 @@ import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.PhotosModel;
+import com.wangdaye.mysplash.common.interfaces.model.PhotosModel;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.utils.manager.SettingsOptionManager;
 import com.wangdaye.mysplash.user.view.activity.UserActivity;
@@ -42,7 +42,7 @@ public class PhotosObject
     private @interface TypeRule {}
 
     public PhotosObject(UserActivity a, User u, @TypeRule int photosType) {
-        this.adapter = new PhotoAdapter(a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), a, a);
+        this.adapter = new PhotoAdapter(a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), a, a, false);
         this.service = PhotoService.getService();
 
         this.requestKey = u;

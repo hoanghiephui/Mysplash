@@ -1,6 +1,6 @@
 package com.wangdaye.mysplash.about.model;
 
-import com.wangdaye.mysplash.common.i.model.AboutModel;
+import com.wangdaye.mysplash.common.interfaces.model.AboutModel;
 
 /**
  * Header object.

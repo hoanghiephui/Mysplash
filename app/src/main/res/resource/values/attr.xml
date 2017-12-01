@@ -60,4 +60,8 @@
         <attr name="cml_gradient_angle" format="float" />
     </declare-styleable>
 
+
+    <declare-styleable name="BottomNavigationBehavior_Params">
+        <attr name="tabLayoutId" format="reference"/>
+    </declare-styleable>
 </resources>

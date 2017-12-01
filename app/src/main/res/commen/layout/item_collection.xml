@@ -62,8 +62,8 @@
 
             <com.wangdaye.mysplash.common.ui.widget.CircleImageView
                 android:id="@+id/item_collection_avatar"
-                android:layout_width="@dimen/mini_icon_size"
-                android:layout_height="@dimen/mini_icon_size"
+                android:layout_width="@dimen/little_icon_size"
+                android:layout_height="@dimen/little_icon_size"
                 android:layout_margin="@dimen/normal_margin"
                 android:stateListAnimator="@animator/touch_rise_avatar"
                 android:foreground="?attr/selectableItemBackground"

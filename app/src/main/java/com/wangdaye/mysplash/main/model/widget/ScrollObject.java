@@ -1,6 +1,6 @@
 package com.wangdaye.mysplash.main.model.widget;
 
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
 
 /**
  * Scroll object.

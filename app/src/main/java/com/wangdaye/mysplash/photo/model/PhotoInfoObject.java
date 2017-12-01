@@ -3,7 +3,7 @@ package com.wangdaye.mysplash.photo.model;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.service.PhotoInfoService;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.PhotoInfoModel;
+import com.wangdaye.mysplash.common.interfaces.model.PhotoInfoModel;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoInfoAdapter;
 import com.wangdaye.mysplash.photo.view.activity.PhotoActivity;
 

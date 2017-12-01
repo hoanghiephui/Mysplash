@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.wangdaye.mysplash.R;
-import com.wangdaye.mysplash.common.i.presenter.NotificationBarPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.NotificationBarPresenter;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
 import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
 

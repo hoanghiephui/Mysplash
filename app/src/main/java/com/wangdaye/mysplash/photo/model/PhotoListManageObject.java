@@ -1,7 +1,7 @@
 package com.wangdaye.mysplash.photo.model;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
-import com.wangdaye.mysplash.common.i.model.PhotoListManageModel;
+import com.wangdaye.mysplash.common.interfaces.model.PhotoListManageModel;
 
 import java.util.List;
 

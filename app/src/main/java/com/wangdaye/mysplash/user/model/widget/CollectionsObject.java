@@ -6,7 +6,7 @@ import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
 import com.wangdaye.mysplash.common.data.service.CollectionService;
-import com.wangdaye.mysplash.common.i.model.CollectionsModel;
+import com.wangdaye.mysplash.common.interfaces.model.CollectionsModel;
 import com.wangdaye.mysplash.common.ui.adapter.CollectionAdapter;
 
 import java.util.ArrayList;

@@ -13,13 +13,13 @@ import android.widget.TextView;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.FooterAdapter;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.ui.widget.CircleImageView;
+import com.wangdaye.mysplash.common.ui.widget.freedomSizeView.FreedomImageView;
 import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
 import com.wangdaye.mysplash.common.utils.helper.IntentHelper;
-import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
-import com.wangdaye.mysplash.common.ui.widget.freedomSizeView.FreedomImageView;
 import com.wangdaye.mysplash.user.view.activity.UserActivity;
 
 import java.util.ArrayList;
@@ -31,10 +31,9 @@ import butterknife.OnClick;
 
 /**
  * Collection adapter.
- *
+ * <p>
  * Adapter for {@link RecyclerView} to show {@link Collection}.
- *
- * */
+ */
 
 public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
 
@@ -97,9 +96,12 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
                         collection.cover_photo.height);
             }
 
-            title.setText("");
-            subtitle.setText("");
-            name.setText("");
+            title.setText(collection.title.toUpperCase());
+            int photoNum = collection.total_photos;
+            subtitle.setText(
+                    photoNum + " " + a.getResources().getStringArray(R.array.user_tabs)[0]);
+            name.setText(a.getString(R.string.curated_by, collection.user.name));
+            image.setShowShadow(true);
             image.setShowShadow(false);
 
             if (collection.cover_photo != null) {
@@ -127,7 +129,8 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
 
         // interface.
 
-        @OnClick(R.id.item_collection) void clickItem() {
+        @OnClick(R.id.item_collection)
+        void clickItem() {
             if (a instanceof MysplashActivity) {
                 IntentHelper.startCollectionActivity(
                         (MysplashActivity) a,
@@ -137,7 +140,8 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
             }
         }
 
-        @OnClick(R.id.item_collection_avatar) void checkAuthor() {
+        @OnClick(R.id.item_collection_avatar)
+        void checkAuthor() {
             if (a instanceof MysplashActivity) {
                 IntentHelper.startUserActivity(
                         (MysplashActivity) a,
@@ -157,13 +161,6 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
                 c.cover_photo.updateLoadInformation(newT);
                 itemList.set(index, c);
             }
-
-            title.setText(collection.title.toUpperCase());
-            int photoNum = collection.total_photos;
-            subtitle.setText(
-                    photoNum + " " + a.getResources().getStringArray(R.array.user_tabs)[0]);
-            name.setText(collection.user.name);
-            image.setShowShadow(true);
         }
 
         @SuppressLint("SetTextI18n")
@@ -243,7 +240,7 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
     }
 
     public void removeItem(Collection c) {
-        for (int i = 0; i < itemList.size(); i ++) {
+        for (int i = 0; i < itemList.size(); i++) {
             if (itemList.get(i).id == c.id) {
                 itemList.remove(i);
                 notifyItemRemoved(i);
@@ -262,7 +259,7 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
     }
 
     public void updateCollection(Collection c, boolean refreshView, boolean probablyRepeat) {
-        for (int i = 0; i < getRealItemCount(); i ++) {
+        for (int i = 0; i < getRealItemCount(); i++) {
             if (itemList.get(i).id == c.id) {
                 c.editing = itemList.get(i).editing;
                 if (c.cover_photo != null && itemList.get(i).cover_photo != null) {

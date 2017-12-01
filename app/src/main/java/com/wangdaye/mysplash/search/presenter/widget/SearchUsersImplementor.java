@@ -8,9 +8,9 @@ import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.entity.unsplash.SearchUsersResult;
 import com.wangdaye.mysplash.common.data.service.SearchService;
-import com.wangdaye.mysplash.common.i.model.SearchModel;
-import com.wangdaye.mysplash.common.i.presenter.SearchPresenter;
-import com.wangdaye.mysplash.common.i.view.SearchView;
+import com.wangdaye.mysplash.common.interfaces.model.SearchModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.SearchPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.SearchView;
 import com.wangdaye.mysplash.common.ui.adapter.UserAdapter;
 
 import retrofit2.Call;

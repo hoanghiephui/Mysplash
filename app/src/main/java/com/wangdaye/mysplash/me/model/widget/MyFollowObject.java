@@ -4,7 +4,7 @@ import android.support.annotation.IntDef;
 
 import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.common.data.service.UserService;
-import com.wangdaye.mysplash.common.i.model.MyFollowModel;
+import com.wangdaye.mysplash.common.interfaces.model.MyFollowModel;
 import com.wangdaye.mysplash.common.ui.adapter.MyFollowAdapter;
 
 /**

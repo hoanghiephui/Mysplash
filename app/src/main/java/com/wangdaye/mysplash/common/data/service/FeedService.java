@@ -3,6 +3,7 @@ package com.wangdaye.mysplash.common.data.service;
 import android.net.Uri;
 
 import com.google.gson.GsonBuilder;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.FeedApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.FollowingFeed;
 import com.wangdaye.mysplash.common.data.entity.unsplash.TrendingFeed;
@@ -18,7 +19,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Feed service.
- * */
+ */
 
 public class FeedService {
 
@@ -29,7 +30,7 @@ public class FeedService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .addInterceptor(new FeedInterceptor())
                 .build();
     }
@@ -130,18 +131,23 @@ public class FeedService {
 
     public interface OnRequestTrendingFeedListener {
         void onRequestTrendingFeedSuccess(Call<TrendingFeed> call, Response<TrendingFeed> response);
+
         void onRequestTrendingFeedFailed(Call<TrendingFeed> call, Throwable t);
     }
 
     public interface OnRequestFollowingFeedListener {
         void onRequestFollowingFeedSuccess(Call<FollowingFeed> call, Response<FollowingFeed> response);
+
         void onRequestFollowingFeedFailed(Call<FollowingFeed> call, Throwable t);
     }
 
     public interface OnFollowListener {
         void onFollowSuccess(Call<ResponseBody> call, Response<ResponseBody> response);
+
         void onCancelFollowSuccess(Call<ResponseBody> call, Response<ResponseBody> response);
+
         void onFollowFailed(Call<ResponseBody> call, Throwable t);
+
         void onCancelFollowFailed(Call<ResponseBody> call, Throwable t);
     }
 }

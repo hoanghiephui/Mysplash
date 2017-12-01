@@ -1,8 +1,8 @@
 package com.wangdaye.mysplash.main.presenter.activity;
 
-import com.wangdaye.mysplash.common.i.model.DrawerModel;
-import com.wangdaye.mysplash.common.i.presenter.DrawerPresenter;
-import com.wangdaye.mysplash.common.i.view.DrawerView;
+import com.wangdaye.mysplash.common.interfaces.model.DrawerModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.DrawerPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.DrawerView;
 
 /**
  * Drawer implementor.

@@ -9,8 +9,8 @@ import android.view.View;
 
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
-import com.wangdaye.mysplash.common.i.presenter.SwipeBackManagePresenter;
-import com.wangdaye.mysplash.common.i.view.SwipeBackManageView;
+import com.wangdaye.mysplash.common.interfaces.presenter.SwipeBackManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.SwipeBackManageView;
 import com.wangdaye.mysplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wangdaye.mysplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wangdaye.mysplash.common.utils.BackToTopUtils;

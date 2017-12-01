@@ -2,7 +2,7 @@ package com.wangdaye.mysplash.main.model.widget;
 
 import android.content.Context;
 
-import com.wangdaye.mysplash.common.i.model.NotificationsModel;
+import com.wangdaye.mysplash.common.interfaces.model.NotificationsModel;
 import com.wangdaye.mysplash.common.ui.adapter.NotificationAdapter;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
 

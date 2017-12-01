@@ -2,9 +2,9 @@ package com.wangdaye.mysplash.me.presenter.activity;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
 import com.wangdaye.mysplash.common.data.service.UserService;
-import com.wangdaye.mysplash.common.i.model.UserModel;
-import com.wangdaye.mysplash.common.i.presenter.UserPresenter;
-import com.wangdaye.mysplash.common.i.view.UserView;
+import com.wangdaye.mysplash.common.interfaces.model.UserModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.UserPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.UserView;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
 
 import retrofit2.Call;

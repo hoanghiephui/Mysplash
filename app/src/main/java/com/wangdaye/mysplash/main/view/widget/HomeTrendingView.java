@@ -15,24 +15,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.google.gson.GsonBuilder;
 import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
+import com.wangdaye.mysplash.common.data.entity.unsplash.CategoryModel;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.PagerModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.model.TrendingModel;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PagerPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
-import com.wangdaye.mysplash.common.i.presenter.TrendingPresenter;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.PagerView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
-import com.wangdaye.mysplash.common.i.view.TrendingView;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.PagerModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.model.TrendingModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PagerPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.TrendingPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.view.TrendingView;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.ui.dialog.SelectCollectionDialog;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
@@ -52,6 +54,8 @@ import com.wangdaye.mysplash.main.presenter.widget.ScrollImplementor;
 import com.wangdaye.mysplash.main.presenter.widget.TrendingImplementor;
 import com.wangdaye.mysplash.main.view.activity.MainActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,6 +103,23 @@ public class HomeTrendingView extends NestedScrollFrameLayout
 
     private ScrollModel scrollModel;
     private ScrollPresenter scrollPresenter;
+    private CategoryModel categoryModel;
+
+    public String loadJSONFromAsset() {
+        String json = null;
+        try {
+            InputStream is = getContext().getAssets().open("category.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
+    }
 
     private static class SavedState implements Parcelable {
 
@@ -159,15 +180,17 @@ public class HomeTrendingView extends NestedScrollFrameLayout
         addView(contentView);
 
         ButterKnife.bind(this, this);
+        categoryModel = new GsonBuilder().create().fromJson(loadJSONFromAsset(), CategoryModel.class);
         initModel(a, index, selected);
         initPresenter(a);
         initView();
+
     }
 
     private void initModel(MainActivity a,
                            int index, boolean selected) {
         this.trendingModel = new TrendingObject(
-                new PhotoAdapter(a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), this, a));
+                new PhotoAdapter(a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), this, a, true));
         this.pagerModel = new PagerObject(index, selected);
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
         this.scrollModel = new ScrollObject(true);
@@ -211,14 +234,14 @@ public class HomeTrendingView extends NestedScrollFrameLayout
         recyclerView.addOnScrollListener(onScrollListener);
 
         trendingPresenter.getAdapter().setRecyclerView(recyclerView);
+        trendingPresenter.getAdapter().setCategoryItems(categoryModel.getCategory());
     }
 
     private void initLoadingView() {
         progressView.setVisibility(VISIBLE);
         feedbackContainer.setVisibility(GONE);
 
-        ImageView feedbackImg = ButterKnife.findById(
-                this, R.id.container_loading_view_large_feedbackImg);
+        ImageView feedbackImg = getRootView().findViewById(R.id.container_loading_view_large_feedbackImg);
         ImageHelper.loadResourceImage(getContext(), feedbackImg, R.drawable.feedback_no_photos);
     }
 

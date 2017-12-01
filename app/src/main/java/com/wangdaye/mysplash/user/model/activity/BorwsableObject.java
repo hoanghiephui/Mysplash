@@ -5,7 +5,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.wangdaye.mysplash.common.data.service.UserService;
-import com.wangdaye.mysplash.common.i.model.BrowsableModel;
+import com.wangdaye.mysplash.common.interfaces.model.BrowsableModel;
 import com.wangdaye.mysplash.user.view.activity.UserActivity;
 
 import java.util.List;

@@ -6,7 +6,7 @@ import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.api.PhotoApi;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.CategoryModel;
+import com.wangdaye.mysplash.common.interfaces.model.CategoryModel;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.utils.manager.SettingsOptionManager;
 

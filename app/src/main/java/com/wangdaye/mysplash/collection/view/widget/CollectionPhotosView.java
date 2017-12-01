@@ -17,9 +17,9 @@ import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.presenter.SwipeBackPresenter;
-import com.wangdaye.mysplash.common.i.view.SwipeBackView;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.SwipeBackPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.SwipeBackView;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.ui.dialog.SelectCollectionDialog;
@@ -37,14 +37,14 @@ import com.wangdaye.mysplash.collection.presenter.widget.LoadImplementor;
 import com.wangdaye.mysplash.collection.presenter.widget.PhotosImplementor;
 import com.wangdaye.mysplash.collection.presenter.widget.ScrollImplementor;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.PhotosModel;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PhotosPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.PhotosView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.PhotosModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PhotosPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.PhotosView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
 import com.wangdaye.mysplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout;
 import com.wangdaye.mysplash.collection.presenter.widget.SwipeBackImplementor;
 import com.wangdaye.mysplash.collection.view.activity.CollectionActivity;
@@ -165,7 +165,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
 
     private void initModel(CollectionActivity a, Collection c) {
         PhotoAdapter adapter = new PhotoAdapter(
-                a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), this, a);
+                a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), this, a, false);
         adapter.setInMyCollection(
                 AuthManager.getInstance().getUsername() != null
                         && AuthManager.getInstance().getUsername().equals(c.user.username));
@@ -211,7 +211,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
     }
 
     public void initRefresh() {
-        photosPresenter.initRefresh(getContext());
+        photosPresenter.initRefresh(getContext(), null);
     }
 
     public List<Photo> loadMore(List<Photo> list, int headIndex, boolean headDirection) {
@@ -221,7 +221,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
         }
 
         if (!headDirection && photosPresenter.canLoadMore()) {
-            photosPresenter.loadMore(getContext(), false);
+            photosPresenter.loadMore(getContext(), false, null);
         }
         if (!ViewCompat.canScrollVertically(recyclerView, 1) && photosPresenter.isLoading()) {
             refreshLayout.setLoading(true);
@@ -308,7 +308,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.container_loading_view_mini_retryButton:
-                photosPresenter.initRefresh(getContext());
+                photosPresenter.initRefresh(getContext(), null);
                 break;
         }
     }
@@ -317,12 +317,12 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
 
     @Override
     public void onRefresh() {
-        photosPresenter.refreshNew(getContext(), false);
+        photosPresenter.refreshNew(getContext(), false, null);
     }
 
     @Override
     public void onLoad() {
-        photosPresenter.loadMore(getContext(), false);
+        photosPresenter.loadMore(getContext(), false, null);
     }
 
     // on scroll listener.
@@ -456,7 +456,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
                 && lastVisibleItems[lastVisibleItems.length - 1] >= totalItemCount - 10
                 && totalItemCount > 0
                 && dy > 0) {
-            photosPresenter.loadMore(getContext(), false);
+            photosPresenter.loadMore(getContext(), false, null);
         }
         if (!ViewCompat.canScrollVertically(recyclerView, -1)) {
             scrollPresenter.setToTop(true);

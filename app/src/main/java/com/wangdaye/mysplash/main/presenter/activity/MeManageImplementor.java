@@ -7,8 +7,8 @@ import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.utils.helper.IntentHelper;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
-import com.wangdaye.mysplash.common.i.presenter.MeManagePresenter;
-import com.wangdaye.mysplash.common.i.view.MeManageView;
+import com.wangdaye.mysplash.common.interfaces.presenter.MeManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.MeManageView;
 import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
 import com.wangdaye.mysplash.user.view.activity.UserActivity;
 

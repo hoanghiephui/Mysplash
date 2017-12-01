@@ -2,6 +2,7 @@ package com.wangdaye.mysplash.common.data.service;
 
 import com.wangdaye.mysplash.BuildConfig;
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.GetStreamApi;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
 
@@ -25,7 +26,7 @@ public class GetStreamService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .build();
     }
 

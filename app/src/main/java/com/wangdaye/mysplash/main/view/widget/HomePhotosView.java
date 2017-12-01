@@ -21,24 +21,24 @@ import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.PagerModel;
-import com.wangdaye.mysplash.common.i.model.PhotosModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PagerPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PhotosPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.PagerModel;
+import com.wangdaye.mysplash.common.interfaces.model.PhotosModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PagerPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PhotosPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerView;
+import com.wangdaye.mysplash.common.interfaces.view.PhotosView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.ui.dialog.SelectCollectionDialog;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
 import com.wangdaye.mysplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout;
 import com.wangdaye.mysplash.common.utils.AnimUtils;
 import com.wangdaye.mysplash.common.utils.BackToTopUtils;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.PagerView;
-import com.wangdaye.mysplash.common.i.view.PhotosView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
 import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
 import com.wangdaye.mysplash.common.utils.manager.ThemeManager;
@@ -61,11 +61,10 @@ import butterknife.OnClick;
 
 /**
  * Home photos view.
- *
+ * <p>
  * This view is used to show photos for
  * {@link com.wangdaye.mysplash.main.view.fragment.HomeFragment}.
- *
- * */
+ */
 
 @SuppressLint("ViewConstructor")
 public class HomePhotosView extends NestedScrollFrameLayout
@@ -99,6 +98,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
 
     private ScrollModel scrollModel;
     private ScrollPresenter scrollPresenter;
+    private String query;
 
     private static class SavedState implements Parcelable {
 
@@ -141,7 +141,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
             out.writeInt(this.page);
 
             int[] pages = new int[pageList.size()];
-            for (int i = 0; i < pages.length; i ++) {
+            for (int i = 0; i < pages.length; i++) {
                 pages[i] = pageList.get(i);
             }
             out.writeInt(pages.length);
@@ -162,11 +162,26 @@ public class HomePhotosView extends NestedScrollFrameLayout
         };
     }
 
-    public HomePhotosView(MainActivity a, @Mysplash.PhotosTypeRule int photosType, int id,
-                           int index, boolean selected) {
+    public HomePhotosView(MainActivity a,
+                          @Mysplash.PhotosTypeRule int photosType,
+                          int id,
+                          int index,
+                          boolean selected) {
         super(a);
         this.setId(id);
         this.initialize(a, photosType, index, selected);
+    }
+
+    public HomePhotosView(MainActivity a,
+                          @Mysplash.PhotosTypeRule int photosType,
+                          int id,
+                          int index,
+                          boolean selected,
+                          String query) {
+        super(a);
+        this.setId(id);
+        this.initialize(a, photosType, index, selected);
+        this.query = query;
     }
 
     // init.
@@ -192,7 +207,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
                            int index, boolean selected) {
         this.photosModel = new PhotosObject(
                 a,
-                new PhotoAdapter(a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), this, a),
+                new PhotoAdapter(a, new ArrayList<Photo>(Mysplash.DEFAULT_PER_PAGE), this, a, false),
                 photosType);
         this.pagerModel = new PagerObject(index, selected);
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
@@ -262,7 +277,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
         }
 
         if (!headDirection && photosPresenter.canLoadMore()) {
-            photosPresenter.loadMore(getContext(), false);
+            photosPresenter.loadMore(getContext(), false, query);
         }
         if (!ViewCompat.canScrollVertically(recyclerView, 1) && photosPresenter.isLoading()) {
             refreshLayout.setLoading(true);
@@ -297,7 +312,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
      * Get the photos from the adapter in this view.
      *
      * @return Photos in adapter.
-     * */
+     */
     public List<Photo> getPhotos() {
         return photosPresenter.getAdapter().getPhotoData();
     }
@@ -306,7 +321,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
      * Set photos to the adapter in this view.
      *
      * @param list Photos that will be set to the adapter.
-     * */
+     */
     public void setPhotos(List<Photo> list) {
         if (list == null) {
             list = new ArrayList<>();
@@ -327,20 +342,21 @@ public class HomePhotosView extends NestedScrollFrameLayout
 
     // on click listener.
 
-    @OnClick(R.id.container_loading_view_large_feedbackBtn) void retryRefresh() {
-        photosPresenter.initRefresh(getContext());
+    @OnClick(R.id.container_loading_view_large_feedbackBtn)
+    void retryRefresh() {
+        photosPresenter.initRefresh(getContext(), query);
     }
 
     // on refresh an load listener.
 
     @Override
     public void onRefresh() {
-        photosPresenter.refreshNew(getContext(), false);
+        photosPresenter.refreshNew(getContext(), false, query);
     }
 
     @Override
     public void onLoad() {
-        photosPresenter.loadMore(getContext(), false);
+        photosPresenter.loadMore(getContext(), false, query);
     }
 
     // on scroll listener.
@@ -449,7 +465,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
 
     @Override
     public void refreshPager() {
-        photosPresenter.initRefresh(getContext());
+        photosPresenter.initRefresh(getContext(), query);
     }
 
     @Override
@@ -553,14 +569,14 @@ public class HomePhotosView extends NestedScrollFrameLayout
                 && lastVisibleItems[lastVisibleItems.length - 1] >= totalItemCount - 10
                 && totalItemCount > 0
                 && dy > 0) {
-            photosPresenter.loadMore(getContext(), false);
+            photosPresenter.loadMore(getContext(), false, query);
         }
-        if (!ViewCompat.canScrollVertically(recyclerView, -1)) {
+        if (!recyclerView.canScrollVertically(-1)) {
             scrollPresenter.setToTop(true);
         } else {
             scrollPresenter.setToTop(false);
         }
-        if (!ViewCompat.canScrollVertically(recyclerView, 1) && photosPresenter.isLoading()) {
+        if (!recyclerView.canScrollVertically( 1) && photosPresenter.isLoading()) {
             refreshLayout.setLoading(true);
         }
     }

@@ -25,9 +25,10 @@ import com.wangdaye.mysplash.common._basic.fragment.LoadableFragment;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.FollowingResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
+import com.wangdaye.mysplash.common.data.entity.unsplash.ResultsItem;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.DownloadModel;
-import com.wangdaye.mysplash.common.i.presenter.DownloadPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.DownloadModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.DownloadPresenter;
 import com.wangdaye.mysplash.common._basic.fragment.MysplashFragment;
 import com.wangdaye.mysplash.common.ui.activity.invisible.RestartActivity;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
@@ -37,13 +38,13 @@ import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.common.utils.helper.IntentHelper;
 import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
-import com.wangdaye.mysplash.common.i.model.DrawerModel;
-import com.wangdaye.mysplash.common.i.presenter.DrawerPresenter;
-import com.wangdaye.mysplash.common.i.presenter.FragmentManagePresenter;
-import com.wangdaye.mysplash.common.i.presenter.MeManagePresenter;
-import com.wangdaye.mysplash.common.i.presenter.MessageManagePresenter;
-import com.wangdaye.mysplash.common.i.view.DrawerView;
-import com.wangdaye.mysplash.common.i.view.MeManageView;
+import com.wangdaye.mysplash.common.interfaces.model.DrawerModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.DrawerPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.FragmentManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.MeManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.MessageManagePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.DrawerView;
+import com.wangdaye.mysplash.common.interfaces.view.MeManageView;
 import com.wangdaye.mysplash.common.ui.activity.IntroduceActivity;
 import com.wangdaye.mysplash.common.utils.BackToTopUtils;
 import com.wangdaye.mysplash.common.utils.manager.ShortcutsManager;
@@ -52,8 +53,8 @@ import com.wangdaye.mysplash.common.utils.manager.ThreadManager;
 import com.wangdaye.mysplash.main.model.activity.DownloadObject;
 import com.wangdaye.mysplash.main.model.activity.DrawerObject;
 import com.wangdaye.mysplash.main.model.activity.FragmentManageObject;
-import com.wangdaye.mysplash.common.i.model.FragmentManageModel;
-import com.wangdaye.mysplash.common.i.view.MessageManageView;
+import com.wangdaye.mysplash.common.interfaces.model.FragmentManageModel;
+import com.wangdaye.mysplash.common.interfaces.view.MessageManageView;
 import com.wangdaye.mysplash.main.presenter.activity.DownloadImplementor;
 import com.wangdaye.mysplash.main.presenter.activity.DrawerImplementor;
 import com.wangdaye.mysplash.main.presenter.activity.FragmentManageImplementor;
@@ -157,6 +158,9 @@ public class MainActivity extends LoadableActivity<Photo>
         private List<Photo> multiFilterList;
 
         private List<Photo> categoryList;
+        private List<Photo> photoQueryList;
+        private List<Collection> queryCollectionList;
+        private List<ResultsItem> queryUsersList;
 
         // data.
 
@@ -230,6 +234,30 @@ public class MainActivity extends LoadableActivity<Photo>
 
         public void setCategoryList(List<Photo> categoryList) {
             this.categoryList = categoryList;
+        }
+
+        public List<Photo> getPhotoQueryList() {
+            return photoQueryList;
+        }
+
+        public void setPhotoQueryList(List<Photo> photoQueryList) {
+            this.photoQueryList = photoQueryList;
+        }
+
+        public List<Collection> getQueryCollectionList() {
+            return queryCollectionList;
+        }
+
+        public void setQueryCollectionList(List<Collection> queryCollectionList) {
+            this.queryCollectionList = queryCollectionList;
+        }
+
+        public List<ResultsItem> getQueryUsersList() {
+            return queryUsersList;
+        }
+
+        public void setQueryUsersList(List<ResultsItem> queryUsersList) {
+            this.queryUsersList = queryUsersList;
         }
     }
 
@@ -504,7 +532,12 @@ public class MainActivity extends LoadableActivity<Photo>
 
     public void changeFragment(int code) {
         drawerPresenter.setCheckedItemId(code);
-        fragmentManagePresenter.changeFragment(this, code);
+        fragmentManagePresenter.changeFragment(this, code, null);
+    }
+
+    public void changeFragment(int code, String title) {
+        drawerPresenter.setCheckedItemId(code);
+        fragmentManagePresenter.changeFragment(this, code, title);
     }
 
     @Nullable

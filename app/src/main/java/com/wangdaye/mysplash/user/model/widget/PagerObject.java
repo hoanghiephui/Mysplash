@@ -1,6 +1,6 @@
 package com.wangdaye.mysplash.user.model.widget;
 
-import com.wangdaye.mysplash.common.i.model.PagerModel;
+import com.wangdaye.mysplash.common.interfaces.model.PagerModel;
 
 /**
  * Pager object.

@@ -16,14 +16,14 @@ import android.widget.TextView;
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.NotificationsModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.NotificationsPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.NotificationsModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.NotificationsPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
 import com.wangdaye.mysplash.common.ui.adapter.NotificationAdapter;
 import com.wangdaye.mysplash.common.ui.decotarion.ListDecoration;
 import com.wangdaye.mysplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -55,7 +55,7 @@ import butterknife.OnClick;
  * */
 
 public class NotificationsView extends NestedScrollFrameLayout
-        implements com.wangdaye.mysplash.common.i.view.NotificationsView, LoadView, ScrollView,
+        implements com.wangdaye.mysplash.common.interfaces.view.NotificationsView, LoadView, ScrollView,
         BothWaySwipeRefreshLayout.OnRefreshAndLoadListener {
 
     @BindView(R.id.container_loading_in_category_view_large_progressView)

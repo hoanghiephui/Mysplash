@@ -3,8 +3,8 @@ package com.wangdaye.mysplash.search.presenter.activity;
 import android.content.Context;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
-import com.wangdaye.mysplash.common.i.model.DownloadModel;
-import com.wangdaye.mysplash.common.i.presenter.DownloadPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.DownloadModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.DownloadPresenter;
 import com.wangdaye.mysplash.common.utils.helper.DownloadHelper;
 
 /**

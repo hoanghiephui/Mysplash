@@ -18,9 +18,9 @@
             app:theme="@style/MysplashToolbarTheme">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:layout_scrollFlags="scroll|enterAlways">
 
                 <com.wangdaye.mysplash.common.ui.widget.coordinatorView.StatusBarView
@@ -40,12 +40,6 @@
 
                 </android.support.v7.widget.Toolbar>
 
-                <android.support.design.widget.TabLayout
-                    android:id="@+id/fragment_home_tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/tab_layout_height"
-                    style="@style/MysplashTabLayoutTheme" />
-
             </LinearLayout>
 
         </com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
@@ -61,13 +55,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            app:layout_behavior=".common.ui.behavior.InkPageIndicatorBehavior"
             app:animationDuration="300"
-            app:pageIndicatorColor="?attr/subtitle_color"
             app:currentPageIndicatorColor="?attr/title_color"
             app:dotDiameter="@dimen/little_margin"
-            app:dotGap="@dimen/little_margin" />
+            app:dotGap="@dimen/little_margin"
+            app:layout_behavior=".common.ui.behavior.InkPageIndicatorBehavior"
+            app:pageIndicatorColor="?attr/subtitle_color" />
 
+        <LinearLayout
+            android:id="@+id/layout_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            app:layout_behavior=".common.ui.behavior.BottomNavigationBehavior"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_shadow"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/shadow_height"
+                android:background="@drawable/shadow" />
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="?colorPrimary"
+                app:elevation="8dp"
+                app:itemIconTint="@drawable/bottom_navigation_selector"
+                app:itemTextColor="@drawable/bottom_navigation_selector"
+                app:menu="@menu/menu_navigation" />
+        </LinearLayout>
     </com.wangdaye.mysplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     <com.wangdaye.mysplash.common.ui.widget.coordinatorView.StatusBarView

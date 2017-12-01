@@ -5,9 +5,11 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.GsonBuilder;
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.CollectionApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.ChangeCollectionPhotoResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Collections;
 import com.wangdaye.mysplash.common.utils.widget.interceptor.AuthInterceptor;
 
 import java.io.IOException;
@@ -34,7 +36,7 @@ public class CollectionService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .addInterceptor(new AuthInterceptor())
                 .build();
     }
@@ -42,6 +44,19 @@ public class CollectionService {
     private CollectionApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
                 .baseUrl(Mysplash.UNSPLASH_API_BASE_URL)
+                .client(client)
+                .addConverterFactory(
+                        GsonConverterFactory.create(
+                                new GsonBuilder()
+                                        .setDateFormat(Mysplash.DATE_FORMAT)
+                                        .create()))
+                .build()
+                .create((CollectionApi.class));
+    }
+
+    private CollectionApi buildApiFull(OkHttpClient client) {
+        return new Retrofit.Builder()
+                .baseUrl(Mysplash.UNSPLASH_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
@@ -337,11 +352,38 @@ public class CollectionService {
         }
     }
 
+    public void requestQueryCollections(@Mysplash.PageRule int page,
+                                           @Mysplash.PerPageRule int per_page, String query,
+                                           final OnRequestCollectionsQueryListener listener) {
+        Call<Collections> getFeaturedCollections = buildApiFull(buildClient()).getCollectionsByTag(query, page, per_page);
+        getFeaturedCollections.enqueue(new Callback<Collections>() {
+            @Override
+            public void onResponse(Call<Collections> call, retrofit2.Response<Collections> response) {
+                if (listener != null) {
+                    listener.onRequestCollectionsSuccess(call, response);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Collections> call, Throwable t) {
+                if (listener != null) {
+                    listener.onRequestCollectionsFailed(call, t);
+                }
+            }
+        });
+        call = getFeaturedCollections;
+    }
+
     // interface.
 
     public interface OnRequestCollectionsListener {
         void onRequestCollectionsSuccess(Call<List<Collection>> call, retrofit2.Response<List<Collection>> response);
         void onRequestCollectionsFailed(Call<List<Collection>> call, Throwable t);
+    }
+
+    public interface OnRequestCollectionsQueryListener {
+        void onRequestCollectionsSuccess(Call<Collections> call, retrofit2.Response<Collections> response);
+        void onRequestCollectionsFailed(Call<Collections> call, Throwable t);
     }
 
     public interface OnRequestSingleCollectionListener {

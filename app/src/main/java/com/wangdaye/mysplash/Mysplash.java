@@ -13,9 +13,9 @@ import android.support.annotation.StringDef;
 import android.text.TextUtils;
 
 import com.wangdaye.mysplash.common._basic.activity.LoadableActivity;
+import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common._basic.activity.RequestLoadActivity;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
-import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.utils.manager.CustomApiManager;
 import com.wangdaye.mysplash.main.view.activity.MainActivity;
 import com.wangdaye.mysplash.photo.view.activity.PhotoActivity;
@@ -26,10 +26,9 @@ import java.util.List;
 
 /**
  * Mysplash.
- *
+ * <p>
  * Application class for Mysplash.
- *
- * */
+ */
 
 public class Mysplash extends Application {
 
@@ -57,15 +56,20 @@ public class Mysplash extends Application {
     public static final String DOWNLOAD_PATH = "/Pictures/Mysplash/";
     public static final String DOWNLOAD_PHOTO_FORMAT = ".jpg";
     public static final String DOWNLOAD_COLLECTION_FORMAT = ".zip";
+
     @StringDef({DOWNLOAD_PHOTO_FORMAT, DOWNLOAD_COLLECTION_FORMAT})
-    public @interface DownloadFormatRule {}
+    public @interface DownloadFormatRule {
+    }
 
     public static final int DEFAULT_PER_PAGE = 10;
+
     @IntRange(from = 1, to = 30)
-    public @interface PerPageRule {}
+    public @interface PerPageRule {
+    }
 
     @IntRange(from = 1)
-    public @interface PageRule {}
+    public @interface PageRule {
+    }
 
     public static final int CATEGORY_TOTAL_NEW = 0;
     public static final int CATEGORY_TOTAL_FEATURED = 1;
@@ -75,8 +79,12 @@ public class Mysplash extends Application {
     public static final int CATEGORY_OBJECTS_ID = 8;
     public static final int CATEGORY_PEOPLE_ID = 6;
     public static final int CATEGORY_TECHNOLOGY_ID = 7;
-    @IntDef({CATEGORY_TOTAL_NEW, CATEGORY_TOTAL_FEATURED})
+    public static final int CATEGORY_PHOTO_TAG = 5;
+    public static final int CATEGORY_USERS_QUERY_TAG = 9;
+
+    @IntDef({CATEGORY_TOTAL_NEW, CATEGORY_TOTAL_FEATURED, CATEGORY_PHOTO_TAG})
     public @interface PhotosTypeRule {}
+
     @IntDef({
             CATEGORY_BUILDINGS_ID,
             CATEGORY_FOOD_DRINK_ID,
@@ -84,13 +92,17 @@ public class Mysplash extends Application {
             CATEGORY_OBJECTS_ID,
             CATEGORY_PEOPLE_ID,
             CATEGORY_TECHNOLOGY_ID})
-    public @interface CategoryIdRule {}
+    public @interface CategoryIdRule {
+    }
 
     public static final int COLLECTION_TYPE_FEATURED = 0;
     public static final int COLLECTION_TYPE_ALL = 1;
     public static final int COLLECTION_TYPE_CURATED = 2;
-    @IntDef({COLLECTION_TYPE_FEATURED, COLLECTION_TYPE_ALL, COLLECTION_TYPE_CURATED})
-    public @interface CollectionTypeRule {}
+    public static final int COLLECTION_TYPE_QUERY = 3;
+
+    @IntDef({COLLECTION_TYPE_FEATURED, COLLECTION_TYPE_ALL, COLLECTION_TYPE_CURATED, COLLECTION_TYPE_QUERY})
+    public @interface CollectionTypeRule {
+    }
 
     public static int TOTAL_NEW_PHOTOS_COUNT = 17444;
     public static int TOTAL_FEATURED_PHOTOS_COUNT = 1192;
@@ -105,6 +117,8 @@ public class Mysplash extends Application {
     public static final int USER_ACTIVITY = 2;
     public static final int ME_ACTIVITY = 3;
     public static final int CUSTOM_API_ACTIVITY = 4;
+
+    public static final int SEARCH_QUERY_ID = 11;
 
     @Override
     public void onCreate() {
@@ -153,7 +167,7 @@ public class Mysplash extends Application {
     public static String getLoginUrl(Context c) {
         return Mysplash.UNSPLASH_URL + "oauth/authorize"
                 + "?client_id=" + getAppId(c, true)
-                + "&redirect_uri=" + "mysplash%3A%2F%2F" + UNSPLASH_LOGIN_CALLBACK
+                + "&redirect_uri=" + "livingphoto%3A%2F%2F" + UNSPLASH_LOGIN_CALLBACK
                 + "&response_type=" + "code"
                 + "&scope=" + "public+read_user+write_user+read_photos+write_photos+write_likes+write_followers+read_collections+write_collections";
     }
@@ -192,7 +206,7 @@ public class Mysplash extends Application {
     @Nullable
     public MainActivity getMainActivity() {
         if (activityList != null && activityList.size() > 0) {
-            for (int i = 0; i < activityList.size(); i ++) {
+            for (int i = 0; i < activityList.size(); i++) {
                 if (activityList.get(i) instanceof MainActivity) {
                     return (MainActivity) activityList.get(i);
                 }

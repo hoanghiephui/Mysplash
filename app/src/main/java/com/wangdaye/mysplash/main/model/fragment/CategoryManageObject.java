@@ -1,7 +1,7 @@
 package com.wangdaye.mysplash.main.model.fragment;
 
 import com.wangdaye.mysplash.Mysplash;
-import com.wangdaye.mysplash.common.i.model.CategoryManageModel;
+import com.wangdaye.mysplash.common.interfaces.model.CategoryManageModel;
 
 /**
  * Category manage object.

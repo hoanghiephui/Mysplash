@@ -4,9 +4,9 @@ import android.net.Uri;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
 import com.wangdaye.mysplash.common.data.service.UserService;
-import com.wangdaye.mysplash.common.i.model.BrowsableModel;
-import com.wangdaye.mysplash.common.i.presenter.BrowsablePresenter;
-import com.wangdaye.mysplash.common.i.view.BrowsableView;
+import com.wangdaye.mysplash.common.interfaces.model.BrowsableModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.BrowsablePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.BrowsableView;
 
 import retrofit2.Call;
 import retrofit2.Response;

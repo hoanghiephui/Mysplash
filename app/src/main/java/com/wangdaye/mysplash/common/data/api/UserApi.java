@@ -2,6 +2,7 @@ package com.wangdaye.mysplash.common.data.api;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.Me;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
+import com.wangdaye.mysplash.common.data.entity.unsplash.Users;
 
 
 import java.util.List;
@@ -44,4 +45,16 @@ public interface UserApi {
     Call<List<User>> getFollowers(@Path("username") String username,
                                   @Query("page") int page,
                                   @Query("per_page") int per_page);
+
+    /**
+     * @method {@link com.wangdaye.mysplash.common.data.service.UserService#requestUserByQuery}
+     * @param query
+     * @param perPage
+     * @param page
+     * @return {@link Users}
+     */
+    @GET("napi/search/users")
+    Call<Users> getListUserByQuery(@Query("query") String query,
+                                   @Query("per_page") int perPage,
+                                   @Query("page") int page);
 }

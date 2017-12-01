@@ -268,6 +268,8 @@
     <string name="action_wallpaper_lockscreen">Wallpaper And LockScreen</string>
 
     <string name="action_muzei_settings">Settings for Muzei</string>
+    <string name="action_photos">Photos</string>
+    <string name="action_users">Users</string>
 
     <!-- transition name. -->
     <string name="transition_activity_container">activity_container</string>
@@ -314,5 +316,8 @@
     <string name="key_grid_list_in_land">grid_list_in_land</string>
 
     <string name="key_notified_set_back_to_top">notified_set_back_to_top</string>
+    
+    <!--category-->
+    <string name="curated_by">Curated by %s</string>
 
 </resources>

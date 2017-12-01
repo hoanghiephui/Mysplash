@@ -2,6 +2,7 @@ package com.wangdaye.mysplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.SearchApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.SearchCollectionsResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.SearchPhotosResult;
@@ -27,7 +28,7 @@ public class SearchService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .addInterceptor(new AuthInterceptor())
                 .build();
     }

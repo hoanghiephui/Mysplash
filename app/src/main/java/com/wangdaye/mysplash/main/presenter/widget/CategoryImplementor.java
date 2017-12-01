@@ -7,13 +7,13 @@ import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common.data.api.PhotoApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common.i.model.CategoryModel;
-import com.wangdaye.mysplash.common.i.presenter.CategoryPresenter;
+import com.wangdaye.mysplash.common.interfaces.model.CategoryModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.CategoryPresenter;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.ui.adapter.PhotoAdapter;
 import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
 import com.wangdaye.mysplash.common.utils.ValueUtils;
-import com.wangdaye.mysplash.common.i.view.CategoryView;
+import com.wangdaye.mysplash.common.interfaces.view.CategoryView;
 
 import java.util.List;
 

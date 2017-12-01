@@ -17,20 +17,20 @@ import com.wangdaye.mysplash.R;
 import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.entity.unsplash.User;
-import com.wangdaye.mysplash.common.i.model.CollectionsModel;
-import com.wangdaye.mysplash.common.i.model.LoadModel;
-import com.wangdaye.mysplash.common.i.model.PagerModel;
-import com.wangdaye.mysplash.common.i.model.ScrollModel;
-import com.wangdaye.mysplash.common.i.presenter.CollectionsPresenter;
-import com.wangdaye.mysplash.common.i.presenter.LoadPresenter;
-import com.wangdaye.mysplash.common.i.presenter.PagerPresenter;
-import com.wangdaye.mysplash.common.i.presenter.ScrollPresenter;
-import com.wangdaye.mysplash.common.i.presenter.SwipeBackPresenter;
-import com.wangdaye.mysplash.common.i.view.CollectionsView;
-import com.wangdaye.mysplash.common.i.view.LoadView;
-import com.wangdaye.mysplash.common.i.view.PagerView;
-import com.wangdaye.mysplash.common.i.view.ScrollView;
-import com.wangdaye.mysplash.common.i.view.SwipeBackView;
+import com.wangdaye.mysplash.common.interfaces.model.CollectionsModel;
+import com.wangdaye.mysplash.common.interfaces.model.LoadModel;
+import com.wangdaye.mysplash.common.interfaces.model.PagerModel;
+import com.wangdaye.mysplash.common.interfaces.model.ScrollModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.CollectionsPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.LoadPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.PagerPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.ScrollPresenter;
+import com.wangdaye.mysplash.common.interfaces.presenter.SwipeBackPresenter;
+import com.wangdaye.mysplash.common.interfaces.view.CollectionsView;
+import com.wangdaye.mysplash.common.interfaces.view.LoadView;
+import com.wangdaye.mysplash.common.interfaces.view.PagerView;
+import com.wangdaye.mysplash.common.interfaces.view.ScrollView;
+import com.wangdaye.mysplash.common.interfaces.view.SwipeBackView;
 import com.wangdaye.mysplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wangdaye.mysplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
 import com.wangdaye.mysplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout;
@@ -247,19 +247,19 @@ public class UserCollectionsView extends NestedScrollFrameLayout
     // on click listener.
 
     @OnClick(R.id.container_loading_view_mini_retryButton) void retryRefresh() {
-        collectionsPresenter.initRefresh(getContext());
+        collectionsPresenter.initRefresh(getContext(), null);
     }
 
     // on refresh an load listener.
 
     @Override
     public void onRefresh() {
-        collectionsPresenter.refreshNew(getContext(), false);
+        collectionsPresenter.refreshNew(getContext(), false, null);
     }
 
     @Override
     public void onLoad() {
-        collectionsPresenter.loadMore(getContext(), false);
+        collectionsPresenter.loadMore(getContext(), false, null);
     }
 
     // on scroll listener.
@@ -353,7 +353,7 @@ public class UserCollectionsView extends NestedScrollFrameLayout
 
     @Override
     public void refreshPager() {
-        collectionsPresenter.initRefresh(getContext());
+        collectionsPresenter.initRefresh(getContext(), null);
     }
 
     @Override
@@ -457,7 +457,7 @@ public class UserCollectionsView extends NestedScrollFrameLayout
                 && lastVisibleItems[lastVisibleItems.length - 1] >= totalItemCount - 10
                 && totalItemCount > 0
                 && dy > 0) {
-            collectionsPresenter.loadMore(getContext(), false);
+            collectionsPresenter.loadMore(getContext(), false, null);
         }
         if (!ViewCompat.canScrollVertically(recyclerView, -1)) {
             scrollPresenter.setToTop(true);

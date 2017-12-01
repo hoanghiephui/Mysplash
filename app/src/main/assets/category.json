@@ -1,0 +1,64 @@
+{
+  "category": [
+    {
+      "title": "Business",
+      "url": "/search/photos/business",
+      "image": "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Computer",
+      "url": "/search/photos/computer",
+      "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Nature",
+      "url": "/search/photos/nature",
+      "image": "https://images.unsplash.com/photo-1426840963626-ffdf2d7ef80b?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Love",
+      "url": "/search/photos/love",
+      "image": "https://images.unsplash.com/reserve/Af0sF2OS5S5gatqrKzVP_Silhoutte.jpg?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "House",
+      "url": "/search/photos/house",
+      "image": "https://images.unsplash.com/photo-1430285561322-7808604715df?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Landscape",
+      "url": "/search/photos/landscape",
+      "image": "https://images.unsplash.com/39/wdXqHcTwSTmLuKOGz92L_Landscape.jpg?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Cat",
+      "url": "/search/photos/cat",
+      "image": "https://images.unsplash.com/photo-1498100152307-ce63fd6c5424?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Happy",
+      "url": "/search/photos/happy",
+      "image": "https://images.unsplash.com/photo-1474176857210-7287d38d27c6?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Health",
+      "url": "/search/photos/health",
+      "image": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Autumn",
+      "url": "/search/photos/autumn",
+      "image": "https://images.unsplash.com/photo-1446586974709-69e33a70bafa?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Friends",
+      "url": "/search/photos/friends",
+      "image": "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    },
+    {
+      "title": "Office",
+      "url": "/search/photos/office",
+      "image": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?dpr=2&auto=format&fit=crop&w=170&h=50&q=60&cs=tinysrgb&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D"
+    }
+  ]
+}

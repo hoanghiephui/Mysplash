@@ -10,6 +10,7 @@
     <item name="fragment_collection_page_featured" type="id" />
     <item name="fragment_collection_page_all" type="id" />
     <item name="fragment_collection_page_curated" type="id" />
+    <item name="fragment_collection_page_query" type="id" />
 
     <!-- activity search. -->
     <item name="activity_search_page_photo" type="id" />
@@ -26,4 +27,5 @@
     <item name="activity_me_page_collection" type="id" />
     <item name="activity_me_page_like" type="id" />
 
+    <item name="fragment_users_query" type="id" />
 </resources>

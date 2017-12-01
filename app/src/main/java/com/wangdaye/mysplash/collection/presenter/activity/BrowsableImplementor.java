@@ -4,9 +4,9 @@ import android.net.Uri;
 
 import com.wangdaye.mysplash.common.data.entity.unsplash.Collection;
 import com.wangdaye.mysplash.common.data.service.CollectionService;
-import com.wangdaye.mysplash.common.i.model.BrowsableModel;
-import com.wangdaye.mysplash.common.i.presenter.BrowsablePresenter;
-import com.wangdaye.mysplash.common.i.view.BrowsableView;
+import com.wangdaye.mysplash.common.interfaces.model.BrowsableModel;
+import com.wangdaye.mysplash.common.interfaces.presenter.BrowsablePresenter;
+import com.wangdaye.mysplash.common.interfaces.view.BrowsableView;
 
 import java.util.List;
 

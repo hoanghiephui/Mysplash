@@ -3,6 +3,7 @@ package com.wangdaye.mysplash.common.ui.adapter;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -14,46 +15,49 @@ import android.widget.TextView;
 
 import com.wangdaye.mysplash.Mysplash;
 import com.wangdaye.mysplash.R;
+import com.wangdaye.mysplash.collection.view.activity.CollectionActivity;
 import com.wangdaye.mysplash.common._basic.FooterAdapter;
 import com.wangdaye.mysplash.common._basic.activity.LoadableActivity;
+import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
+import com.wangdaye.mysplash.common.data.entity.unsplash.CategoryItem;
 import com.wangdaye.mysplash.common.data.entity.unsplash.ChangeCollectionPhotoResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.LikePhotoResult;
 import com.wangdaye.mysplash.common.data.entity.unsplash.Photo;
 import com.wangdaye.mysplash.common.data.service.PhotoService;
-import com.wangdaye.mysplash.common._basic.activity.MysplashActivity;
+import com.wangdaye.mysplash.common.ui.dialog.DeleteCollectionPhotoDialog;
 import com.wangdaye.mysplash.common.ui.dialog.DownloadRepeatDialog;
+import com.wangdaye.mysplash.common.ui.dialog.SelectCollectionDialog;
+import com.wangdaye.mysplash.common.ui.widget.CircleImageView;
 import com.wangdaye.mysplash.common.ui.widget.CircularProgressIcon;
+import com.wangdaye.mysplash.common.ui.widget.freedomSizeView.FreedomImageView;
 import com.wangdaye.mysplash.common.utils.DisplayUtils;
 import com.wangdaye.mysplash.common.utils.FileUtils;
-import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
 import com.wangdaye.mysplash.common.utils.helper.DatabaseHelper;
 import com.wangdaye.mysplash.common.utils.helper.ImageHelper;
 import com.wangdaye.mysplash.common.utils.helper.IntentHelper;
+import com.wangdaye.mysplash.common.utils.helper.NotificationHelper;
 import com.wangdaye.mysplash.common.utils.manager.AuthManager;
-import com.wangdaye.mysplash.common.ui.dialog.DeleteCollectionPhotoDialog;
-import com.wangdaye.mysplash.common.ui.dialog.SelectCollectionDialog;
-import com.wangdaye.mysplash.common.ui.widget.freedomSizeView.FreedomImageView;
-import com.wangdaye.mysplash.collection.view.activity.CollectionActivity;
+import com.wangdaye.mysplash.main.view.activity.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Response;
 
+import static com.wangdaye.mysplash.Mysplash.SEARCH_QUERY_ID;
+
 /**
  * Photo adapter.
- *
+ * <p>
  * Adapter for {@link RecyclerView} to show photos.
- *
- * */
+ */
 
 public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
         implements DeleteCollectionPhotoDialog.OnDeleteCollectionListener,
-        DownloadRepeatDialog.OnCheckOrDownloadListener {
+        DownloadRepeatDialog.OnCheckOrDownloadListener, CategoryHomeHolder.CallBackAdapter {
 
     private Context a;
     private RecyclerView recyclerView;
@@ -63,14 +67,29 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
     private List<Photo> itemList;
     private PhotoService service;
+    private List<CategoryItem> categoryItems = new ArrayList<>();
+
+    public void setCategoryItems(List<CategoryItem> categoryItems) {
+        this.categoryItems = categoryItems;
+        notifyItemChanged(0);
+    }
 
     private int columnCount;
 
     // if set true, it means these photos is in a collection that was created by user.
     private boolean inMyCollection = false;
 
+    /**
+     * @param title
+     * @method callback click item category home
+     */
+    @Override
+    public void onClickItem(String title) {
+        ((MainActivity) a).changeFragment(SEARCH_QUERY_ID, title);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder
-            implements ImageHelper.OnLoadImageListener<Photo> {
+            implements ImageHelper.OnLoadImageListener<Photo>, View.OnClickListener {
 
         @BindView(R.id.item_photo)
         CardView card;
@@ -89,8 +108,16 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
         @BindView(R.id.item_photo_likeButton)
         CircularProgressIcon likeButton;
+        @BindView(R.id.item_photo_downloadButton)
+        AppCompatImageButton downloadImage;
+        @BindView(R.id.item_photo_base_avatar)
+        CircleImageView avatar;
+        @BindView(R.id.item_photo_desc)
+        TextView desc;
 
         private Photo photo;
+        private int mPosition;
+        private ViewHolder mHolder = null;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -98,7 +125,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
             DisplayUtils.setTypeface(itemView.getContext(), title);
         }
 
-        void onBindView(final int position) {
+        void onBindView(ViewHolder viewHolder, final int position) {
             this.photo = itemList.get(position);
 
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
@@ -120,6 +147,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
             // ImageHelper.loadFullPhoto(a, image, photo, position, this);
             ImageHelper.loadRegularPhoto(a, image, photo, position, this);
+            ImageHelper.loadAvatar(a, avatar, itemList.get(position).user);
 
             if (inMyCollection) {
                 deleteButton.setVisibility(View.VISIBLE);
@@ -138,13 +166,24 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                 likeButton.forceSetResultState(photo.liked_by_user ?
                         R.drawable.ic_item_heart_red : R.drawable.ic_item_heart_outline);
             }
+            desc.setVisibility(itemList.get(position).user.location != null ? View.VISIBLE : View.GONE);
+            if (photo.user.name == null || photo.user.name.equals("")) {
+                title.setVisibility(View.GONE);
+            } else {
+                title.setText(photo.user.name);
+                title.setVisibility(View.VISIBLE);
+            }
 
+            if (itemList.get(position).user.location != null)
+                desc.setText(itemList.get(position).user.location);
             card.setCardBackgroundColor(ImageHelper.computeCardBackgroundColor(a, photo.color));
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 image.setTransitionName(photo.id + "-cover");
                 card.setTransitionName(photo.id + "-background");
             }
+
+            setOnClick(viewHolder, position);
         }
 
         void onRecycled() {
@@ -152,13 +191,48 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
             likeButton.recycleImageView();
         }
 
+        private void setOnClick(ViewHolder holder, final int position) {
+            this.mPosition = position;
+            this.mHolder = holder;
+            card.setOnClickListener(this);
+            //avatar.setOnClickListener(this);
+            deleteButton.setOnClickListener(this);
+            likeButton.setOnClickListener(this);
+            collectionButton.setOnClickListener(this);
+            downloadImage.setOnClickListener(this);
+        }
+
         // interface.
 
-        @OnClick(R.id.item_photo) void clickItem() {
-            if (a instanceof MysplashActivity && getAdapterPosition() < itemList.size()) {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.item_photo:
+                    clickItem();
+                    break;
+                /*case R.id.item_photo_base_avatar:
+                    clickUser();
+                    break;*/
+                case R.id.item_photo_deleteButton:
+                    deletePhoto();
+                    break;
+                case R.id.item_photo_likeButton:
+                    likePhoto();
+                    break;
+                case R.id.item_photo_collectionButton:
+                    collectPhoto();
+                    break;
+                default:
+                    downloadPhoto();
+                    break;
+            }
+        }
+
+        void clickItem() {
+            if (a instanceof MysplashActivity && mPosition < itemList.size()) {
 
                 ArrayList<Photo> list = new ArrayList<>();
-                int headIndex = getAdapterPosition() - 2;
+                int headIndex = mPosition - 2;
                 int size = 5;
                 if (headIndex < 0) {
                     headIndex = 0;
@@ -166,56 +240,57 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                 if (headIndex + size - 1 > itemList.size() - 1) {
                     size = itemList.size() - headIndex;
                 }
-                for (int i = 0; i < size; i ++) {
+                for (int i = 0; i < size; i++) {
                     list.add(itemList.get(headIndex + i));
                 }
 
                 IntentHelper.startPhotoActivity(
                         (MysplashActivity) a, image, card,
-                        list, getAdapterPosition(), headIndex,
+                        list, mPosition, headIndex,
                         a instanceof LoadableActivity ? ((LoadableActivity) a).getBundleOfList() : new Bundle());
             }
         }
 
-        @OnClick(R.id.item_photo_deleteButton) void deletePhoto() {
+        void deletePhoto() {
             if (a instanceof CollectionActivity) {
                 DeleteCollectionPhotoDialog dialog = new DeleteCollectionPhotoDialog();
                 dialog.setDeleteInfo(
                         ((CollectionActivity) a).getCollection(),
-                        itemList.get(getAdapterPosition()),
-                        getAdapterPosition());
+                        itemList.get(mPosition),
+                        mPosition);
                 dialog.setOnDeleteCollectionListener(PhotoAdapter.this);
                 dialog.show(((CollectionActivity) a).getFragmentManager(), null);
             }
         }
 
-        @OnClick(R.id.item_photo_likeButton) void likePhoto() {
+        void likePhoto() {
             if (AuthManager.getInstance().isAuthorized()) {
                 if (likeButton.isUsable()) {
                     likeButton.setProgressState();
                     setLikeForAPhoto(
-                            !itemList.get(getAdapterPosition()).liked_by_user,
-                            getAdapterPosition());
+                            !itemList.get(mPosition).liked_by_user,
+                            mPosition);
                 }
             } else {
                 IntentHelper.startLoginActivity((MysplashActivity) a);
             }
         }
 
-        @OnClick(R.id.item_photo_collectionButton) void collectPhoto() {
+        void collectPhoto() {
             if (a instanceof MysplashActivity) {
                 if (!AuthManager.getInstance().isAuthorized()) {
                     IntentHelper.startLoginActivity((MysplashActivity) a);
                 } else {
                     SelectCollectionDialog dialog = new SelectCollectionDialog();
-                    dialog.setPhotoAndListener(itemList.get(getAdapterPosition()), collectionsChangedListener);
+                    dialog.setPhotoAndListener(itemList.get(mPosition), collectionsChangedListener);
                     dialog.show(((MysplashActivity) a).getFragmentManager(), null);
                 }
             }
         }
 
-        @OnClick(R.id.item_photo_downloadButton) void downloadPhoto() {
-            Photo p = itemList.get(getAdapterPosition());
+        //@OnClick(R.id.item_photo_downloadButton)
+        void downloadPhoto() {
+            Photo p = itemList.get(mPosition);
             if (DatabaseHelper.getInstance(a).readDownloadingEntityCount(p.id) > 0) {
                 NotificationHelper.showSnackbar(a.getString(R.string.feedback_download_repeat));
             } else if (FileUtils.isPhotoExists(a, p.id)) {
@@ -241,7 +316,6 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                 itemList.set(index, p);
             }
 
-            title.setText(newT.user.name);
             image.setShowShadow(true);
         }
 
@@ -253,8 +327,9 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
     public PhotoAdapter(Context a, List<Photo> list,
                         SelectCollectionDialog.OnCollectionsChangedListener sl,
-                        OnDownloadPhotoListener dl) {
+                        OnDownloadPhotoListener dl, boolean isHeader) {
         this(a, list, DisplayUtils.getGirdColumnCount(a), sl, dl);
+        isHasHeader = isHeader;
     }
 
     public PhotoAdapter(Context a, List<Photo> list, int columnCount,
@@ -268,22 +343,39 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        if (isFooter(position)) {
-            // footer.
-            return FooterHolder.buildInstance(parent);
-        } else {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_photo, parent, false);
-            return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case HEADER_TYPE:
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview, parent, false);
+                return new CategoryHomeHolder(view, a, this);
+            case CONTENT_TYPE:
+                View v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_photo, parent, false);
+                return new ViewHolder(v);
+            default:
+                return FooterHolder.buildInstance(parent);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        int viewType = getItemViewType(position);
+        switch (viewType) {
+            case HEADER_TYPE:
+                ((CategoryHomeHolder) holder).onBindView(a, categoryItems);
+                break;
+            case CONTENT_TYPE:
+                ViewHolder holderContent = (ViewHolder) holder;
+                holderContent.onBindView(holderContent, isHasHeader ? position - 1 : position);
+                break;
+            default:
+                //update fooder
+                break;
+
+        }/*
         if (holder instanceof ViewHolder && position < getRealItemCount()) {
             ((ViewHolder) holder).onBindView(position);
-        }
+        }*/
     }
 
     @Override
@@ -299,10 +391,6 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
         return itemList.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
 
     @Override
     protected boolean hasFooter() {
@@ -333,8 +421,8 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
     }
 
     public void removeItem(Photo item) {
-        for (int i = 0; i < itemList.size(); i ++) {
-            if (itemList.get(i).id .equals(item.id)) {
+        for (int i = 0; i < itemList.size(); i++) {
+            if (itemList.get(i).id.equals(item.id)) {
                 itemList.remove(i);
                 notifyItemRemoved(i);
                 return;
@@ -363,7 +451,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
     }
 
     public void updatePhoto(Photo p, boolean refreshView, boolean probablyRepeat) {
-        for (int i = 0; i < getRealItemCount(); i ++) {
+        for (int i = 0; i < getRealItemCount(); i++) {
             if (itemList.get(i).id.equals(p.id)) {
                 p.loadPhotoSuccess = itemList.get(i).loadPhotoSuccess;
                 p.hasFadedIn = itemList.get(i).hasFadedIn;
@@ -459,8 +547,9 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                 StaggeredGridLayoutManager layoutManager = (StaggeredGridLayoutManager) recyclerView.getLayoutManager();
                 int[] firstPositions = layoutManager.findFirstVisibleItemPositions(null);
                 int[] lastPositions = layoutManager.findLastVisibleItemPositions(null);
+                int mPosition = isHasHeader ? position + 1 : position;
                 if (firstPositions[0] <= position && position <= lastPositions[lastPositions.length - 1]) {
-                    ViewHolder holder = (ViewHolder) recyclerView.findViewHolderForAdapterPosition(position);
+                    ViewHolder holder = (ViewHolder) recyclerView.findViewHolderForAdapterPosition(mPosition);
                     holder.likeButton.setResultState(
                             to ? R.drawable.ic_item_heart_red : R.drawable.ic_item_heart_outline);
                 }

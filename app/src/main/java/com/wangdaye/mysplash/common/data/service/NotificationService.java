@@ -2,6 +2,7 @@ package com.wangdaye.mysplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
 import com.wangdaye.mysplash.Mysplash;
+import com.wangdaye.mysplash.common.data.BaseOkHttpClient;
 import com.wangdaye.mysplash.common.data.api.NotificationApi;
 import com.wangdaye.mysplash.common.data.entity.unsplash.NotificationFeed;
 import com.wangdaye.mysplash.common.utils.widget.interceptor.NotificationInterceptor;
@@ -28,7 +29,7 @@ public class NotificationService {
     }
 
     private OkHttpClient buildClient() {
-        return new OkHttpClient.Builder()
+        return new BaseOkHttpClient().invoke()
                 .addInterceptor(new NotificationInterceptor())
                 .build();
     }
