@@ -16,7 +16,7 @@
 #   public *;
 #}
 
--keep class com.wangdaye.mysplash.common.data.entity.** { *; }
+-keep class unsplash.common.data.entity.** { *; }
 
 -dontskipnonpubliclibraryclassmembers
 -printconfiguration

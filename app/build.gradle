@@ -14,7 +14,7 @@ android {
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        applicationId "com.wangdaye.mysplash"
+        applicationId "com.wallpapers.unsplash"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 323

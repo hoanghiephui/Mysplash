@@ -1,0 +1,41 @@
+package com.wallpapers.unsplash.about.view.holder;
+
+import android.view.View;
+import android.widget.TextView;
+
+import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.interfaces.model.AboutModel;
+import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.ui.adapter.AboutAdapter;
+import com.wallpapers.unsplash.about.model.CategoryObject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Category holder.
+ *
+ * This ViewHolder is used to show category for {@link AboutAdapter}.
+ *
+ * */
+
+public class CategoryHolder extends AboutAdapter.ViewHolder {
+
+    @BindView(R.id.item_about_category_title)
+    TextView text;
+
+    public CategoryHolder(View itemView) {
+        super(itemView);
+        ButterKnife.bind(this, itemView);
+    }
+
+    @Override
+    protected void onBindView(MysplashActivity a, AboutModel model) {
+        text.setText(((CategoryObject) model).category);
+    }
+
+    @Override
+    protected void onRecycled() {
+        // do nothing.
+    }
+}

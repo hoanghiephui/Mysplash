@@ -2,9 +2,9 @@
 
 ## <activity href="#chinese">中文</activity> | <activity href="#english">English</activity>
 
-[![F-Droid](https://f-droid.org/wiki/images/0/06/F-Droid-button_get-it-on.png)](https://f-droid.org/repository/browse/?fdid=com.wangdaye.mysplash)
-[![F-Droid](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=com.wangdaye.mysplash)
-* [Cool APK](http://www.coolapk.com/apk/com.wangdaye.mysplash)
+[![F-Droid](https://f-droid.org/wiki/images/0/06/F-Droid-button_get-it-on.png)](https://f-droid.org/repository/browse/?fdid=unsplash)
+[![F-Droid](https://play.google.com/intl/en_us/badges/images/badge_new.png)](https://play.google.com/store/apps/details?id=unsplash)
+* [Cool APK](http://www.coolapk.com/apk/unsplash)
 
 -----
 
@@ -23,7 +23,7 @@
 ### Contact Me
 
 * wangdayeeeeee@gmail.com
-* [Google Play Mysplash page](https://play.google.com/store/apps/details?id=com.wangdaye.mysplash)
+* [Google Play Mysplash page](https://play.google.com/store/apps/details?id=unsplash)
 
 -----
 
@@ -42,8 +42,8 @@
 ### 联系作者
 
 * wangdayeeeeee@gmail.com
-* [酷安Mysplash主页](http://www.coolapk.com/apk/com.wangdaye.mysplash)
-* [Google Play Mysplash主页](https://play.google.com/store/apps/details?id=com.wangdaye.mysplash)
+* [酷安Mysplash主页](http://www.coolapk.com/apk/unsplash)
+* [Google Play Mysplash主页](https://play.google.com/store/apps/details?id=unsplash)
 * 欢迎给作者提出意见、反馈bug、建议功能等
 
 -----
