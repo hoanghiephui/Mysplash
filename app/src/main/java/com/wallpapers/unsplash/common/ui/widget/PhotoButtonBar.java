@@ -3,6 +3,7 @@ package com.wallpapers.unsplash.common.ui.widget;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageButton;
@@ -33,7 +34,7 @@ public class PhotoButtonBar extends RelativeLayout {
     CircularProgressIcon likeButton;
 
     @BindView(R.id.container_photo_button_bar_collectButton)
-    ImageButton collectButton;
+    AppCompatImageButton collectButton;
 
     @BindView(R.id.container_photo_button_bar_downloadButton)
     CircularProgressIcon downloadButton;
@@ -72,7 +73,7 @@ public class PhotoButtonBar extends RelativeLayout {
     private void initialize() {
         addView(
                 LayoutInflater.from(getContext())
-                        .inflate(R.layout.container_photo_button_bar, null));
+                        .inflate(R.layout.container_photo_button_bar, this, false));
 
         ButterKnife.bind(this, this);
         initData();

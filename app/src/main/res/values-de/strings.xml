@@ -243,5 +243,7 @@
 
     <string name="settings_category_download">Herunterladen</string>
     <string name="settings_title_download_scale">Skalierung beim Herunterladen</string>
+    <string name="feedback_model">Model</string>
+    <string name="at">At</string>
 
 </resources>

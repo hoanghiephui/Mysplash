@@ -168,27 +168,27 @@ public class IntentHelper {
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startUserActivity(MysplashActivity a,
-                                         View avatar, User u, @UserActivity.UserPageRule int page) {
+    public static void startUserActivity(MysplashActivity activity,
+                                         View avatar, User user, @UserActivity.UserPageRule int page) {
         if (AuthManager.getInstance().isAuthorized()
                 && !TextUtils.isEmpty(AuthManager.getInstance().getUsername())
-                && u.username.equals(AuthManager.getInstance().getUsername())) {
-            startMeActivity(a, avatar, page);
+                && user.username.equals(AuthManager.getInstance().getUsername())) {
+            startMeActivity(activity, avatar, page);
         } else {
-            Intent intent = new Intent(a, UserActivity.class);
-            intent.putExtra(UserActivity.KEY_USER_ACTIVITY_USER, u);
+            Intent intent = new Intent(activity, UserActivity.class);
+            intent.putExtra(UserActivity.KEY_USER_ACTIVITY_USER, user);
             intent.putExtra(UserActivity.KEY_USER_ACTIVITY_PAGE_POSITION, page);
 
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                a.startActivity(intent);
-                a.overridePendingTransition(R.anim.activity_in, 0);
+                activity.startActivity(intent);
+                activity.overridePendingTransition(R.anim.activity_in, 0);
             } else {
                 ActivityOptionsCompat options = ActivityOptionsCompat
                         .makeSceneTransitionAnimation(
-                                a,
-                                Pair.create(avatar, a.getString(R.string.transition_user_avatar)));
+                                activity,
+                                Pair.create(avatar, activity.getString(R.string.transition_user_avatar)));
                 ActivityCompat.startActivityForResult(
-                        a, intent, Unsplash.USER_ACTIVITY, options.toBundle());
+                        activity, intent, Unsplash.USER_ACTIVITY, options.toBundle());
             }
         }
     }

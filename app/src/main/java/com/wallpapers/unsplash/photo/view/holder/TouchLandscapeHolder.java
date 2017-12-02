@@ -2,6 +2,9 @@ package com.wallpapers.unsplash.photo.view.holder;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -10,6 +13,7 @@ import com.wallpapers.unsplash.Unsplash;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
+import com.wallpapers.unsplash.common.ui.adapter.holder.ExifAdapter;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
 import com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomTouchView;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -45,6 +49,12 @@ public class TouchLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
 
     @BindView(R.id.item_photo_touch_landscape_menuBtn)
     ImageButton menuBtn;
+    @BindView(R.id.countDownload)
+    TextView countDownload;
+    @BindView(R.id.countLike)
+    TextView countLike;
+    @BindView(R.id.countView)
+    TextView countView;
 
     private Photo photo;
 
@@ -59,24 +69,41 @@ public class TouchLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
+    protected void onBindView(PhotoActivity photoActivity, Photo photo) {
         this.photo = photo;
 
         touchView.setSize(photo.width, photo.height);
         touchView.setShowShadow(true);
 
-        ImageHelper.loadAvatar(a, avatar, photo.user);
+        ImageHelper.loadAvatar(photoActivity, avatar, photo.user);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             avatar.setTransitionName(photo.user.username + "-2");
         }
 
-        title.setText(a.getString(R.string.by) + " " + photo.user.name);
-        subtitle.setText(a.getString(R.string.on) + " " + photo.created_at.split("T")[0]);
+        title.setText(photoActivity.getString(R.string.by) + " " + photo.user.name);
+        String locationText;
+        if (photo.location == null
+                || (photo.location.city == null && photo.location.country == null)) {
+            locationText = "Unknown";
+        } else {
+            locationText = photo.location.city == null ? "" : photo.location.city + ", ";
+            locationText = locationText + (photo.location.country == null ? "" : photo.location.country);
+        }
+        subtitle.setText(photoActivity.getString(R.string.on) + " " +
+                photo.created_at.split("T")[0] + " " + photoActivity.getString(R.string.at) + " " + locationText);
+        countDownload.setText(String.valueOf(photo.downloads));
+        countLike.setText(String.valueOf(photo.likes));
+        countView.setText(String.valueOf(photo.views));
     }
 
     @Override
     protected void onRecycled() {
         ImageHelper.releaseImageView(avatar);
+    }
+
+    @Override
+    protected void updateData(Photo photo) {
+        this.photo = photo;
     }
 
     @OnClick(R.id.item_photo_touch_landscape_touch)
@@ -97,7 +124,24 @@ public class TouchLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
         ShareUtils.sharePhoto(photo);
     }
 
+    private RecyclerView recyclerView;
     @OnClick(R.id.item_photo_touch_landscape_menuBtn) void checkMenu() {
-        activity.showPopup(activity, menuBtn, null, 0);
+        //activity.showPopup(activity, menuBtn, null, 0);
+        BottomSheetDialog mBottomSheetDialog = new BottomSheetDialog(activity);
+        View sheetView = activity.getLayoutInflater().inflate(R.layout.dialog_bottom_recy, null, false);
+        recyclerView = sheetView.findViewById(R.id.recy);
+
+        mBottomSheetDialog.setContentView(sheetView);
+        mBottomSheetDialog.show();
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setAdapter(new ExifAdapter(photo));
+    }
+
+    public void updataPhoto(Photo photo) {
+        this.photo = photo;
+        if (recyclerView != null) {
+            recyclerView.getAdapter().notifyDataSetChanged();
+        }
     }
 }

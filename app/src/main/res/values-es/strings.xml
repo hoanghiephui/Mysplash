@@ -193,5 +193,7 @@
     <string name="collect">Coleccionar</string>
     <string name="collected">Coleccionado</string>
     <string name="download">Download</string>
+    <string name="feedback_model">Model</string>
+    <string name="at">At</string>
 
 </resources>

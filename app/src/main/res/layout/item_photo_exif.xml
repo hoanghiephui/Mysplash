@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_photo_exif"
     android:layout_width="match_parent"
@@ -8,9 +9,9 @@
     android:background="?attr/root_color"
     tools:ignore="DisableBaselineAlignment">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/item_photo_exif_icon"
-        android:src="@drawable/ic_color_light"
+        app:srcCompat="@drawable/ic_color_light"
         style="@style/material_icon"
         tools:ignore="ContentDescription" />
 

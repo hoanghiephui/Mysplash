@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_photo_button_bar"
     android:orientation="horizontal"
@@ -43,14 +44,14 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/container_photo_button_bar_collectButton"
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"
             android:padding="@dimen/normal_margin"
             android:layout_marginTop="@dimen/normal_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_collect_large_light"
+            app:srcCompat="@drawable/ic_collect_large_light"
             tools:ignore="ContentDescription,RtlHardcoded" />
 
         <TextView

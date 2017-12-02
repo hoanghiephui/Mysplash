@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,7 +33,7 @@ import butterknife.OnClick;
 public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
 
     @BindView(R.id.item_photo_exif_icon)
-    ImageView icon;
+    AppCompatImageView icon;
 
     @BindView(R.id.item_photo_exif_text)
     TextView text;
@@ -63,14 +64,14 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
     @SuppressLint("SetTextI18n")
     public void drawExif(Context context, int viewType, Photo photo) {
         position = viewType - TYPE_EXIF;
-        if (position == 11) {
+        if (position == 7) {
             colorSample.setVisibility(View.VISIBLE);
             colorSample.setBackground(new ColorDrawable(Color.parseColor(photo.color)));
         } else {
             colorSample.setVisibility(View.GONE);
         }
         switch (position) {
-            case 0:
+            /*case 0:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_eye_light);
                 } else {
@@ -112,9 +113,9 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                     locationText = locationText + (photo.location.country == null ? "" : photo.location.country);
                 }
                 text.setText(locationText);
-                break;
+                break;*/
 
-            case 4:
+            case 0:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_camera_light);
                 } else {
@@ -123,7 +124,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 text.setText(photo.exif.make == null ? "Unknown" : photo.exif.make);
                 break;
 
-            case 5:
+            case 1:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_film_light);
                 } else {
@@ -132,7 +133,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 text.setText(photo.exif.model == null ? "Unknown" : photo.exif.model);
                 break;
 
-            case 6:
+            case 2:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_size_light);
                 } else {
@@ -141,7 +142,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 text.setText(photo.width + " × " + photo.height);
                 break;
 
-            case 7:
+            case 3:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_focal_light);
                 } else {
@@ -150,7 +151,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 text.setText(photo.exif.focal_length == null ? "Unknown" : photo.exif.focal_length);
                 break;
 
-            case 8:
+            case 4:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_aperture_light);
                 } else {
@@ -159,7 +160,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 text.setText(photo.exif.aperture == null ? "Unknown" : photo.exif.aperture);
                 break;
 
-            case 9:
+            case 5:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_exposure_light);
                 } else {
@@ -168,7 +169,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 text.setText(photo.exif.exposure_time == null ? "Unknown" : photo.exif.exposure_time);
                 break;
 
-            case 10:
+            case 6:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_iso_light);
                 } else {
@@ -177,7 +178,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 text.setText(photo.exif.iso == 0 ? "Unknown" : String.valueOf(photo.exif.iso));
                 break;
 
-            case 11:
+            case 7:
                 if (ThemeManager.getInstance(context).isLightTheme()) {
                     icon.setImageResource(R.drawable.ic_color_light);
                 } else {

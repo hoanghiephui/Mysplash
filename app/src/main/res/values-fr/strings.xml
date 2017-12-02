@@ -267,5 +267,7 @@
     <string name="settings_title_saturation_animation_duration">Durée de l\'animation de saturation</string>
     <string name="settings_title_grid_list_in_port">Afficher la grille d\'images en orientation verticale</string>
     <string name="settings_title_grid_list_in_land">Afficher la grille d\'images en orientation horizontale</string>
+    <string name="feedback_model">Model</string>
+    <string name="at">At</string>
 
 </resources>

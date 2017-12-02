@@ -7,34 +7,26 @@ import android.support.annotation.IntDef;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.Unsplash;
 import com.wallpapers.unsplash.collection.view.activity.CollectionActivity;
 import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
-import com.wallpapers.unsplash.common.interfaces.model.DownloadModel;
-import com.wallpapers.unsplash.common.interfaces.presenter.DownloadPresenter;
-import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
-import com.wallpapers.unsplash.common.ui.dialog.ProfileDialog;
-import com.wallpapers.unsplash.common.ui.dialog.SelectCollectionDialog;
-import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
-import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
-import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
-import com.wallpapers.unsplash.common.utils.DisplayUtils;
-import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
-import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
-import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 import com.wallpapers.unsplash.common.interfaces.model.BrowsableModel;
+import com.wallpapers.unsplash.common.interfaces.model.DownloadModel;
 import com.wallpapers.unsplash.common.interfaces.model.PagerManageModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.BrowsablePresenter;
+import com.wallpapers.unsplash.common.interfaces.presenter.DownloadPresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.PagerManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.PopupManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.SwipeBackManagePresenter;
@@ -45,10 +37,19 @@ import com.wallpapers.unsplash.common.interfaces.view.PagerView;
 import com.wallpapers.unsplash.common.interfaces.view.PopupManageView;
 import com.wallpapers.unsplash.common.interfaces.view.SwipeBackManageView;
 import com.wallpapers.unsplash.common.ui.adapter.MyPagerAdapter;
+import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
+import com.wallpapers.unsplash.common.ui.dialog.ProfileDialog;
 import com.wallpapers.unsplash.common.ui.dialog.RequestBrowsableDataDialog;
+import com.wallpapers.unsplash.common.ui.dialog.SelectCollectionDialog;
+import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
+import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
+import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
 import com.wallpapers.unsplash.common.utils.AnimUtils;
 import com.wallpapers.unsplash.common.utils.BackToTopUtils;
-import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
+import com.wallpapers.unsplash.common.utils.DisplayUtils;
+import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
+import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
+import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 import com.wallpapers.unsplash.me.view.activity.MeActivity;
 import com.wallpapers.unsplash.user.model.activity.BorwsableObject;
@@ -73,12 +74,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.wallpapers.unsplash.common.utils.AnimUtils.animShow;
+
 /**
  * User activity.
- *
+ * <p>
  * This activity is used to show the information of a user.
- *
- * */
+ */
 
 public class UserActivity extends LoadableActivity<Photo>
         implements PagerManageView, PopupManageView, SwipeBackManageView, BrowsableView,
@@ -104,6 +106,11 @@ public class UserActivity extends LoadableActivity<Photo>
     @BindView(R.id.activity_user_viewPager)
     ViewPager viewPager;
 
+    @BindView(R.id.container_user_profile_locationTxt)
+    TextView locationTxt;
+    @BindView(R.id.container_user_profile_locationContainer)
+    View view;
+
     private MyPagerAdapter adapter;
 
     private PagerView[] pagers = new PagerView[3];
@@ -128,13 +135,15 @@ public class UserActivity extends LoadableActivity<Photo>
     public static final String KEY_USER_ACTIVITY_USER = "user_activity_user";
     public static final String KEY_USER_ACTIVITY_USERNAME = "user_activity_username";
     public static final String KEY_USER_ACTIVITY_PAGE_POSITION = "user_activity_page_position";
-    public static final String KEY_USER_ACTIVITY_PAGE_ORDER= "user_activity_page_order";
+    public static final String KEY_USER_ACTIVITY_PAGE_ORDER = "user_activity_page_order";
 
     public static final int PAGE_PHOTO = 0;
     public static final int PAGE_LIKE = 1;
     public static final int PAGE_COLLECTION = 2;
+
     @IntDef({PAGE_PHOTO, PAGE_LIKE, PAGE_COLLECTION})
-    public @interface UserPageRule {}
+    public @interface UserPageRule {
+    }
 
     public static class SavedStateFragment extends BaseSavedStateFragment {
 
@@ -353,14 +362,16 @@ public class UserActivity extends LoadableActivity<Photo>
     }
 
     private void initView(boolean init) {
-        User u = getIntent().getParcelableExtra(KEY_USER_ACTIVITY_USER);
-
-        if (init && browsablePresenter.isBrowsable() && u == null) {
+        User user = getIntent().getParcelableExtra(KEY_USER_ACTIVITY_USER);
+        if (init && browsablePresenter.isBrowsable() && user == null) {
             browsablePresenter.requestBrowsableData();
         } else {
+            DisplayUtils.setTypeface(this, locationTxt);
             SwipeBackCoordinatorLayout swipeBackView = findViewById(R.id.activity_user_swipeBackView);
             swipeBackView.setOnSwipeListener(this);
-
+            ImageView locationIcon = findViewById(R.id.container_user_profile_locationIcon);
+            ThemeManager.setImageResource(
+                    locationIcon, R.drawable.ic_location_light, R.drawable.ic_location_dark);
             if (Unsplash.getInstance().getActivityCount() == 1) {
                 ThemeManager.setNavigationIcon(
                         toolbar, R.drawable.ic_toolbar_home_light, R.drawable.ic_toolbar_home_dark);
@@ -372,54 +383,59 @@ public class UserActivity extends LoadableActivity<Photo>
                     toolbar, R.menu.activity_user_toolbar_light, R.menu.activity_user_toolbar_dark);
             toolbar.setOnMenuItemClickListener(this);
             toolbar.setNavigationOnClickListener(this);
-            if (TextUtils.isEmpty(u.portfolio_url)) {
+            if (TextUtils.isEmpty(user.portfolio_url)) {
                 toolbar.getMenu().getItem(0).setVisible(false);
             } else {
                 toolbar.getMenu().getItem(0).setVisible(true);
             }
 
-            CircleImageView avatar = ButterKnife.findById(this, R.id.activity_user_avatar);
-            avatar.setOnClickListener(new OnClickAvatarListener(u));
-            ImageHelper.loadAvatar(this, avatar, u);
+            AppCompatImageView avatar = findViewById(R.id.activity_user_avatar);
+            avatar.setOnClickListener(new OnClickAvatarListener(user));
+            ImageHelper.loadAvatarNotCircle(this, avatar, user);
 
-            TextView title = ButterKnife.findById(this, R.id.activity_user_title);
-            title.setText(u.name);
+            TextView title = findViewById(R.id.activity_user_title);
+            title.setText(user.name);
 
-            initPages(u);
+            initPages(user);
 
             userProfileView.setOnRequestUserListener(this);
-            userProfileView.setUser(u, adapter);
-            if (u.complete) {
-                userProfileView.drawUserInfo(u);
+            userProfileView.setUser(user, adapter);
+            if (user.complete) {
+                userProfileView.drawUserInfo(user);
             } else {
                 userProfileView.requestUserProfile();
+            }
+            if (!TextUtils.isEmpty(user.location)) {
+                locationTxt.setText(user.location);
+            } else {
+                locationTxt.setText("Unknown");
             }
         }
     }
 
-    private void initPages(User u) {
+    private void initPages(User user) {
         List<View> pageList = new ArrayList<>();
         pageList.add(
                 new UserPhotosView(
                         this,
-                        u,
+                        user,
                         PhotosObject.PHOTOS_TYPE_PHOTOS,
                         R.id.activity_user_page_photo,
                         0, pagerManagePresenter.getPagerPosition() == 0));
         pageList.add(
                 new UserPhotosView(
                         this,
-                        u,
+                        user,
                         PhotosObject.PHOTOS_TYPE_LIKES,
                         R.id.activity_user_page_like,
                         1, pagerManagePresenter.getPagerPosition() == 1));
         pageList.add(
                 new UserCollectionsView(
                         this,
-                        u,
+                        user,
                         R.id.activity_user_page_collection,
                         2, pagerManagePresenter.getPagerPosition() == 2));
-        for (int i = 0; i < pageList.size(); i ++) {
+        for (int i = 0; i < pageList.size(); i++) {
             pagers[i] = (PagerView) pageList.get(i);
         }
 
@@ -504,7 +520,8 @@ public class UserActivity extends LoadableActivity<Photo>
         }
     }
 
-    @OnClick(R.id.activity_user_title) void clickTitle() {
+    @OnClick(R.id.activity_user_title)
+    void clickTitle() {
         if (AuthManager.getInstance().isAuthorized()) {
             User user = getIntent().getParcelableExtra(KEY_USER_ACTIVITY_USER);
             ProfileDialog dialog = new ProfileDialog();
@@ -566,7 +583,7 @@ public class UserActivity extends LoadableActivity<Photo>
 
     @Override
     public void onPageSelected(int position) {
-        for (int i = 0; i < pagers.length; i ++) {
+        for (int i = 0; i < pagers.length; i++) {
             pagers[i].setSelected(i == position);
         }
         pagerManagePresenter.setPagerPosition(position);

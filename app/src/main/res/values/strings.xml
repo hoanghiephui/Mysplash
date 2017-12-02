@@ -1,4 +1,5 @@
-<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
 
     <!-- application. -->
     <string name="app_name">myWalls</string>
@@ -151,7 +152,7 @@
     <string name="feedback_edit_location">Location</string>
     <string name="feedback_edit_bio">Bio</string>
     <string name="feedback_update_profile_failed">Cannot edit profile.</string>
-
+    
     <string name="feedback_add_to_collection">Add to collection</string>
     <string name="feedback_delete_from_collection">Delete from collection</string>
     <string name="feedback_create_collection">Create new collection</string>
@@ -261,7 +262,7 @@
     <string name="action_align_left">Align Left Side</string>
     <string name="action_align_center">Align Center</string>
     <string name="action_align_right">Align Right Side</string>
-
+    
     <string name="action_wallpaper">Wallpaper</string>
     <string name="action_lockscreen">LockScreen</string>
     <string name="action_wallpaper_lockscreen">Wallpaper And LockScreen</string>
@@ -315,12 +316,14 @@
     <string name="key_grid_list_in_land">grid_list_in_land</string>
 
     <string name="key_notified_set_back_to_top">notified_set_back_to_top</string>
-
+    
     <!--category-->
     <string name="curated_by">Curated by %s</string>
-    <string name="trending">Trending</string>
+<string name="trending">Trending</string>
     <string name="new_">New</string>
     <string name="featured">Featured</string>
+    <string name="feedback_model">Model</string>
+    <string name="at">At</string>
 
 
 </resources>

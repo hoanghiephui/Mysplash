@@ -195,7 +195,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
             this.mPosition = position;
             this.mHolder = holder;
             card.setOnClickListener(this);
-            //avatar.setOnClickListener(this);
+            avatar.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
             likeButton.setOnClickListener(this);
             collectionButton.setOnClickListener(this);
@@ -210,9 +210,9 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                 case R.id.item_photo:
                     clickItem();
                     break;
-                /*case R.id.item_photo_base_avatar:
+                case R.id.item_photo_base_avatar:
                     clickUser();
-                    break;*/
+                    break;
                 case R.id.item_photo_deleteButton:
                     deletePhoto();
                     break;
@@ -226,6 +226,10 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                     downloadPhoto();
                     break;
             }
+        }
+
+        void clickUser() {
+
         }
 
         void clickItem() {

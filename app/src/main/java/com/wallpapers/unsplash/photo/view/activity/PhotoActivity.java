@@ -856,9 +856,12 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
         PhotoButtonBar buttonBar = getPhotoButtonBar();
         if (buttonBar != null) {
             buttonBar.setLikeState(photo);
+            photoInfoPresenter.setPhoto(photo, false);
+            photoInfoPresenter.getAdapter().notifyItemChanged(0);
         }
         if (succeed) {
             Unsplash.getInstance().dispatchPhotoUpdate(this, photo);
+
         }
     }
 

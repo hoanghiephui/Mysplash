@@ -146,17 +146,17 @@ public class RippleButton extends CardView
         if (ThemeManager.getInstance(getContext()).isLightTheme()) {
             backgroundColors = new int[] {
                     ContextCompat.getColor(getContext(), R.color.colorPrimaryDark_light),
-                    ContextCompat.getColor(getContext(), R.color.colorTextTitle_light)};
+                    ContextCompat.getColor(getContext(), R.color.colorFollow)};
             widgetColors = new int[] {
-                    ContextCompat.getColor(getContext(), R.color.colorTextTitle_light),
+                    ContextCompat.getColor(getContext(), R.color.colorFollow),
                     ContextCompat.getColor(getContext(), R.color.colorTextTitle_dark)};
         } else {
             backgroundColors = new int[] {
-                    ContextCompat.getColor(getContext(), R.color.colorPrimaryDark_dark),
+                    ContextCompat.getColor(getContext(), R.color.colorFollow),
                     ContextCompat.getColor(getContext(), R.color.colorTextTitle_dark)};
             widgetColors = new int[] {
                     ContextCompat.getColor(getContext(), R.color.colorTextTitle_dark),
-                    ContextCompat.getColor(getContext(), R.color.colorTextTitle_light)};
+                    ContextCompat.getColor(getContext(), R.color.colorFollow)};
         }
 
         TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.RippleButton, defStyleAttr, 0);

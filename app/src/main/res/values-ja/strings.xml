@@ -218,5 +218,7 @@
 
     <string name="settings_category_download">ダウンロード</string>
     <string name="settings_title_download_scale">ダウンロードのスケール</string>
+    <string name="feedback_model">Model</string>
+    <string name="at">At</string>
 
 </resources>

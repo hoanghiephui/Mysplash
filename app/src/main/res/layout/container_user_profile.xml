@@ -25,7 +25,9 @@
             android:layout_width="128dp"
             android:layout_height="@dimen/little_icon_size"
             android:layout_marginTop="@dimen/normal_margin"
-            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:layout_marginRight="@dimen/normal_margin"
             android:foreground="?attr/selectableItemBackground"
             android:stateListAnimator="@animator/touch_rise_follow_button"
             app:rb_title_off="@string/follow"
@@ -33,6 +35,7 @@
             tools:ignore="UnusedAttribute" />
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/container_user_profile_locationContainer"
             android:layout_below="@id/container_user_profile_followBtn"
             android:layout_width="wrap_content"
@@ -48,7 +51,7 @@
                 android:layout_marginTop="@dimen/normal_margin"
                 android:layout_marginBottom="@dimen/normal_margin"
                 android:layout_marginLeft="@dimen/normal_margin"
-                android:src="@drawable/ic_location_light"
+                app:srcCompat="@drawable/ic_location_light"
                 tools:ignore="ContentDescription,RtlHardcoded" />
 
             <TextView

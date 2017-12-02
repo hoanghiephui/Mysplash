@@ -289,6 +289,23 @@ public class ImageHelper {
     }
 
     // avatar.
+    public static void loadAvatarNotCircle(Context context, ImageView view, User user) {
+        loadAvatarNotCircle(context, view, user, 0, null);
+    }
+
+    public static void loadAvatarNotCircle(Context context, ImageView view, User user, int index,
+                                  @Nullable OnLoadImageListener<User> l) {
+        if (user != null && user.profile_image != null) {
+            loadAvatarNotCircle(context, view, user, user.profile_image.large, index, l);
+        } else {
+            Glide.with(context)
+                    .load(R.drawable.ic_launcher)
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .override(128, 128)
+                    .listener(new BaseRequestListener<User, Integer, GlideDrawable>(user, index, l))
+                    .into(view);
+        }
+    }
 
     public static void loadAvatar(Context context, ImageView view, User user) {
         loadAvatar(context, view, user, 0, null);
@@ -326,6 +343,24 @@ public class ImageHelper {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .override(128, 128)
                 .transform(new CircleTransformation(context))
+                .thumbnail(thumbnailRequest);
+        if (l != null) {
+            request.listener(new UserSaturationListener(context, view, user, index, l));
+        }
+        request.into(view);
+    }
+
+    public static void loadAvatarNotCircle(Context context, ImageView view,
+                                  @Nullable User user, @NotNull String url, int index,
+                                  @Nullable OnLoadImageListener<User> l) {
+        DrawableRequestBuilder<Integer> thumbnailRequest = Glide.with(context)
+                .load(R.drawable.ic_launcher)
+                .override(128, 128)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE);
+        DrawableRequestBuilder<String> request = Glide.with(context)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .override(128, 128)
                 .thumbnail(thumbnailRequest);
         if (l != null) {
             request.listener(new UserSaturationListener(context, view, user, index, l));

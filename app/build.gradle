@@ -19,25 +19,7 @@ android {
         targetSdkVersion 26
         versionCode 323
         versionName "3.2.3"
-    }
-    sourceSets {
-        main {
-            manifest.srcFile 'src/main/AndroidManifest.xml'
-            java.srcDirs = ['src/main/java','.apt_generated']
-            aidl.srcDirs = ['src/main/aidl','.apt_generated']
-            assets.srcDirs = ['src/main/assets']
-            res.srcDirs = [
-                    'src/main/res/main',
-                    'src/main/res/photo',
-                    'src/main/res/user',
-                    'src/main/res/collection',
-                    'src/main/res/me',
-                    'src/main/res/commen',
-                    'src/main/res/about',
-                    'src/main/res/search',
-                    'src/main/res/resource',
-                    'src/main/res']
-        }
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

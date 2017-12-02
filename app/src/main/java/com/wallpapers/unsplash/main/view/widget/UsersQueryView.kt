@@ -15,6 +15,7 @@ import com.github.rahatarmanahmed.cpv.CircularProgressView
 import com.wallpapers.unsplash.R
 import com.wallpapers.unsplash.common._basic.activity.MysplashActivity
 import com.wallpapers.unsplash.common.data.entity.unsplash.ResultsItem
+import com.wallpapers.unsplash.common.data.entity.unsplash.User
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel
 import com.wallpapers.unsplash.common.interfaces.model.PagerModel
 import com.wallpapers.unsplash.common.interfaces.model.ScrollModel
@@ -153,7 +154,7 @@ class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected:
      *
      * @return Users in adapter.
      */
-    fun getUsers(): List<ResultsItem> {
+    fun getUsers(): List<User> {
         return usersPresenter?.getAdapter()?.listUsers!!
     }
 
@@ -162,7 +163,7 @@ class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected:
      *
      * @param list Photos that will be set to the adapter.
      */
-    fun setUsers(list: List<ResultsItem>?) {
+    fun setUsers(list: List<User>?) {
         var mList = list
         if (mList == null) {
             mList = ArrayList()

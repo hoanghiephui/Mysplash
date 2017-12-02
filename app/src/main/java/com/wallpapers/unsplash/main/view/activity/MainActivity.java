@@ -160,7 +160,7 @@ public class MainActivity extends LoadableActivity<Photo>
         private List<Photo> categoryList;
         private List<Photo> photoQueryList;
         private List<Collection> queryCollectionList;
-        private List<ResultsItem> queryUsersList;
+        private List<User> queryUsersList;
 
         // data.
 
@@ -252,11 +252,11 @@ public class MainActivity extends LoadableActivity<Photo>
             this.queryCollectionList = queryCollectionList;
         }
 
-        public List<ResultsItem> getQueryUsersList() {
+        public List<User> getQueryUsersList() {
             return queryUsersList;
         }
 
-        public void setQueryUsersList(List<ResultsItem> queryUsersList) {
+        public void setQueryUsersList(List<User> queryUsersList) {
             this.queryUsersList = queryUsersList;
         }
     }

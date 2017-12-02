@@ -35,5 +35,6 @@
     <color name="colorTextGrey2nd">#bdbdbd</color>
     <color name="colorTextLight">#fafafa</color>
     <color name="colorTextLight2nd">#f5f5f5</color>
+    <color name="colorFollow">#007fff</color>
     
 </resources>

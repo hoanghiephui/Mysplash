@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_user_container"
@@ -9,9 +8,9 @@
     android:background="@android:color/black">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/activity_user_statusBar"
@@ -37,53 +36,103 @@
                     android:layout_height="wrap_content"
                     app:layout_scrollFlags="scroll">
 
-                    <android.support.v7.widget.Toolbar
-                        android:id="@+id/activity_user_toolbar"
+                    <android.support.v7.widget.AppCompatImageView
                         android:layout_width="match_parent"
-                        android:layout_height="?attr/actionBarSize"
-                        android:background="@android:color/transparent"
-                        app:popupTheme="@style/MysplashPopupMenuTheme"/>
-
-                    <com.wallpapers.unsplash.common.ui.widget.CircleImageView
-                        android:id="@+id/activity_user_avatar"
-                        android:layout_width="@dimen/design_icon_size"
-                        android:layout_height="@dimen/design_icon_size"
-                        android:layout_below="@id/activity_user_toolbar"
-                        android:layout_centerHorizontal="true"
+                        android:layout_height="160dp"
                         android:scaleType="centerCrop"
-                        android:src="?attr/line_color"
-                        android:transitionName="@string/transition_user_avatar"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:stateListAnimator="@animator/touch_rise_avatar"
-                        tools:ignore="ContentDescription,RtlHardcoded" />
+                        android:src="@drawable/ic_navi" />
 
-                    <TextView
-                        android:id="@+id/activity_user_title"
-                        android:textSize="@dimen/large_title_text_size"
-                        android:textStyle="bold"
-                        android:textColor="?attr/title_color"
-                        android:layout_below="@id/activity_user_avatar"
-                        android:layout_marginTop="@dimen/normal_margin"
-                        android:layout_marginLeft="@dimen/normal_margin"
-                        android:layout_marginRight="@dimen/normal_margin"
-                        android:layout_centerHorizontal="true"
-                        style="@style/title_text"
-                        tools:text="Alfredo Wong"
-                        tools:ignore="RtlHardcoded" />
-
-                    <com.wallpapers.unsplash.user.view.widget.UserProfileView
-                        android:id="@+id/activity_user_profileView"
+                    <com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/activity_user_title" />
+                        app:cml_gradient_angle="90">
+
+                        <android.support.v7.widget.Toolbar
+                            android:id="@+id/activity_user_toolbar"
+                            android:layout_width="match_parent"
+                            android:layout_height="?attr/actionBarSize"
+                            android:background="@android:color/transparent"
+                            app:popupTheme="@style/MysplashPopupMenuTheme">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/activity_user_title"
+                                style="@style/title_text"
+                                android:ellipsize="marquee"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:singleLine="true"
+                                android:textColor="?attr/title_color"
+                                android:textSize="@dimen/large_title_text_size"
+                                android:textStyle="bold"
+                                tools:ignore="RtlHardcoded"
+                                tools:text="Alfredo Wong" />
+                        </android.support.v7.widget.Toolbar>
+
+                        <android.support.v7.widget.CardView
+                            android:id="@+id/viewAvatar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/activity_user_toolbar"
+                            android:layout_marginLeft="@dimen/normal_margin"
+                            app:cardElevation="3dp"
+                            app:cardUseCompatPadding="true">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/activity_user_avatar"
+                                android:layout_width="@dimen/design_icon_size"
+                                android:layout_height="95dp"
+                                android:foreground="?attr/selectableItemBackground"
+                                android:scaleType="centerCrop"
+                                android:src="?attr/line_color"
+                                android:stateListAnimator="@animator/touch_rise_avatar"
+                                android:transitionName="@string/transition_user_avatar"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+                        </android.support.v7.widget.CardView>
+
+                        <RelativeLayout
+                            android:id="@+id/container_user_profile_locationContainer"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/mini_margin"
+                            android:layout_toRightOf="@+id/viewAvatar"
+                            android:layout_alignBottom="@+id/viewAvatar"
+                            android:layout_marginTop="@dimen/normal_margin">
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:id="@+id/container_user_profile_locationIcon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/normal_margin"
+                                app:srcCompat="@drawable/ic_location_light"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+
+                            <TextView
+                                android:id="@+id/container_user_profile_locationTxt"
+                                style="@style/subtitle_text"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="@dimen/mini_margin"
+                                android:layout_marginRight="@dimen/normal_margin"
+                                android:layout_toRightOf="@id/container_user_profile_locationIcon"
+                                android:maxLines="2"
+                                tools:ignore="RtlHardcoded"
+                                tools:text="Bermuda// Durham" />
+
+                        </RelativeLayout>
+
+
+                        <com.wallpapers.unsplash.user.view.widget.UserProfileView
+                            android:id="@+id/activity_user_profileView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/viewAvatar" />
+                    </com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout>
 
                 </RelativeLayout>
 
                 <android.support.design.widget.TabLayout
                     android:id="@+id/activity_user_tabLayout"
+                    style="@style/MysplashTabLayoutTheme"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/tab_layout_height"
-                    style="@style/MysplashTabLayoutTheme" />
+                    android:layout_height="@dimen/tab_layout_height" />
 
             </com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
 

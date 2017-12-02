@@ -11,5 +11,5 @@ data class Users(
 	val totalPages: Int? = null,
 
 	@field:SerializedName("results")
-	val results: List<ResultsItem?>? = null
+	val results: List<User?>? = null
 )
