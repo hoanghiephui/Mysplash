@@ -6,6 +6,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageButton;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.Html;
@@ -33,7 +36,9 @@ import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.dialog.SelectCollectionDialog;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
 import com.wallpapers.unsplash.common.ui.widget.CircularProgressIcon;
+import com.wallpapers.unsplash.common.ui.widget.ShortTimeView;
 import com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView;
+import com.wallpapers.unsplash.common.utils.DateUtils;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
 import com.wallpapers.unsplash.common.utils.helper.DatabaseHelper;
@@ -569,13 +574,15 @@ class TitleHolder extends RecyclerView.ViewHolder {
     CircleImageView avatar;
 
     @BindView(R.id.item_following_title_verbIcon)
-    ImageView verbIcon;
+    AppCompatImageView verbIcon;
 
     @BindView(R.id.item_following_title_actor)
     TextView actor;
 
     @BindView(R.id.item_following_title_verb)
     TextView verb;
+    @BindView(R.id.item_following_time)
+    ShortTimeView time;
 
     private FollowingResult result;
     static final int VIEW_TYPE_TITLE = 0;
@@ -601,7 +608,9 @@ class TitleHolder extends RecyclerView.ViewHolder {
 
         actor.setText(user.name);
         ImageHelper.loadAvatar(a, avatar, user, getAdapterPosition(), null);
-
+        time.setTime(DateUtils.dateTimeToTimestamp(result.time,
+                DateUtils.FORMAT_TIME_ZONE_5,
+                DateUtils.FORMAT_TIME_ZONE_Plus2));
         switch (result.verb) {
             case FollowingResult.VERB_LIKED:
                 verbIcon.setImageResource(R.drawable.ic_verb_liked);
@@ -740,7 +749,7 @@ class PhotoHolder extends RecyclerView.ViewHolder
         implements ImageHelper.OnLoadImageListener<Photo> {
 
     @BindView(R.id.item_following_photo_background)
-    RelativeLayout background;
+    CardView background;
 
     @BindView(R.id.item_following_photo_image)
     FreedomImageView image;
@@ -749,7 +758,7 @@ class PhotoHolder extends RecyclerView.ViewHolder
     TextView title;
 
     @BindView(R.id.item_following_photo_collectionButton)
-    ImageButton collectionButton;
+    AppCompatImageButton collectionButton;
 
     @BindView(R.id.item_following_photo_likeButton)
     CircularProgressIcon likeButton;
@@ -784,32 +793,34 @@ class PhotoHolder extends RecyclerView.ViewHolder
             background.setLayoutParams(params);
         }
 
-        image.setSize(photo.width, photo.height);
+        if (this.photo != null) {
+            image.setSize(photo.width, photo.height);
 
-        title.setText("");
-        image.setShowShadow(false);
+            title.setText("");
+            image.setShowShadow(false);
 
-        // ImageHelper.loadFullPhoto(a, image, photo, position, this);
-        ImageHelper.loadRegularPhoto(a, image, photo, position, this);
+            // ImageHelper.loadFullPhoto(a, image, photo, position, this);
+            ImageHelper.loadRegularPhoto(a, image, photo, position, this);
 
-        if (photo.current_user_collections.size() != 0) {
-            collectionButton.setImageResource(R.drawable.ic_item_collected);
-        } else {
-            collectionButton.setImageResource(R.drawable.ic_item_collect);
-        }
+            if (photo.current_user_collections.size() != 0) {
+                collectionButton.setImageResource(R.drawable.ic_item_collected);
+            } else {
+                collectionButton.setImageResource(R.drawable.ic_item_collect);
+            }
 
-        if (photo.settingLike) {
-            likeButton.forceSetProgressState();
-        } else {
-            likeButton.forceSetResultState(photo.liked_by_user ?
-                    R.drawable.ic_item_heart_red : R.drawable.ic_item_heart_outline);
-        }
+            if (photo.settingLike) {
+                likeButton.forceSetProgressState();
+            } else {
+                likeButton.forceSetResultState(photo.liked_by_user ?
+                        R.drawable.ic_item_heart_red : R.drawable.ic_item_heart_outline);
+            }
 
-        background.setBackgroundColor(ImageHelper.computeCardBackgroundColor(a, photo.color));
+            background.setBackgroundColor(ImageHelper.computeCardBackgroundColor(a, photo.color));
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            image.setTransitionName(photo.id + "-" + position + "-cover");
-            background.setTransitionName(photo.id + "-" + position + "-background");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                image.setTransitionName(photo.id + "-" + position + "-cover");
+                background.setTransitionName(photo.id + "-" + position + "-background");
+            }
         }
     }
 

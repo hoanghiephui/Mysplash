@@ -31,6 +31,7 @@ public class Collection implements Parcelable {
     public String title;
     public String description;
     public String published_at;
+    public String updated_at;
     public boolean curated;
     public boolean featured;
     public int total_photos;
@@ -55,6 +56,7 @@ public class Collection implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.published_at);
+        dest.writeString(this.updated_at);
         dest.writeByte(this.curated ? (byte) 1 : (byte) 0);
         dest.writeByte(this.featured ? (byte) 1 : (byte) 0);
         dest.writeInt(this.total_photos);
@@ -73,6 +75,7 @@ public class Collection implements Parcelable {
         this.title = in.readString();
         this.description = in.readString();
         this.published_at = in.readString();
+        this.updated_at = in.readString();
         this.curated = in.readByte() != 0;
         this.featured = in.readByte() != 0;
         this.total_photos = in.readInt();

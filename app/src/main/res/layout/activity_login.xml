@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_login_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent_dark">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/activity_login_statusBar"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -22,7 +22,77 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.widget.NestedScrollView
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imagV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_login_fb">
+
+                <LinearLayout
+                    android:id="@+id/activity_login_buttonContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="70dp"
+                        android:gravity="center"
+                        android:text="@string/detail_login"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp" />
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:id="@+id/login"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        app:mrl_rippleBackground="#009fe8"
+                        app:mrl_rippleColor="@color/colorTextSubtitle_dark"
+                        app:mrl_rippleOverlay="true"
+                        app:mrl_rippleRoundedCorners="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/feedback_login_text"
+                            android:textColor="@android:color/white"
+                            android:textSize="13sp" />
+                    </com.balysv.materialripple.MaterialRippleLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/activity_login_progressContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="@dimen/design_icon_size">
+
+                    <com.github.rahatarmanahmed.cpv.CircularProgressView
+                        android:layout_width="@dimen/circular_progress_height"
+                        android:layout_height="@dimen/circular_progress_height"
+                        android:layout_centerInParent="true"
+                        android:layout_margin="@dimen/little_icon_size"
+                        app:cpv_animAutostart="true"
+                        app:cpv_color="?attr/title_color"
+                        app:cpv_indeterminate="true" />
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+            <!--<android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true">
@@ -32,9 +102,9 @@
                     android:layout_height="match_parent"
                     android:background="?attr/root_color">
 
-                    <ImageButton
+                    <android.support.v7.widget.AppCompatImageButton
                         android:id="@+id/activity_login_closeBtn"
-                        android:src="@drawable/ic_close_light"
+                        app:srcCompat="@drawable/ic_close_light"
                         style="@style/material_image_button"
                         tools:ignore="ContentDescription" />
 
@@ -133,7 +203,9 @@
 
                 </RelativeLayout>
 
-            </android.support.v4.widget.NestedScrollView>
+
+
+            </android.support.v4.widget.NestedScrollView>-->
 
         </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 

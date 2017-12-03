@@ -99,7 +99,7 @@ public class CollectionActivity extends LoadableActivity<Photo>
     @BindView(R.id.activity_collection_photosView)
     CollectionPhotosView photosView;
 
-    private RequestBrowsableDataDialog requestDialog;
+    //private RequestBrowsableDataDialog requestDialog;
 
     private ToolbarPresenter toolbarPresenter;
 
@@ -574,14 +574,14 @@ public class CollectionActivity extends LoadableActivity<Photo>
 
     @Override
     public void showRequestDialog() {
-        requestDialog = new RequestBrowsableDataDialog();
-        requestDialog.show(getFragmentManager(), null);
+        //requestDialog = new RequestBrowsableDataDialog();
+        //requestDialog.show(getFragmentManager(), null);
     }
 
     @Override
     public void dismissRequestDialog() {
-        requestDialog.dismiss();
-        requestDialog = null;
+        //requestDialog.dismiss();
+        //requestDialog = null;
     }
 
     @Override

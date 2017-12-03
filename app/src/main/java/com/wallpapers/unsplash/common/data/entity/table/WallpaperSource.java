@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.wallpapers.unsplash.Contranst;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 
 import org.greenrobot.greendao.annotation.Entity;
@@ -51,10 +52,10 @@ public class WallpaperSource {
 
     public static WallpaperSource buildDefaultSource() {
         WallpaperSource source = new WallpaperSource();
-        source.collectionId = 864380;
+        source.collectionId = Contranst.ID_COLLECTION_MUZEI;
         source.title = "Unsplash Wallpapers";
         source.curated = false;
-        source.coverUrl = "https://images.unsplash.com/photo-1451847487946-99830706c22d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=334b584fa099b256b9e755cd3b75fd45";
+        source.coverUrl = "https://images.unsplash.com/photo-1458668383970-8ddd3927deed?auto=format&fit=crop&w=1080&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D";
         return source;
     }
 

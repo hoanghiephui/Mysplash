@@ -20,6 +20,7 @@ public abstract class FooterAdapter<VH extends RecyclerView.ViewHolder> extends 
     public static final int HEADER_TYPE = 0;
     public static final int CONTENT_TYPE = 1;
     public static final int FOODER_TYPE = 2;
+    public static final int ADS = 3;
     protected boolean isHasFooder = true;
     protected boolean isHasHeader = true;
 

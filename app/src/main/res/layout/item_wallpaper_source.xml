@@ -29,9 +29,9 @@
             app:fiv_shadow_position="top"
             tools:src="?attr/title_color" />
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/item_wallpaper_source_deleteBtn"
-            android:src="@drawable/ic_item_close"
+            app:srcCompat="@drawable/ic_item_close"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:padding="@dimen/little_margin"

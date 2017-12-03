@@ -99,7 +99,7 @@ public class NotificationHelper {
             title = c.getString(R.string.feedback_delete_collection_failed);
         }
         NotificationCompat.Builder builder = new NotificationCompat.Builder(c)
-                .setSmallIcon(R.drawable.ic_notification)
+                .setSmallIcon(R.drawable.ic_notifications_active_grey_600_24dp)
                 .setContentTitle(title)
                 .setSubText(subText)
                 .setContentText(contentText);
@@ -122,7 +122,7 @@ public class NotificationHelper {
             title = c.getString(R.string.feedback_delete_collection_failed);
         }
         return new NotificationCompat.Builder(c)
-                .setSmallIcon(R.drawable.ic_notification)
+                .setSmallIcon(R.drawable.ic_notifications_active_grey_600_24dp)
                 .setContentTitle(title)
                 .setGroup(NOTIFICATION_GROUP_KEY)
                 .setGroupSummary(true)

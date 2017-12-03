@@ -15,7 +15,7 @@
         android:id="@+id/action_cancel_all"
         android:orderInCategory="100"
         android:title="@string/action_cancel_all"
-        android:icon="@drawable/ic_toolbar_list_remove_light"
+        android:icon="@drawable/ic_delete_sweep_grey_600_24dp"
         app:showAsAction="always" />
 
 </menu>

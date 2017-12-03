@@ -1,32 +1,27 @@
 package com.wallpapers.unsplash.common.ui.activity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.AccessToken;
 import com.wallpapers.unsplash.common.data.service.AuthorizeService;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
-import com.wallpapers.unsplash.common.utils.DisplayUtils;
-import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
-import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
-import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wallpapers.unsplash.common.utils.AnimUtils;
+import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
+import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
+import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 
 import butterknife.BindView;
@@ -37,19 +32,22 @@ import retrofit2.Response;
 
 /**
  * Login activity.
- *
+ * <p>
  * This activity is used to login to the Unsplash account.
- *
- * */
+ */
 
 public class LoginActivity extends MysplashActivity
-    implements SwipeBackCoordinatorLayout.OnSwipeListener,
+        implements SwipeBackCoordinatorLayout.OnSwipeListener,
         AuthorizeService.OnRequestAccessTokenListener {
     // widget
-    @BindView(R.id.activity_login_container) CoordinatorLayout container;
-    @BindView(R.id.activity_login_statusBar) StatusBarView statusBar;
-    @BindView(R.id.activity_login_buttonContainer) LinearLayout buttonContainer;
-    @BindView(R.id.activity_login_progressContainer) RelativeLayout progressContainer;
+    @BindView(R.id.activity_login_container)
+    CoordinatorLayout container;
+    @BindView(R.id.activity_login_statusBar)
+    StatusBarView statusBar;
+    @BindView(R.id.login)
+    View buttonContainer;
+    @BindView(R.id.activity_login_progressContainer)
+    RelativeLayout progressContainer;
 
     // data
     private AuthorizeService service;
@@ -59,10 +57,14 @@ public class LoginActivity extends MysplashActivity
 
     private static final int NORMAL_STATE = 0;
     private static final int AUTH_STATE = 1;
-    @IntDef({NORMAL_STATE, AUTH_STATE})
-    private @interface StateRule {}
 
-    /** <br> life cycle. */
+    @IntDef({NORMAL_STATE, AUTH_STATE})
+    private @interface StateRule {
+    }
+
+    /**
+     * <br> life cycle.
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,13 +147,18 @@ public class LoginActivity extends MysplashActivity
         return container;
     }
 
-    /** <br> UI. */
+    /**
+     * <br> UI.
+     */
 
     private void initWidget() {
         SwipeBackCoordinatorLayout swipeBackView = findViewById(R.id.activity_login_swipeBackView);
         swipeBackView.setOnSwipeListener(this);
+        AppCompatImageView imageView = findViewById(R.id.imagV);
+        ImageHelper.loadImageFromUrl(this, imageView,
+                "https://images.unsplash.com/photo-1512195076141-f5535b9e6547?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&s=9a3f177a4c98e5adf1ea62d78271652a", false, null);
 
-        ImageButton closeBtn = findViewById( R.id.activity_login_closeBtn);
+        /*ImageButton closeBtn = findViewById( R.id.activity_login_closeBtn);
         ThemeManager.setImageResource(closeBtn, R.drawable.ic_close_light, R.drawable.ic_close_dark);
 
         ImageView icon = findViewById(R.id.activity_login_icon);
@@ -172,7 +179,7 @@ public class LoginActivity extends MysplashActivity
         } else {
             loginBtn.setBackgroundResource(R.drawable.button_login);
             joinBtn.setBackgroundResource(R.drawable.button_join);
-        }
+        }*/
 
         progressContainer.setVisibility(View.GONE);
     }
@@ -196,28 +203,32 @@ public class LoginActivity extends MysplashActivity
         state = newState;
     }
 
-    /** <br> data. */
+    /**
+     * <br> data.
+     */
 
     private void initData() {
         this.service = AuthorizeService.getService();
         this.state = NORMAL_STATE;
     }
 
-    /** <br> interface. */
+    /**
+     * <br> interface.
+     */
 
     // on click listener.
 
-    @OnClick(R.id.activity_login_closeBtn) void close() {
+    /*@OnClick(R.id.activity_login_closeBtn) void close() {
         finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);
-    }
-
-    @OnClick(R.id.activity_login_loginBtn) void login() {
+    }*/
+    @OnClick(R.id.login)
+    void login() {
         IntentHelper.startWebActivity(this, Unsplash.getLoginUrl(this));
     }
 
-    @OnClick(R.id.activity_login_joinBtn) void join() {
+    /*@OnClick(R.id.activity_login_joinBtn) void join() {
         IntentHelper.startWebActivity(this, Unsplash.UNSPLASH_JOIN_URL);
-    }
+    }*/
 
     // on swipe listener.
 

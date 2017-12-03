@@ -89,7 +89,7 @@ public class TouchLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
             locationText = photo.location.city == null ? "" : photo.location.city + ", ";
             locationText = locationText + (photo.location.country == null ? "" : photo.location.country);
         }
-        subtitle.setText(photoActivity.getString(R.string.on) + " " +
+        subtitle.setText(photoActivity.getString(R.string.published_on) + " " +
                 photo.created_at.split("T")[0] + " " + photoActivity.getString(R.string.at) + " " + locationText);
         countDownload.setText(String.valueOf(photo.downloads));
         countLike.setText(String.valueOf(photo.likes));

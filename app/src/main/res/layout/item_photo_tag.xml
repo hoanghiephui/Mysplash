@@ -5,13 +5,21 @@
     android:layout_height="wrap_content"
     android:background="?attr/root_color">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/related_tags"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/normal_margin"/>
+
     <view class="com.wallpapers.unsplash.common.ui.widget.SwipeSwitchLayout$RecyclerView"
+        android:layout_below="@+id/title"
         android:id="@+id/item_photo_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/normal_margin"
         android:clipToPadding="false"
-        android:layout_marginTop="@dimen/little_margin"
         android:layout_marginBottom="@dimen/normal_margin"
         android:background="?attr/root_color"
         android:layout_centerInParent="true"

@@ -264,5 +264,10 @@
     <string name="settings_title_grid_list_in_land">横屏时以网格显示图片</string>
     <string name="feedback_model">Model</string>
     <string name="at">At</string>
+    <string name="just_now">Just now</string>
+    <string name="published_on">Published on</string>
+    <string name="related_tags">Related tags</string>
+    <string name="update">Updates</string>
+    <string name="detail_login">Access 368,096 free, high-resolution photos you can’t find anywhere else</string>
 
 </resources>

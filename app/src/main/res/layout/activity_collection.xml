@@ -60,6 +60,12 @@
                         android:textSize="@dimen/design_title_text_size"
                         android:textIsSelectable="false"
                         style="@style/title_text"
+                        android:singleLine="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:ellipsize="marquee"
+                        android:scrollHorizontally="true"
+                        android:focusableInTouchMode="true"
+                        android:focusable="true"
                         tools:text="The Sample Collection Title" />
                     </android.support.v7.widget.Toolbar>
 

@@ -314,7 +314,17 @@ public class ImageHelper {
     public static void loadAvatar(Context context, ImageView view, User user, int index,
                                   @Nullable OnLoadImageListener<User> l) {
         if (user != null && user.profile_image != null) {
-            loadAvatar(context, view, user, user.profile_image.large, index, l);
+            if (user.profile_image.large.contains("placeholder-avatars")) {
+                Glide.with(context)
+                        .load(R.drawable.ic_launcher)
+                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                        .override(128, 128)
+                        .transform(new CircleTransformation(context))
+                        .listener(new BaseRequestListener<User, Integer, GlideDrawable>(user, index, l))
+                        .into(view);
+            } else {
+                loadAvatar(context, view, user, user.profile_image.large, index, l);
+            }
         } else {
             Glide.with(context)
                     .load(R.drawable.ic_launcher)

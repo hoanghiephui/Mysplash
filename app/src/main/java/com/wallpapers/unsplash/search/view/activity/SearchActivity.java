@@ -356,6 +356,7 @@ public class SearchActivity extends LoadableActivity<Photo>
         }
         if (!TextUtils.isEmpty(query)) {
             editText.setText(query);
+            editText.setSelection(query.length());
             searchBarPresenter.hideKeyboard();
         }
 

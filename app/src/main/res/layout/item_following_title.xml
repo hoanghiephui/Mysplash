@@ -12,22 +12,22 @@
         android:layout_width="@dimen/mini_icon_size"
         android:layout_height="@dimen/mini_icon_size"
         android:layout_margin="@dimen/normal_margin"
-        android:stateListAnimator="@animator/touch_rise_avatar"
         android:foreground="?attr/selectableItemBackground"
-        tools:src="@drawable/default_avatar_round"
-        tools:ignore="ContentDescription" />
+        android:stateListAnimator="@animator/touch_rise_avatar"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/default_avatar_round" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/item_following_title_verbIcon"
         android:layout_width="16dp"
         android:layout_height="16dp"
-        android:layout_alignRight="@id/item_following_title_avatar"
         android:layout_alignBottom="@id/item_following_title_avatar"
-        android:layout_marginRight="-8dp"
+        android:layout_alignRight="@id/item_following_title_avatar"
         android:layout_marginBottom="-8dp"
+        android:layout_marginRight="-8dp"
         android:elevation="10dp"
-        tools:src="@drawable/ic_verb_published"
-        tools:ignore="ContentDescription,RtlHardcoded" />
+        tools:ignore="ContentDescription,RtlHardcoded"
+        tools:src="@drawable/ic_verb_published" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -38,26 +38,43 @@
 
         <TextView
             android:id="@+id/item_following_title_actor"
-            android:layout_width="match_parent"
-            android:maxLines="1"
-            android:textStyle="bold"
-            android:paddingTop="@dimen/normal_margin"
-            android:layout_marginRight="@dimen/normal_margin"
-            android:gravity="bottom"
-            android:textAlignment="gravity"
             style="@style/title_text"
-            tools:text="Wang Yueeeeee"
-            tools:ignore="RtlHardcoded,RtlSymmetry" />
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:layout_toLeftOf="@+id/item_following_time"
+            android:ellipsize="marquee"
+            android:gravity="bottom"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:paddingTop="@dimen/normal_margin"
+            android:singleLine="true"
+            android:textAlignment="gravity"
+            android:textStyle="bold"
+            tools:ignore="RtlHardcoded,RtlSymmetry"
+            tools:text="HHHHHHHHHHHHHHHHHHHH" />
+
+        <com.wallpapers.unsplash.common.ui.widget.ShortTimeView
+            android:id="@+id/item_following_time"
+            style="@style/subtitle_text"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@+id/item_following_title_actor"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/normal_margin"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            tools:ignore="RtlHardcoded,RtlSymmetry"
+            tools:text="added 3 photos" />
 
         <TextView
             android:id="@+id/item_following_title_verb"
+            style="@style/subtitle_text"
             android:layout_width="match_parent"
             android:layout_below="@id/item_following_title_actor"
-            android:paddingBottom="@dimen/normal_margin"
             android:layout_marginRight="@dimen/normal_margin"
-            style="@style/subtitle_text"
-            tools:text="added 3 photos to Unsplash Instant 2"
-            tools:ignore="RtlHardcoded,RtlSymmetry" />
+            android:paddingBottom="@dimen/normal_margin"
+            tools:ignore="RtlHardcoded,RtlSymmetry"
+            tools:text="added 3 photos to Unsplash Instant 2" />
 
     </RelativeLayout>
 

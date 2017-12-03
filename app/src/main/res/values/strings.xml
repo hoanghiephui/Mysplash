@@ -202,7 +202,7 @@
     <string name="feedback_pick_update_interval">Update interval. (Hour)</string>
     <string name="feedback_interval_bounds">The interval must ranges from 1 to 24.</string>
     <string name="feedback_update_only_in_wifi">Update only when device is connected to WIFI.</string>
-    <string name="feedback_source_collection">Source collections.</string>
+    <string name="feedback_source_collection">Source collections on the Unsplash.</string>
     <string name="feedback_set_as_source_succeed">Set as source successfully.</string>
     <string name="feedback_set_as_source_failed">This source is already exist.</string>
     <string name="feedback_confirm_exit_without_save">Do you want to exit without saving settings?</string>
@@ -251,7 +251,7 @@
 
     <string name="action_edit">Edit</string>
     <string name="action_download">Download</string>
-    <string name="action_set_as_source">Set As Source For Muzei</string>
+    <string name="action_set_as_source">Set as source for Muzei</string>
 
     <string name="action_path">Download Path</string>
     <string name="action_cancel_all">Cancel All</string>
@@ -324,6 +324,11 @@
     <string name="featured">Featured</string>
     <string name="feedback_model">Model</string>
     <string name="at">At</string>
+    <string name="just_now">Just now</string>
+    <string name="published_on">Published on</string>
+    <string name="related_tags">Related tags</string>
+    <string name="update">Updates</string>
+    <string name="detail_login">Access 368,096 free, high-resolution photos you can’t find anywhere else</string>
 
 
 </resources>

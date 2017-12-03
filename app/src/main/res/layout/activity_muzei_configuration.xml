@@ -5,6 +5,7 @@
     android:id="@+id/activity_muzei_configuration_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
     android:background="?attr/root_color">
 
     <LinearLayout
@@ -54,6 +55,7 @@
                         android:id="@+id/activity_muzei_configuration_intervalTitle"
                         android:text="@string/feedback_pick_update_interval"
                         android:layout_margin="@dimen/normal_margin"
+                        android:textStyle="bold"
                         android:lineSpacingMultiplier="1.1"
                         style="@style/subtitle_text" />
 
@@ -98,6 +100,7 @@
                             android:layout_marginLeft="@dimen/normal_margin"
                             android:layout_marginTop="@dimen/normal_margin"
                             android:layout_marginBottom="@dimen/normal_margin"
+                            android:textStyle="bold"
                             android:layout_toLeftOf="@id/activity_muzei_configuration_wifiSwitch"
                             android:layout_centerVertical="true"
                             android:layout_width="match_parent"
@@ -116,6 +119,7 @@
                         android:id="@+id/activity_muzei_configuration_collectionTitle"
                         android:text="@string/feedback_source_collection"
                         android:layout_margin="@dimen/normal_margin"
+                        android:textStyle="bold"
                         android:lineSpacingMultiplier="1.1"
                         style="@style/subtitle_text" />
 
@@ -139,8 +143,8 @@
 
                         <Button
                             android:id="@+id/activity_muzei_configuration_doneBtn"
-                            android:text="@string/save"
-                            android:textColor="@color/colorAccentRed"
+                            android:text="@string/update"
+                            android:textColor="@color/colorFollow"
                             android:layout_centerVertical="true"
                             android:layout_margin="@dimen/little_margin"
                             android:layout_alignParentRight="true"

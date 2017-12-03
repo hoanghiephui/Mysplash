@@ -18,6 +18,7 @@ public class ActionObject {
     public boolean loadPhotoSuccess = false;
     public boolean settingLike = false;
     public String created_at;
+    public String updated_at;
     public int width;
     public int height;
     public String color;
@@ -43,82 +44,84 @@ public class ActionObject {
     public ProfileImage profile_image;
     public Badge badge;
 
-    public ActionObject(Photo p) {
-        loadPhotoSuccess = p.loadPhotoSuccess;
-        hasFadedIn = p.hasFadedIn;
-        settingLike = p.settingLike;
-        id = p.id;
-        created_at = p.created_at;
-        width = p.width;
-        height = p.height;
-        color = p.color;
-        downloads = p.downloads;
-        likes = p.likes;
-        liked_by_user = p.liked_by_user;
-        exif = p.exif;
-        urls = p.urls;
-        links = p.links;
-        user = p.user;
-        current_user_collections = new ArrayList<>(p.current_user_collections);
-        categories = new ArrayList<>(p.categories);
+    public ActionObject(Photo photo) {
+        loadPhotoSuccess = photo.loadPhotoSuccess;
+        hasFadedIn = photo.hasFadedIn;
+        settingLike = photo.settingLike;
+        id = photo.id;
+        created_at = photo.created_at;
+        updated_at = photo.updated_at;
+        width = photo.width;
+        height = photo.height;
+        color = photo.color;
+        downloads = photo.downloads;
+        likes = photo.likes;
+        liked_by_user = photo.liked_by_user;
+        exif = photo.exif;
+        urls = photo.urls;
+        links = photo.links;
+        user = photo.user;
+        current_user_collections = new ArrayList<>(photo.current_user_collections);
+        categories = new ArrayList<>(photo.categories);
     }
 
-    public ActionObject(User u) {
-        hasFadedIn = u.hasFadedIn;
-        id = u.id;
-        downloads = u.downloads;
-        username = u.username;
-        name = u.name;
-        first_name = u.first_name;
-        last_name = u.last_name;
-        portfolio_url = u.portfolio_url;
-        bio = u.bio;
-        total_likes = u.total_likes;
-        total_photos = u.total_photos;
-        total_collections = u.total_collections;
-        followed_by_user = u.followed_by_user;
-        profile_image = u.profile_image;
-        badge = u.badge;
+    public ActionObject(User user) {
+        hasFadedIn = user.hasFadedIn;
+        id = user.id;
+        downloads = user.downloads;
+        username = user.username;
+        name = user.name;
+        first_name = user.first_name;
+        last_name = user.last_name;
+        portfolio_url = user.portfolio_url;
+        bio = user.bio;
+        total_likes = user.total_likes;
+        total_photos = user.total_photos;
+        total_collections = user.total_collections;
+        followed_by_user = user.followed_by_user;
+        profile_image = user.profile_image;
+        badge = user.badge;
     }
 
     public Photo castToPhoto() {
-        Photo p = new Photo();
-        p.loadPhotoSuccess = loadPhotoSuccess;
-        p.hasFadedIn = hasFadedIn;
-        p.settingLike = settingLike;
-        p.id = id;
-        p.created_at = created_at;
-        p.width = width;
-        p.height = height;
-        p.color = color;
-        p.downloads = downloads;
-        p.likes = likes;
-        p.liked_by_user = liked_by_user;
-        p.exif = exif;
-        p.urls = urls;
-        p.links = links;
-        p.user = user;
-        p.current_user_collections = new ArrayList<>(current_user_collections);
-        p.categories = new ArrayList<>(categories);
-        return p;
+        Photo photo = new Photo();
+        photo.loadPhotoSuccess = loadPhotoSuccess;
+        photo.hasFadedIn = hasFadedIn;
+        photo.settingLike = settingLike;
+        photo.id = id;
+        photo.created_at = created_at;
+        photo.updated_at = updated_at;
+        photo.width = width;
+        photo.height = height;
+        photo.color = color;
+        photo.downloads = downloads;
+        photo.likes = likes;
+        photo.liked_by_user = liked_by_user;
+        photo.exif = exif;
+        photo.urls = urls;
+        photo.links = links;
+        photo.user = user;
+        photo.current_user_collections = new ArrayList<>(current_user_collections);
+        photo.categories = new ArrayList<>(categories);
+        return photo;
     }
 
     public User castToUser() {
-        User u = new User();
-        u.id = id;
-        u.username = username;
-        u.name = name;
-        u.first_name = first_name;
-        u.last_name = last_name;
-        u.portfolio_url = portfolio_url;
-        u.bio = bio;
-        u.total_likes = total_likes;
-        u.total_photos = total_photos;
-        u.total_collections = total_collections;
-        u.followed_by_user = followed_by_user;
-        u.downloads = downloads;
-        u.profile_image = profile_image;
-        u.badge = badge;
-        return u;
+        User user = new User();
+        user.id = id;
+        user.username = username;
+        user.name = name;
+        user.first_name = first_name;
+        user.last_name = last_name;
+        user.portfolio_url = portfolio_url;
+        user.bio = bio;
+        user.total_likes = total_likes;
+        user.total_photos = total_photos;
+        user.total_collections = total_collections;
+        user.followed_by_user = followed_by_user;
+        user.downloads = downloads;
+        user.profile_image = profile_image;
+        user.badge = badge;
+        return user;
     }
 }

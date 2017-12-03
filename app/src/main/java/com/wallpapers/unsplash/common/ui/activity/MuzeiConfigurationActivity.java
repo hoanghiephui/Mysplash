@@ -164,21 +164,22 @@ public class MuzeiConfigurationActivity extends MysplashActivity
             }
         });
 
-        TextView intervalTitle = ButterKnife.findById(this, R.id.activity_muzei_configuration_intervalTitle);
+        TextView intervalTitle = findViewById(R.id.activity_muzei_configuration_intervalTitle);
         DisplayUtils.setTypeface(this, intervalTitle);
 
         intervalEditText.setText(String.valueOf(manager.getUpdateInterval()));
+        intervalEditText.setSelection(intervalEditText.getText().toString().length());
         DisplayUtils.setTypeface(this, intervalEditText);
 
-        TextView wifiTitle = ButterKnife.findById(this, R.id.activity_muzei_configuration_wifiTitle);
+        TextView wifiTitle = findViewById(R.id.activity_muzei_configuration_wifiTitle);
         DisplayUtils.setTypeface(this, wifiTitle);
 
         wifiSwitch.setChecked(manager.isUpdateOnlyInWifi());
 
-        TextView collectionTitle = ButterKnife.findById(this, R.id.activity_muzei_configuration_collectionTitle);
+        TextView collectionTitle = findViewById( R.id.activity_muzei_configuration_collectionTitle);
         DisplayUtils.setTypeface(this, collectionTitle);
 
-        RecyclerView collectionList = ButterKnife.findById(this, R.id.activity_muzei_configuration_collectionList);
+        RecyclerView collectionList = findViewById( R.id.activity_muzei_configuration_collectionList);
         collectionList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         collectionList.setAdapter(adapter);
     }
