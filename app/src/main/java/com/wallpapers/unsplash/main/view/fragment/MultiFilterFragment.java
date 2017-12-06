@@ -18,7 +18,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.LoadableFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.LoadableFragment;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.interfaces.model.MultiFilterBarModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.MessageManagePresenter;
@@ -27,7 +28,6 @@ import com.wallpapers.unsplash.common.interfaces.presenter.PopupManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.MessageManageView;
 import com.wallpapers.unsplash.common.interfaces.view.MultiFilterBarView;
 import com.wallpapers.unsplash.common.interfaces.view.PopupManageView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
 import com.wallpapers.unsplash.common.utils.BackToTopUtils;
@@ -161,14 +161,14 @@ public class MultiFilterFragment extends LoadableFragment<Photo>
     }
 
     @Override
-    public void writeLargeData(MysplashActivity.BaseSavedStateFragment outState) {
+    public void writeLargeData(BaseActivity.BaseSavedStateFragment outState) {
         if (photosView != null) {
             ((MainActivity.SavedStateFragment) outState).setMultiFilterList(photosView.getPhotos());
         }
     }
 
     @Override
-    public void readLargeData(MysplashActivity.BaseSavedStateFragment savedInstanceState) {
+    public void readLargeData(BaseActivity.BaseSavedStateFragment savedInstanceState) {
         if (photosView != null) {
             photosView.setPhotos(((MainActivity.SavedStateFragment) savedInstanceState).getMultiFilterList());
         }
@@ -332,7 +332,7 @@ public class MultiFilterFragment extends LoadableFragment<Photo>
     };
 
     @OnClick(R.id.fragment_multi_filter_toolbar) void clickToolbar() {
-        multiFilterBarPresenter.touchToolbar((MysplashActivity) getActivity());
+        multiFilterBarPresenter.touchToolbar((BaseActivity) getActivity());
     }
 
     @OnClick(R.id.fragment_multi_filter_searchBtn) void clickSearchButton() {

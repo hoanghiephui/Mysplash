@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.common.utils;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.api.PhotoApi;
 
@@ -125,22 +125,22 @@ public class ValueUtils {
 
     public static String getToolbarTitleByCategory(Context context, int id) {
         switch (id) {
-            case Unsplash.CATEGORY_BUILDINGS_ID:
+            case UnsplashApplication.CATEGORY_BUILDINGS_ID:
                 return context.getString(R.string.action_category_buildings);
 
-            case Unsplash.CATEGORY_FOOD_DRINK_ID:
+            case UnsplashApplication.CATEGORY_FOOD_DRINK_ID:
                 return context.getString(R.string.action_category_food_drink);
 
-            case Unsplash.CATEGORY_NATURE_ID:
+            case UnsplashApplication.CATEGORY_NATURE_ID:
                 return context.getString(R.string.action_category_nature);
 
-            case Unsplash.CATEGORY_OBJECTS_ID:
+            case UnsplashApplication.CATEGORY_OBJECTS_ID:
                 return context.getString(R.string.action_category_objects);
 
-            case Unsplash.CATEGORY_PEOPLE_ID:
+            case UnsplashApplication.CATEGORY_PEOPLE_ID:
                 return context.getString(R.string.action_category_people);
 
-            case Unsplash.CATEGORY_TECHNOLOGY_ID:
+            case UnsplashApplication.CATEGORY_TECHNOLOGY_ID:
                 return context.getString(R.string.action_category_technology);
 
             default:
@@ -150,29 +150,29 @@ public class ValueUtils {
 
     public static List<Integer> getPageListByCategory(int id) {
         switch (id) {
-            case Unsplash.CATEGORY_TOTAL_NEW:
-                return getPageList(Unsplash.TOTAL_NEW_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_TOTAL_NEW:
+                return getPageList(UnsplashApplication.TOTAL_NEW_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
-            case Unsplash.CATEGORY_TOTAL_FEATURED:
-                return getPageList(Unsplash.TOTAL_FEATURED_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_TOTAL_FEATURED:
+                return getPageList(UnsplashApplication.TOTAL_FEATURED_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
-            case Unsplash.CATEGORY_BUILDINGS_ID:
-                return getPageList(Unsplash.BUILDING_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_BUILDINGS_ID:
+                return getPageList(UnsplashApplication.BUILDING_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
-            case Unsplash.CATEGORY_FOOD_DRINK_ID:
-                return getPageList(Unsplash.FOOD_DRINK_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_FOOD_DRINK_ID:
+                return getPageList(UnsplashApplication.FOOD_DRINK_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
-            case Unsplash.CATEGORY_NATURE_ID:
-                return getPageList(Unsplash.NATURE_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_NATURE_ID:
+                return getPageList(UnsplashApplication.NATURE_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
-            case Unsplash.CATEGORY_OBJECTS_ID:
-                return getPageList(Unsplash.OBJECTS_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_OBJECTS_ID:
+                return getPageList(UnsplashApplication.OBJECTS_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
-            case Unsplash.CATEGORY_PEOPLE_ID:
-                return getPageList(Unsplash.PEOPLE_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_PEOPLE_ID:
+                return getPageList(UnsplashApplication.PEOPLE_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
-            case Unsplash.CATEGORY_TECHNOLOGY_ID:
-                return getPageList(Unsplash.TECHNOLOGY_PHOTOS_COUNT / Unsplash.DEFAULT_PER_PAGE);
+            case UnsplashApplication.CATEGORY_TECHNOLOGY_ID:
+                return getPageList(UnsplashApplication.TECHNOLOGY_PHOTOS_COUNT / UnsplashApplication.DEFAULT_PER_PAGE);
 
             default:
                 return getPageList(0);

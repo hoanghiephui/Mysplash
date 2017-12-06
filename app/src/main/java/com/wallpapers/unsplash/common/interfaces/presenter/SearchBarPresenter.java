@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.presenter;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
  * Search bar presenter.
@@ -11,8 +11,8 @@ import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 
 public interface SearchBarPresenter {
 
-    void touchNavigatorIcon(MysplashActivity a);
-    boolean touchMenuItem(MysplashActivity a, int itemId);
+    void touchNavigatorIcon(BaseActivity a);
+    boolean touchMenuItem(BaseActivity a, int itemId);
 
     void showKeyboard();
     void hideKeyboard();

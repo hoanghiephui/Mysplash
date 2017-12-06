@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.search.presenter.activity;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.presenter.SwipeBackManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.SwipeBackManageView;
 
@@ -24,7 +24,7 @@ public class SwipeBackManageImplementor
     }
 
     @Override
-    public void swipeBackFinish(MysplashActivity a, int dir) {
+    public void swipeBackFinish(BaseActivity a, int dir) {
         a.finishActivity(dir);
     }
 }

@@ -4,10 +4,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
 import com.wallpapers.unsplash.common.utils.AnimUtils;
 import com.wallpapers.unsplash.photo.view.activity.PhotoActivity;
@@ -40,8 +40,8 @@ public class ProgressHolder extends PhotoInfoAdapter.ViewHolder {
     }
 
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
-        failed = a.isLoadFailed();
+    protected void onBindView(PhotoActivity activity, Photo photo) {
+        failed = activity.isLoadFailed();
         if (failed) {
             progress.setAlpha(0f);
             button.setAlpha(1f);
@@ -75,7 +75,7 @@ public class ProgressHolder extends PhotoInfoAdapter.ViewHolder {
     }
 
     @OnClick(R.id.item_photo_progress_button) void retryRefresh() {
-        MysplashActivity activity =  Unsplash.getInstance().getTopActivity();
+        BaseActivity activity =  UnsplashApplication.getInstance().getTopActivity();
         if (activity != null && activity instanceof PhotoActivity) {
             setProgressState();
             ((PhotoActivity) activity).initRefresh();

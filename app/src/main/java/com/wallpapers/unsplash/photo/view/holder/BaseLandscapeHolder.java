@@ -40,10 +40,10 @@ public class BaseLandscapeHolder extends PhotoInfoAdapter.ViewHolder
     }
 
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
+    protected void onBindView(PhotoActivity activity, Photo photo) {
         buttonBar.setState(photo);
-        if (DatabaseHelper.getInstance(a).readDownloadingEntityCount(photo.id) > 0) {
-            a.startCheckDownloadProgressThread();
+        if (DatabaseHelper.getInstance(activity).readDownloadingEntityCount(photo.id) > 0) {
+            activity.startCheckDownloadProgressThread();
         }
         buttonBar.setOnClickButtonListener(this);
     }
@@ -81,7 +81,7 @@ public class BaseLandscapeHolder extends PhotoInfoAdapter.ViewHolder
 
     @Override
     public void onDownloadButtonClicked() {
-        activity.readyToDownload(DownloadHelper.DOWNLOAD_TYPE, true);
+        activity.readyToDownload(DownloadHelper.DOWNLOAD_TYPE, true, null);
     }
 
     @Override

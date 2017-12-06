@@ -17,9 +17,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.utils.manager.SettingsOptionManager;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 
@@ -67,7 +67,7 @@ public class DisplayUtils {
     }
 
     private static boolean isNavigationBarShow(){
-        MysplashActivity activity = Unsplash.getInstance().getTopActivity();
+        BaseActivity activity = UnsplashApplication.getInstance().getTopActivity();
         if (activity != null) {
             Display display = activity.getWindowManager().getDefaultDisplay();
             Point size = new Point();

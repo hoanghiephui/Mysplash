@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.BaseOkHttpClient;
 import com.wallpapers.unsplash.common.data.api.NotificationApi;
 import com.wallpapers.unsplash.common.data.entity.unsplash.NotificationFeed;
@@ -36,7 +36,7 @@ public class NotificationService {
 
     private NotificationApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(

@@ -7,7 +7,7 @@ import android.support.annotation.IntDef;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.AccessToken;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Me;
@@ -90,7 +90,7 @@ public class AuthManager
     private static final int VERSION_CODE = 8;
 
     private AuthManager() {
-        SharedPreferences sharedPreferences = Unsplash.getInstance()
+        SharedPreferences sharedPreferences = UnsplashApplication.getInstance()
                 .getSharedPreferences(PREFERENCE_MYSPLASH_AUTHORIZE_MANAGER, Context.MODE_PRIVATE);
 
         updateVersion(sharedPreferences);
@@ -134,14 +134,14 @@ public class AuthManager
             editor.putString(KEY_AVATAR_PATH, null);
             editor.apply();
 
-            NotificationHelper.showSnackbar(Unsplash.getInstance().getString(R.string.feedback_please_login));
+            NotificationHelper.showSnackbar(UnsplashApplication.getInstance().getString(R.string.feedback_please_login));
         }
     }
 
     public void logout() {
         service.cancel();
 
-        SharedPreferences.Editor editor = Unsplash.getInstance()
+        SharedPreferences.Editor editor = UnsplashApplication.getInstance()
                 .getSharedPreferences(PREFERENCE_MYSPLASH_AUTHORIZE_MANAGER, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_ACCESS_TOKEN, null);
         editor.putString(KEY_USERNAME, null);
@@ -170,7 +170,7 @@ public class AuthManager
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            ShortcutsManager.refreshShortcuts(Unsplash.getInstance());
+            ShortcutsManager.refreshShortcuts(UnsplashApplication.getInstance());
         }
     }
 
@@ -262,7 +262,7 @@ public class AuthManager
     }
 
     public void writeAccessToken(AccessToken token) {
-        SharedPreferences.Editor editor = Unsplash.getInstance()
+        SharedPreferences.Editor editor = UnsplashApplication.getInstance()
                 .getSharedPreferences(PREFERENCE_MYSPLASH_AUTHORIZE_MANAGER, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_ACCESS_TOKEN, token.access_token);
         editor.apply();
@@ -278,7 +278,7 @@ public class AuthManager
     }
 
     public void writeUserInfo(Me me) {
-        SharedPreferences.Editor editor = Unsplash.getInstance()
+        SharedPreferences.Editor editor = UnsplashApplication.getInstance()
                 .getSharedPreferences(PREFERENCE_MYSPLASH_AUTHORIZE_MANAGER, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_USERNAME, me.username);
         editor.putString(KEY_FIRST_NAME, me.first_name);
@@ -298,7 +298,7 @@ public class AuthManager
     }
 
     public void writeUserInfo(User user) {
-        SharedPreferences.Editor editor = Unsplash.getInstance()
+        SharedPreferences.Editor editor = UnsplashApplication.getInstance()
                 .getSharedPreferences(PREFERENCE_MYSPLASH_AUTHORIZE_MANAGER, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_USERNAME, user.username);
         editor.putString(KEY_FIRST_NAME, user.first_name);
@@ -368,7 +368,7 @@ public class AuthManager
             state = FREEDOM_STATE;
             writeUserInfo(response.body());
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                ShortcutsManager.refreshShortcuts(Unsplash.getInstance());
+                ShortcutsManager.refreshShortcuts(UnsplashApplication.getInstance());
             }
         } else if (isAuthorized()) {
             service.requestUserProfile(me.username, this);

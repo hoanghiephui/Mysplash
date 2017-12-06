@@ -15,8 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.item.MyFollowUser;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
 import com.wallpapers.unsplash.common.interfaces.model.MyFollowModel;
@@ -32,7 +33,6 @@ import com.wallpapers.unsplash.common.interfaces.view.MyFollowView;
 import com.wallpapers.unsplash.common.interfaces.view.PagerView;
 import com.wallpapers.unsplash.common.interfaces.view.ScrollView;
 import com.wallpapers.unsplash.common.interfaces.view.SwipeBackView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.adapter.MyFollowAdapter;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
@@ -100,7 +100,7 @@ public class MyFollowUserView extends NestedScrollFrameLayout
 
     private SwipeBackPresenter swipeBackPresenter;
 
-    public MyFollowUserView(MysplashActivity a, int followType,
+    public MyFollowUserView(BaseActivity a, int followType,
                             int index, boolean selected) {
         super(a);
         this.initialize(a, followType, index, selected);
@@ -109,7 +109,7 @@ public class MyFollowUserView extends NestedScrollFrameLayout
     // init.
 
     @SuppressLint("InflateParams")
-    private void initialize(MysplashActivity a, int followType,
+    private void initialize(BaseActivity a, int followType,
                             int index, boolean selected) {
         View loadingView = LayoutInflater.from(getContext())
                 .inflate(R.layout.container_loading_view_large, this, false);
@@ -127,10 +127,10 @@ public class MyFollowUserView extends NestedScrollFrameLayout
 
     // init.
 
-    private void initModel(MysplashActivity a, int followType,
+    private void initModel(BaseActivity a, int followType,
                            int index, boolean selected) {
         this.myFollowModel = new MyFollowObject(
-                new MyFollowAdapter(a, new ArrayList<MyFollowUser>(Unsplash.DEFAULT_PER_PAGE), this),
+                new MyFollowAdapter(a, new ArrayList<MyFollowUser>(UnsplashApplication.DEFAULT_PER_PAGE), this),
                 followType);
         this.pagerModel = new PagerObject(index, selected);
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
@@ -371,21 +371,21 @@ public class MyFollowUserView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         animShow(progressView);
         animHide(feedbackContainer);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(feedbackContainer);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         animShow(refreshLayout);
         animHide(progressView);
         animHide(feedbackContainer);

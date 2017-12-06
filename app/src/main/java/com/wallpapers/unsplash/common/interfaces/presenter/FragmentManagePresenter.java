@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.common.interfaces.presenter;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.MysplashFragment;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import java.util.List;
 
 public interface FragmentManagePresenter {
 
-    List<MysplashFragment> getFragmentList(MysplashActivity a, boolean includeHidden);
-    MysplashFragment getTopFragment(MysplashActivity a);
+    List<MysplashFragment> getFragmentList(BaseActivity a, boolean includeHidden);
+    MysplashFragment getTopFragment(BaseActivity a);
 
-    void changeFragment(MysplashActivity a, int code, String title);
+    void changeFragment(BaseActivity a, int code, String title);
 
     int getId();
 }

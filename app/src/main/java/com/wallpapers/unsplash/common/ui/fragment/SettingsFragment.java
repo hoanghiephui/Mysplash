@@ -17,9 +17,9 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ListView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.api.PhotoApi;
 import com.wallpapers.unsplash.common.ui.activity.SettingsActivity;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -156,7 +156,7 @@ public class SettingsFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
         if (preference.getKey().equals("muzei_settings")) {
-            IntentHelper.startMuzeiConfigrationActivity((MysplashActivity) getActivity());
+            IntentHelper.startMuzeiConfigrationActivity((BaseActivity) getActivity());
         } else if (preference.getKey().equals(getString(R.string.key_custom_api_key))) {
             IntentHelper.startCustomApiActivity((SettingsActivity) getActivity());
         }
@@ -210,7 +210,7 @@ public class SettingsFragment extends PreferenceFragment
         @Override
         public void onClick(View v) {
             ((SettingsActivity) getActivity()).finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);
-            MainActivity a = Unsplash.getInstance().getMainActivity();
+            MainActivity a = UnsplashApplication.getInstance().getMainActivity();
             if (a != null) {
                 a.reboot();
             }

@@ -7,12 +7,11 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.Unsplash;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.AccessToken;
 import com.wallpapers.unsplash.common.data.service.AuthorizeService;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -33,10 +32,10 @@ import retrofit2.Response;
 /**
  * Login activity.
  * <p>
- * This activity is used to login to the Unsplash account.
+ * This activity is used to login to the UnsplashApplication account.
  */
 
-public class LoginActivity extends MysplashActivity
+public class LoginActivity extends BaseActivity
         implements SwipeBackCoordinatorLayout.OnSwipeListener,
         AuthorizeService.OnRequestAccessTokenListener {
     // widget
@@ -128,9 +127,9 @@ public class LoginActivity extends MysplashActivity
         if (intent != null
                 && intent.getData() != null
                 && !TextUtils.isEmpty(intent.getData().getAuthority())
-                && Unsplash.UNSPLASH_LOGIN_CALLBACK.equals(intent.getData().getAuthority())) {
+                && UnsplashApplication.UNSPLASH_LOGIN_CALLBACK.equals(intent.getData().getAuthority())) {
             service.requestAccessToken(
-                    Unsplash.getInstance(),
+                    UnsplashApplication.getInstance(),
                     intent.getData().getQueryParameter("code"),
                     this);
             setState(AUTH_STATE);
@@ -223,11 +222,11 @@ public class LoginActivity extends MysplashActivity
     }*/
     @OnClick(R.id.login)
     void login() {
-        IntentHelper.startWebActivity(this, Unsplash.getLoginUrl(this));
+        IntentHelper.startWebActivity(this, UnsplashApplication.getLoginUrl(this));
     }
 
     /*@OnClick(R.id.activity_login_joinBtn) void join() {
-        IntentHelper.startWebActivity(this, Unsplash.UNSPLASH_JOIN_URL);
+        IntentHelper.startWebActivity(this, UnsplashApplication.UNSPLASH_JOIN_URL);
     }*/
 
     // on swipe listener.

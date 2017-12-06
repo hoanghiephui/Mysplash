@@ -10,11 +10,20 @@ import android.support.v4.view.NestedScrollingChildHelper;
 import android.support.v4.view.NestedScrollingParent2;
 import android.support.v4.view.NestedScrollingParentHelper;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
+
+import com.clockbyte.admobadapter.AdmobRecyclerAdapterWrapper;
+import com.google.android.gms.ads.AdRequest;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static com.google.android.gms.internal.zzagr.runOnUiThread;
 
 /**
  * Nested scroll frame layout.
@@ -43,6 +52,9 @@ public abstract class NestedScrollFrameLayout extends FrameLayout
     private static final int DIR_NULL = 0;
     @IntDef({DIR_TOP, DIR_BOTTOM, DIR_NULL})
     private @interface DirectionRule {}
+
+    public AdmobRecyclerAdapterWrapper adapterWrapper;
+    private Timer updateAdsTimer;
 
     public NestedScrollFrameLayout(Context context) {
         super(context);
@@ -256,5 +268,71 @@ public abstract class NestedScrollFrameLayout extends FrameLayout
     @Override
     public boolean dispatchNestedPreScroll(int dx, int dy, int[] consumed, int[] offsetInWindow, int type) {
         return nestedScrollingChildHelper.dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow, type);
+    }
+
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> getAdapterContent() {
+        return null;
+    }
+
+    ////ADS
+    public void initAds() {
+        //your test devices' ids
+        String[] testDevicesIds = new String[]{AdRequest.DEVICE_ID_EMULATOR};
+        //when you'll be ready for release please use another ctor with admobReleaseUnitId instead.
+        adapterWrapper = new AdmobRecyclerAdapterWrapper(getContext(), testDevicesIds);
+        //By default both types of ads are loaded by wrapper.
+        // To set which of them to show in the list you should use an appropriate ctor
+        //adapterWrapper = new AdmobRecyclerAdapterWrapper(this, testDevicesIds, EnumSet.of(EAdType.ADVANCED_INSTALLAPP));
+
+        //wrapping your adapter with a AdmobAdapterWrapper.
+        if (getAdapterContent() != null) {
+            adapterWrapper.setAdapter(getAdapterContent());
+        }
+        //inject your custom layout and strategy of binding for installapp/content  ads
+        //here you should pass the extended NativeAdLayoutContext
+        //by default it has a value InstallAppAdLayoutContext.getDefault()
+        //adapterWrapper.setInstallAdsLayoutContext(...);
+        //by default it has a value ContentAdLayoutContext.getDefault()
+        //adapterWrapper.setContentAdsLayoutContext(...);
+
+        //Sets the max count of ad blocks per dataset, by default it equals to 3 (according to the Admob's policies and rules)
+        adapterWrapper.setLimitOfAds(100);
+
+        //Sets the number of your data items between ad blocks, by default it equals to 10.
+        //You should set it according to the Admob's policies and rules which says not to
+        //display more than one ad block at the visible part of the screen,
+        // so you should choose this parameter carefully and according to your item's height and screen resolution of a target devices
+        adapterWrapper.setNoOfDataBetweenAds(10);
+        adapterWrapper.setFirstAdIndex(2);
+    }
+
+
+
+    /*
+    * Could be omitted. It's only for updating an ad blocks in each 60 seconds without refreshing the list
+     */
+    public void initUpdateAdsTimer() {
+        updateAdsTimer = new Timer();
+        updateAdsTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (adapterWrapper != null) {
+                            adapterWrapper.requestUpdateAd();
+                        }
+                    }
+                });
+            }
+        }, 60*1000, 60*1000);
+    }
+
+    public void onDestroy() {
+        if(updateAdsTimer!=null)
+            updateAdsTimer.cancel();
+        if (adapterWrapper != null) {
+            adapterWrapper.destroyAds();
+        }
     }
 }

@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.BaseOkHttpClient;
 import com.wallpapers.unsplash.common.data.api.UserApi;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Me;
@@ -41,12 +41,12 @@ public class UserService {
 
     private UserApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_API_BASE_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_API_BASE_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
                                 new GsonBuilder()
-                                        .setDateFormat(Unsplash.DATE_FORMAT)
+                                        .setDateFormat(UnsplashApplication.DATE_FORMAT)
                                         .create()))
                 .build()
                 .create((UserApi.class));
@@ -54,12 +54,12 @@ public class UserService {
 
     private UserApi buildApiFull(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
                                 new GsonBuilder()
-                                        .setDateFormat(Unsplash.DATE_FORMAT)
+                                        .setDateFormat(UnsplashApplication.DATE_FORMAT)
                                         .create()))
                 .build()
                 .create((UserApi.class));
@@ -181,8 +181,8 @@ public class UserService {
      * @param page
      */
     public void requestUserByQuery(String query,
-                                   @Unsplash.PerPageRule int perPage,
-                                   @Unsplash.PageRule int page,
+                                   @UnsplashApplication.PerPageRule int perPage,
+                                   @UnsplashApplication.PageRule int page,
                                    final OnRequestUsersByQueryListener listener) {
         Call<Users> resultUsers = buildApiFull(buildClient())
                 .getListUserByQuery(query, perPage, page);

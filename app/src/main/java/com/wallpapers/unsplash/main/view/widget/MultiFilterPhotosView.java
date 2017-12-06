@@ -17,9 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
@@ -187,7 +187,7 @@ public class MultiFilterPhotosView extends NestedScrollFrameLayout
         this.multiFilterModel = new MultiFilterObject(
                 new PhotoAdapter(
                         getContext(),
-                        new ArrayList<Photo>(Unsplash.DEFAULT_PER_PAGE),
+                        new ArrayList<Photo>(UnsplashApplication.DEFAULT_PER_PAGE),
                         this,
                         null, false));
         this.loadModel = new LoadObject(LoadModel.FAILED_STATE);
@@ -523,7 +523,7 @@ public class MultiFilterPhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null && old == LoadModel.NORMAL_STATE) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -534,7 +534,7 @@ public class MultiFilterPhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         if (activity != null && old == LoadModel.NORMAL_STATE) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -545,7 +545,7 @@ public class MultiFilterPhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null && old == LoadModel.LOADING_STATE) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

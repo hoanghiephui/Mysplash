@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.presenter;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
  * Multi-filter bar presenter.
@@ -12,7 +12,7 @@ import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 public interface MultiFilterBarPresenter {
 
     void touchNavigatorIcon();
-    void touchToolbar(MysplashActivity a);
+    void touchToolbar(BaseActivity a);
     void touchSearchButton();
     void touchMenuContainer(int position);
 

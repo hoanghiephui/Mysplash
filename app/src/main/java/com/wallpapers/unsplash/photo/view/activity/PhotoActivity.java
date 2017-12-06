@@ -16,9 +16,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.RequestLoadActivity;
+import com.wallpapers.unsplash.common.basic.activity.RequestLoadActivity;
 import com.wallpapers.unsplash.common.data.entity.item.DownloadMission;
 import com.wallpapers.unsplash.common.data.entity.table.DownloadMissionEntity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
@@ -28,6 +28,7 @@ import com.wallpapers.unsplash.common.interfaces.model.PhotoListManageModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.MessageManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.PhotoListManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.MessageManageView;
+import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
 import com.wallpapers.unsplash.common.ui.dialog.DownloadRepeatDialog;
 import com.wallpapers.unsplash.common.ui.dialog.DownloadTypeDialog;
@@ -58,7 +59,7 @@ import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
 import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 import com.wallpapers.unsplash.common.utils.manager.ThreadManager;
-import com.wallpapers.unsplash.common._basic.FlagRunnable;
+import com.wallpapers.unsplash.common.basic.FlagRunnable;
 import com.wallpapers.unsplash.common.utils.widget.SafeHandler;
 import com.wallpapers.unsplash.photo.model.BorwsableObject;
 import com.wallpapers.unsplash.photo.model.DownloadObject;
@@ -92,7 +93,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
         implements PhotoInfoView, PopupManageView, BrowsableView, MessageManageView,
         DownloadRepeatDialog.OnCheckOrDownloadListener, DownloadTypeDialog.OnSelectTypeListener,
         SwipeBackCoordinatorLayout.OnSwipeListener, SelectCollectionDialog.OnCollectionsChangedListener,
-        SafeHandler.HandlerContainer {
+        SafeHandler.HandlerContainer, PhotoAdapter.OnDownloadPhotoListener{
 
     @BindView(R.id.activity_photo_container)
     CoordinatorLayout container;
@@ -175,7 +176,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
         super.onCreate(savedInstanceState);
         DisplayUtils.setStatusBarStyle(this, true);
         setContentView(R.layout.activity_photo);
-        initModel(null);
+        initModel(null, null);
         initPresenter();
     }
 
@@ -273,7 +274,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
 
     // init.
 
-    private void initModel(@Nullable Photo photo) {
+    private void initModel(@Nullable Photo photo, List<Photo> photoListRelated) {
         List<Photo> photoList = getIntent().getParcelableArrayListExtra(KEY_PHOTO_ACTIVITY_PHOTO_LIST);
         int currentIndex = getIntent().getIntExtra(KEY_PHOTO_ACTIVITY_PHOTO_CURRENT_INDEX, -1);
         int headIndex = getIntent().getIntExtra(KEY_PHOTO_ACTIVITY_PHOTO_HEAD_INDEX, -1);
@@ -290,7 +291,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
         }
         this.photoListManageModel = new PhotoListManageObject(photoList, currentIndex, headIndex);
         this.photoInfoModel = new PhotoInfoObject(
-                this, photo == null ? photoListManageModel.getPhoto() : photo);
+                this, photo == null ? photoListManageModel.getPhoto() : photo, photoListManageModel.getPhotoList());
         this.downloadModel = new DownloadObject(photoInfoModel.getPhoto());
         this.browsableModel = new BorwsableObject(getIntent());
         if (!TextUtils.isEmpty(id)) {
@@ -309,7 +310,6 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
         }
     }
 
-    @SuppressLint({"SetTextI18n", "CutPasteId"})
     private void initView(boolean init) {
         this.handler = new SafeHandler<>(this);
         if (init && /*browsablePresenter.isBrowsable() &&*/ photoInfoPresenter.getPhoto() == null) {
@@ -319,8 +319,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
                 statusBar.setDarkerAlpha(StatusBarView.LIGHT_INIT_MASK_ALPHA);
             }
 
-            SwipeBackCoordinatorLayout swipeBackView = ButterKnife.findById(
-                    this, R.id.activity_photo_swipeBackView);
+            SwipeBackCoordinatorLayout swipeBackView = findViewById(R.id.activity_photo_swipeBackView);
             swipeBackView.setOnSwipeListener(this);
 
             if (photoListManagePresenter.getCurrentIndex() > -1) {
@@ -463,11 +462,17 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
     // download.
 
     public void readyToDownload(int type) {
-        readyToDownload(type, false);
+        readyToDownload(type, false, null);
     }
 
-    public void readyToDownload(int type, boolean showTypeDialog) {
-        Photo photo = photoInfoPresenter.getPhoto();
+    public void readyToDownload(int type, boolean showTypeDialog, Photo photos) {
+        Photo photo;
+        if (photos == null) {
+            photo = photoInfoPresenter.getPhoto();
+        } else {
+            photo = photos;
+        }
+
         if (photo != null) {
             if (showTypeDialog) {
                 DownloadTypeDialog dialog = new DownloadTypeDialog();
@@ -735,7 +740,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
                 int oldSize = photoListManagePresenter.getPhotoList().size();
                 photoListManagePresenter.getPhotoList().addAll(
                         0,
-                        Unsplash.getInstance()
+                        UnsplashApplication.getInstance()
                                 .loadMorePhotos(
                                         PhotoActivity.this,
                                         photoListManagePresenter.getPhotoList(),
@@ -748,7 +753,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
             } else if (direction == SwipeSwitchLayout.DIRECTION_RIGHT
                     && photoListManagePresenter.getTailIndex() - currentIndex <= 10) {
                 photoListManagePresenter.getPhotoList().addAll(
-                        Unsplash.getInstance()
+                        UnsplashApplication.getInstance()
                                 .loadMorePhotos(
                                         PhotoActivity.this,
                                         photoListManagePresenter.getPhotoList(),
@@ -778,7 +783,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
             buttonBar.setCollectState(photo);
         }
 
-        Unsplash.getInstance().dispatchPhotoUpdate(this, photo);
+        UnsplashApplication.getInstance().dispatchPhotoUpdate(this, photo);
     }
 
     // handler.
@@ -825,11 +830,11 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
 
             photoInfoPresenter.getAdapter().notifyItemRemoved(oldCount);
 
-            photoInfoPresenter.getAdapter().updatePhoto(photo);
+            photoInfoPresenter.getAdapter().updatePhoto(photo, photoInfoPresenter.getPhotoList());
             photoInfoPresenter.getAdapter().notifyItemRangeInserted(
                     oldCount, photoInfoPresenter.getAdapter().getItemCount());
 
-            Unsplash.getInstance().dispatchPhotoUpdate(this, photo);
+            UnsplashApplication.getInstance().dispatchPhotoUpdate(this, photo);
         }
     }
 
@@ -844,15 +849,6 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
 
     @Override
     public void setLikeForAPhotoCompleted(Photo photo, boolean succeed) {
-        /*
-        List<MysplashPopupWindow> popupList = getPopupList();
-        for (int i = 0; i < popupList.size(); i ++) {
-            if (popupList.get(i) instanceof PhotoMenuPopupWindow) {
-                ((PhotoMenuPopupWindow) popupList.get(i)).setLikeResult(this, getPhoto());
-                return;
-            }
-        }
-        */
         PhotoButtonBar buttonBar = getPhotoButtonBar();
         if (buttonBar != null) {
             buttonBar.setLikeState(photo);
@@ -860,7 +856,7 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
             photoInfoPresenter.getAdapter().notifyItemChanged(0);
         }
         if (succeed) {
-            Unsplash.getInstance().dispatchPhotoUpdate(this, photo);
+            UnsplashApplication.getInstance().dispatchPhotoUpdate(this, photo);
 
         }
     }
@@ -888,11 +884,16 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
         }
     }
 
+    //todo
     @Override
     public void drawBrowsableView(Object result) {
-        initModel((Photo) result);
+        initModel((Photo) result, null);
         initPresenter();
         initView(false);
+    }
+
+    @Override
+    public void drawBrowsableViewList(Object rusultList) {
     }
 
     @Override
@@ -930,5 +931,10 @@ public class PhotoActivity extends RequestLoadActivity<Photo>
                 });
             }
         }
+    }
+
+    @Override
+    public void onDownload(Photo photo) {
+        readyToDownload(1, false, photo);
     }
 }

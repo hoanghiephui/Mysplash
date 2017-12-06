@@ -29,7 +29,7 @@
             android:layout_height="@dimen/feedback_icon_size"
             android:layout_marginBottom="@dimen/normal_margin"
             android:layout_centerHorizontal="true"
-            tools:src="@drawable/feedback_search"
+            tools:src="@drawable/ic_bg"
             tools:ignore="ContentDescription" />
 
         <TextView

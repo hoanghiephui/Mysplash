@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.presenter;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 
 /**
  * Category manage presenter.
@@ -11,7 +11,7 @@ import com.wallpapers.unsplash.Unsplash;
 
 public interface CategoryManagePresenter {
 
-    @Unsplash.CategoryIdRule
+    @UnsplashApplication.CategoryIdRule
     int getCategoryId();
-    void setCategoryId(@Unsplash.CategoryIdRule int id);
+    void setCategoryId(@UnsplashApplication.CategoryIdRule int id);
 }

@@ -13,7 +13,7 @@ import retrofit2.Response;
 
 /**
  * User implementor.
- * */
+ */
 
 public class UserImplementor
         implements UserPresenter {
@@ -39,13 +39,13 @@ public class UserImplementor
     @Override
     public void followUser() {
         followListener = new OnFollowListener();
-        model.getFeedService().setFollowUser(model.getUser().username, true, followListener);
+        model.getFeedService().setFollowUser(view.getContexts(), model.getUser().username, true, followListener);
     }
 
     @Override
     public void cancelFollowUser() {
         followListener = new OnFollowListener();
-        model.getFeedService().setFollowUser(model.getUser().username, true, followListener);
+        model.getFeedService().setFollowUser(view.getContexts(), model.getUser().username, true, followListener);
     }
 
     @Override
@@ -93,9 +93,12 @@ public class UserImplementor
             }
             if (response.isSuccessful()) {
                 User user = response.body();
-                user.complete = true;
-                model.setUser(user);
-                view.drawUserInfo(user);
+                if (user != null) {
+                    user.complete = true;
+                    model.setUser(user);
+                    view.drawUserInfo(user);
+                }
+
             } else {
                 requestUser();
             }

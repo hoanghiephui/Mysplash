@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common._basic.fragment;
+package com.wallpapers.unsplash.common.basic.fragment;
 
 import android.os.Bundle;
 
@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class LoadableFragment<T> extends MysplashFragment {
 
     /**
-     * {@link com.wallpapers.unsplash.common._basic.activity.LoadableActivity#loadMoreData(List, int, boolean, Bundle)}.
+     * {@link com.wallpapers.unsplash.common.basic.activity.LoadableActivity#loadMoreData(List, int, boolean, Bundle)}.
      * */
     public abstract List<T> loadMoreData(List<T> list, int headIndex, boolean headDirection,
                                          Bundle bundle);

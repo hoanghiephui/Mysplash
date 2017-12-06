@@ -16,7 +16,7 @@ import com.wallpapers.unsplash.common.data.entity.unsplash.ChangeCollectionPhoto
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.service.CollectionService;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.utils.AnimUtils;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
 
@@ -33,7 +33,7 @@ import retrofit2.Response;
  *
  * */
 
-public class DeleteCollectionPhotoDialog extends MysplashDialogFragment
+public class DeleteCollectionPhotoDialog extends BaseDialogFragment
         implements CollectionService.OnChangeCollectionPhotoListener {
 
     @BindView(R.id.dialog_delete_collection_photo_container)

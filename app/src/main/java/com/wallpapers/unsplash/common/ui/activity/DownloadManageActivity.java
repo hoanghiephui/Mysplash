@@ -11,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.ReadWriteActivity;
+import com.wallpapers.unsplash.common.basic.activity.ReadWriteActivity;
 import com.wallpapers.unsplash.common.data.entity.item.DownloadMission;
 import com.wallpapers.unsplash.common.ui.dialog.PathDialog;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -26,7 +26,7 @@ import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 import com.wallpapers.unsplash.common.utils.manager.ThreadManager;
 import com.wallpapers.unsplash.common.utils.widget.SafeHandler;
-import com.wallpapers.unsplash.common._basic.FlagRunnable;
+import com.wallpapers.unsplash.common.basic.FlagRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -176,7 +176,7 @@ public class DownloadManageActivity extends ReadWriteActivity
         swipeBackView.setOnSwipeListener(this);
 
         Toolbar toolbar = ButterKnife.findById(this, R.id.activity_download_manage_toolbar);
-        if (Unsplash.getInstance().getActivityCount() == 1) {
+        if (UnsplashApplication.getInstance().getActivityCount() == 1) {
             ThemeManager.setNavigationIcon(
                     toolbar,
                     R.drawable.ic_toolbar_home_light, R.drawable.ic_toolbar_home_dark);
@@ -310,7 +310,7 @@ public class DownloadManageActivity extends ReadWriteActivity
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                if (Unsplash.getInstance().getActivityCount() == 1) {
+                if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                     IntentHelper.startMainActivity(this);
                 }
                 finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);

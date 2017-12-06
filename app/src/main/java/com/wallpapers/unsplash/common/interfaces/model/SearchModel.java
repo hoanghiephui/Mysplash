@@ -2,9 +2,9 @@ package com.wallpapers.unsplash.common.interfaces.model;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.SearchService;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
  * Search model.
@@ -17,7 +17,7 @@ public interface SearchModel {
 
     RecyclerView.Adapter getAdapter();
     SearchService getService();
-    void setActivity(MysplashActivity a);
+    void setActivity(BaseActivity a);
 
     // manage HTTP request parameters.
 
@@ -25,7 +25,7 @@ public interface SearchModel {
     void setSearchQuery(String query);
 
     int getPhotosPage();
-    void setPhotosPage(@Unsplash.PageRule int page);
+    void setPhotosPage(@UnsplashApplication.PageRule int page);
 
     // control load state.
 

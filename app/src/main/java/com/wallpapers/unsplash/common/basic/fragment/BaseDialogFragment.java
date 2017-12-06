@@ -1,21 +1,21 @@
-package com.wallpapers.unsplash.common._basic.fragment;
+package com.wallpapers.unsplash.common.basic.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 
-import com.wallpapers.unsplash.Unsplash;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
- * Unsplash dialog fragment.
+ * UnsplashApplication dialog fragment.
  *
- * Basic DialogFragment class for Unsplash.
+ * Basic DialogFragment class for UnsplashApplication.
  *
  * */
 
-public abstract class MysplashDialogFragment extends DialogFragment {
+public abstract class BaseDialogFragment extends DialogFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public abstract class MysplashDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        MysplashActivity activity = Unsplash.getInstance().getTopActivity();
+        BaseActivity activity = UnsplashApplication.getInstance().getTopActivity();
         if (activity != null) {
             activity.getDialogList().add(this);
         }
@@ -35,7 +35,7 @@ public abstract class MysplashDialogFragment extends DialogFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        MysplashActivity activity = Unsplash.getInstance().getTopActivity();
+        BaseActivity activity = UnsplashApplication.getInstance().getTopActivity();
         if (activity != null) {
             activity.getDialogList().remove(this);
         }

@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.presenter;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 
 /**
@@ -13,5 +13,5 @@ import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 public interface SwipeBackManagePresenter {
 
     boolean checkCanSwipeBack(@SwipeBackCoordinatorLayout.DirectionRule int dir);
-    void swipeBackFinish(MysplashActivity a, @SwipeBackCoordinatorLayout.DirectionRule int dir);
+    void swipeBackFinish(BaseActivity a, @SwipeBackCoordinatorLayout.DirectionRule int dir);
 }

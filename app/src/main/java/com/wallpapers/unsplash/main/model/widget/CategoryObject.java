@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.main.model.widget;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.api.PhotoApi;
 import com.wallpapers.unsplash.common.data.service.PhotoService;
@@ -24,7 +24,7 @@ public class CategoryObject
     private PhotoAdapter adapter;
     private PhotoService service;
 
-    @Unsplash.CategoryIdRule
+    @UnsplashApplication.CategoryIdRule
     private int photosCategory;
     private String photosOrder;
 
@@ -42,11 +42,11 @@ public class CategoryObject
         this.service = PhotoService.getService();
 
         RANDOM_TXT = c.getResources().getStringArray(R.array.photo_order_values)[3];
-        this.photosCategory = Unsplash.CATEGORY_BUILDINGS_ID;
+        this.photosCategory = UnsplashApplication.CATEGORY_BUILDINGS_ID;
         this.photosOrder = SettingsOptionManager.getInstance(c)
                 .getDefaultPhotoOrder().equals(RANDOM_TXT) ? RANDOM_TXT : PhotoApi.ORDER_BY_LATEST;
 
-        this.photosPage = adapter.getRealItemCount() / Unsplash.DEFAULT_PER_PAGE;
+        this.photosPage = adapter.getRealItemCount() / UnsplashApplication.DEFAULT_PER_PAGE;
         this.pageList = new ArrayList<>();
 
         this.refreshing = false;

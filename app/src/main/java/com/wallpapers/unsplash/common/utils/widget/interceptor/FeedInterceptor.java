@@ -1,7 +1,10 @@
 package com.wallpapers.unsplash.common.utils.widget.interceptor;
 
+import android.content.Context;
+
 import com.wallpapers.unsplash.BuildConfig;
 import com.wallpapers.unsplash.common.data.service.FeedService;
+import com.wallpapers.unsplash.common.utils.PrefsUtils;
 import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 
 import java.io.IOException;
@@ -19,6 +22,11 @@ import okhttp3.Response;
  * */
 
 public class FeedInterceptor implements Interceptor {
+    private Context context;
+
+    public FeedInterceptor(Context context) {
+        this.context = context;
+    }
 
     @Override
     public Response intercept(Interceptor.Chain chain) throws IOException {
@@ -28,7 +36,7 @@ public class FeedInterceptor implements Interceptor {
                     .newBuilder()
                     .addHeader("x-unsplash-client", "web")
                     .addHeader("accept-version", "v1")
-                    .addHeader("Authorization", "Bearer " + "b3b878c011d594f25e5d8ea28e1b446af2d63ea838360875779e9014f96de564")
+                    .addHeader("Authorization", "Bearer " + PrefsUtils.Companion.getAuthenBearer(context))
                     .addHeader("Accept", "*/*")
                     .addHeader("Referer", "https://unsplash.com/following?onboarding=true")
                     .build();
@@ -37,8 +45,7 @@ public class FeedInterceptor implements Interceptor {
                     .newBuilder()
                     .addHeader("x-unsplash-client", "web")
                     .addHeader("accept-version", "v1")
-                    //.addHeader("Authorization", "Bearer " + BuildConfig.FEED_TOKEN)
-                    .addHeader("Authorization", "Client-ID " + BuildConfig.FEED_TOKEN)
+                    .addHeader("Authorization", "Client-ID " + PrefsUtils.Companion.getAuthenId(context))
                     .addHeader("Accept", "*/*")
                     .addHeader("Referer", "https://unsplash.com/following?onboarding=true")
                     .build();

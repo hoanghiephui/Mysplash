@@ -4,7 +4,7 @@ import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
  * Load model.
@@ -22,8 +22,8 @@ public interface LoadModel {
     @interface StateRule {}
 
     @Nullable
-    MysplashActivity getActivity();
-    void setActivity(@NonNull MysplashActivity activity);
+    BaseActivity getActivity();
+    void setActivity(@NonNull BaseActivity activity);
 
     @StateRule
     int getState();

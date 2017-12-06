@@ -1,15 +1,15 @@
-package com.wallpapers.unsplash.common._basic.fragment;
+package com.wallpapers.unsplash.common.basic.fragment;
 
 import android.content.Intent;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
- * Unsplash fragment.
+ * UnsplashApplication fragment.
  *
- * Basic Fragment class for Unsplash.
+ * Basic Fragment class for UnsplashApplication.
  *
  * */
 
@@ -35,14 +35,14 @@ public abstract class MysplashFragment extends Fragment {
      *
      * @param outState The BaseSavedStateFragment which is used to save large data.
      * */
-    public abstract void writeLargeData(MysplashActivity.BaseSavedStateFragment outState);
+    public abstract void writeLargeData(BaseActivity.BaseSavedStateFragment outState);
 
     /**
      * Read large data from the BaseSavedStateFragment when application restarting.
      *
      * @param savedInstanceState The BaseSavedStateFragment which is used to save large data.
      * */
-    public abstract void readLargeData(MysplashActivity.BaseSavedStateFragment savedInstanceState);
+    public abstract void readLargeData(BaseActivity.BaseSavedStateFragment savedInstanceState);
 
     // snack bar.
 

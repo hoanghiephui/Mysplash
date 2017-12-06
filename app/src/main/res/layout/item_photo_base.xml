@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_photo_base_titleBar"
     android:layout_width="match_parent"
-    android:layout_height="317dp"
+    android:layout_height="wrap_content"
     android:background="?attr/root_color">
 
     <RelativeLayout
@@ -15,32 +15,41 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/item_photo_base_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/MysplashPopupMenuTheme" />
 
+        <View
+            android:layout_below="@+id/item_photo_base_toolbar"
+            android:id="@+id/view_shadow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shadow_height"
+            android:background="@drawable/shadow_down" />
+
         <TextView
             android:id="@+id/item_photo_base_title"
-            android:textColor="?attr/title_color"
-            android:textStyle="bold"
-            android:singleLine="true"
-            android:layout_marginTop="?attr/actionBarSize"
+            style="@style/large_title_text"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/normal_icon_size"
             android:layout_marginRight="@dimen/normal_icon_size"
-            android:layout_centerHorizontal="true"
-            style="@style/large_title_text"
-            tools:text="By Wang Yueeeeeee"
-            tools:ignore="RtlHardcoded" />
+            android:layout_marginTop="?attr/actionBarSize"
+            android:singleLine="true"
+            android:textColor="?attr/title_color"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded"
+            tools:text="By Wang Yueeeeeee" />
 
         <TextView
             android:id="@+id/item_photo_base_subtitle"
-            android:maxLines="1"
-            android:layout_marginTop="@dimen/normal_margin"
+            style="@style/subtitle_text"
             android:layout_below="@id/item_photo_base_title"
             android:layout_centerHorizontal="true"
-            style="@style/subtitle_text"
-            tools:text="ON 2016-07-23"
-            tools:ignore="RtlHardcoded" />
+            android:layout_marginTop="@dimen/normal_margin"
+            android:maxLines="1"
+            android:visibility="gone"
+            tools:ignore="RtlHardcoded"
+            tools:text="ON 2016-07-23" />
 
         <com.wallpapers.unsplash.common.ui.widget.CircleImageView
             android:id="@+id/item_photo_base_avatar"
@@ -48,12 +57,13 @@
             android:layout_height="@dimen/large_icon_size"
             android:layout_below="@id/item_photo_base_subtitle"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginBottom="@dimen/little_icon_size"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:foreground="?attr/selectableItemBackground"
             android:scaleType="centerCrop"
             android:src="?attr/line_color"
             android:stateListAnimator="@animator/touch_rise_avatar"
-            android:foreground="?attr/selectableItemBackground"
+            android:visibility="gone"
             tools:ignore="ContentDescription,RtlHardcoded,UnusedAttribute" />
 
     </RelativeLayout>
@@ -62,14 +72,14 @@
         android:id="@+id/item_photo_base_btnBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_below="@+id/item_photo_base_displayContainer"
+        android:layout_marginBottom="8dp" />
 
     <FrameLayout
-        android:background="?attr/line_color"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        android:layout_below="@+id/item_photo_base_btnBar"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/line_color" />
 
 </RelativeLayout>

@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.model
 
-import com.wallpapers.unsplash.Unsplash
+import com.wallpapers.unsplash.UnsplashApplication
 import com.wallpapers.unsplash.common.data.service.UserService
 import com.wallpapers.unsplash.common.ui.adapter.UsersQueryAdapter
 
@@ -12,7 +12,7 @@ interface UsersQueryModel {
     abstract fun getService(): UserService?
 
     abstract fun getUsersPage(): Int
-    abstract fun setUsersPage(@Unsplash.PageRule page: Int)
+    abstract fun setUsersPage(@UnsplashApplication.PageRule page: Int)
 
     // control load state.
 

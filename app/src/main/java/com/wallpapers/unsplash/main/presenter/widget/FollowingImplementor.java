@@ -4,12 +4,12 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.FollowingFeed;
 import com.wallpapers.unsplash.common.data.service.FeedService;
 import com.wallpapers.unsplash.common.interfaces.model.FollowingModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.FollowingPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.FollowingView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.adapter.FollowingAdapter;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
 
@@ -109,7 +109,7 @@ public class FollowingImplementor implements FollowingPresenter {
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 
@@ -126,7 +126,7 @@ public class FollowingImplementor implements FollowingPresenter {
     private void requestFollowingFeed(Context c, String nextPage, boolean refresh) {
         listener = new OnRequestFollowingFeedListener(c, refresh);
         model.getService()
-                .requestFollowingFeed(
+                .requestFollowingFeed(c,
                         refresh ? model.getFirstPage() : nextPage,
                         listener);
     }

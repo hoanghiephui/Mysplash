@@ -17,7 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.ActionObject;
 import com.wallpapers.unsplash.common.data.entity.unsplash.NotificationResult;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
@@ -276,12 +276,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         // interface.
 
         @OnClick(R.id.item_notification_background) void clickItem() {
-            if (a instanceof MysplashActivity) {
+            if (a instanceof BaseActivity) {
                 switch (getNotification(getAdapterPosition()).verb) {
                     case NotificationResult.VERB_COLLECTED:
                     case NotificationResult.VERB_CURATED:
                         IntentHelper.startCollectionActivity(
-                                (MysplashActivity) a,
+                                (BaseActivity) a,
                                 avatar,
                                 background,
                                 getNotification(getAdapterPosition()).targets.get(0));
@@ -291,7 +291,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     case NotificationResult.VERB_PUBLISHED:
                     case NotificationResult.VERB_FOLLOWED:
                         IntentHelper.startUserActivity(
-                                (MysplashActivity) a,
+                                (BaseActivity) a,
                                 avatar,
                                 getNotification(getAdapterPosition()).actors.get(0),
                                 UserActivity.PAGE_PHOTO);
@@ -299,7 +299,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
                     case NotificationResult.VERB_LIKED:
                         IntentHelper.startUserActivity(
-                                (MysplashActivity) a,
+                                (BaseActivity) a,
                                 avatar,
                                 getNotification(getAdapterPosition()).actors.get(0),
                                 UserActivity.PAGE_LIKE);
@@ -309,9 +309,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         @OnClick(R.id.item_notification_avatar) void clickAvatar() {
-            if (a instanceof MysplashActivity) {
+            if (a instanceof BaseActivity) {
                 IntentHelper.startUserActivity(
-                        (MysplashActivity) a,
+                        (BaseActivity) a,
                         avatar,
                         getNotification(getAdapterPosition()).actors.get(0),
                         UserActivity.PAGE_PHOTO);
@@ -319,13 +319,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         }
 
         @OnClick(R.id.item_notification_imageContainer) void clickImage() {
-            if (a instanceof MysplashActivity) {
+            if (a instanceof BaseActivity) {
                 ArrayList<Photo> photoList = new ArrayList<>();
                 for (int i = 0; i < getNotification(getAdapterPosition()).objects.size(); i ++) {
                     photoList.add(getNotification(getAdapterPosition()).objects.get(i).castToPhoto());
                 }
                 IntentHelper.startPhotoActivity(
-                        (MysplashActivity) a,
+                        (BaseActivity) a,
                         image,
                         imageContainer,
                         photoList,
@@ -372,7 +372,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return position;
     }
 
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         this.a = a;
     }
 

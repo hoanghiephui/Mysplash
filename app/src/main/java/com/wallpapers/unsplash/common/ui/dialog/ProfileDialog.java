@@ -15,7 +15,7 @@ import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.UserService;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.utils.AnimUtils;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 
@@ -32,7 +32,7 @@ import retrofit2.Response;
  *
  * */
 
-public class ProfileDialog extends MysplashDialogFragment
+public class ProfileDialog extends BaseDialogFragment
         implements UserService.OnRequestUserProfileListener {
 
     @BindView(R.id.dialog_profile_container)

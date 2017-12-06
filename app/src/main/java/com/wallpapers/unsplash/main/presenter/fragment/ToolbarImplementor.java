@@ -5,8 +5,8 @@ import android.support.v4.widget.DrawerLayout;
 
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.interfaces.presenter.ToolbarPresenter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.MysplashFragment;
 import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
 import com.wallpapers.unsplash.main.view.activity.MainActivity;
 import com.wallpapers.unsplash.main.view.fragment.CategoryFragment;
@@ -23,13 +23,13 @@ public class ToolbarImplementor
         implements ToolbarPresenter {
 
     @Override
-    public void touchNavigatorIcon(MysplashActivity a) {
+    public void touchNavigatorIcon(BaseActivity a) {
         DrawerLayout drawer = (DrawerLayout) a.findViewById(R.id.activity_main_drawerLayout);
         drawer.openDrawer(GravityCompat.START);
     }
 
     @Override
-    public void touchToolbar(MysplashActivity a) {
+    public void touchToolbar(BaseActivity a) {
         MysplashFragment fragment = ((MainActivity) a).getTopFragment();
         if (fragment != null) {
             fragment.backToTop();
@@ -37,7 +37,7 @@ public class ToolbarImplementor
     }
 
     @Override
-    public boolean touchMenuItem(MysplashActivity a, int itemId) {
+    public boolean touchMenuItem(BaseActivity a, int itemId) {
         MainActivity activity = (MainActivity) a;
         switch (itemId) {
             case R.id.action_search:

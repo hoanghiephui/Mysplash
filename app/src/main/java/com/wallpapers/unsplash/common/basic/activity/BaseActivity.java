@@ -1,34 +1,43 @@
-package com.wallpapers.unsplash.common._basic.activity;
+package com.wallpapers.unsplash.common.basic.activity;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
-import com.wallpapers.unsplash.Unsplash;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
-import com.wallpapers.unsplash.common._basic.MysplashPopupWindow;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.wallpapers.unsplash.BuildConfig;
+import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
+import com.wallpapers.unsplash.common.basic.MysplashPopupWindow;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.LanguageUtils;
+import com.wallpapers.unsplash.common.utils.PrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Unsplash activity.
+ * UnsplashApplication activity.
  *
- * The basic activity class for Unsplash.
+ * The basic activity class for UnsplashApplication.
  *
  * */
 
-public abstract class MysplashActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private Bundle bundle; // saved instance state.
     private boolean started; // flag of onStart() method.
 
-    private List<MysplashDialogFragment> dialogList = new ArrayList<>();
+    private List<BaseDialogFragment> dialogList = new ArrayList<>();
     private List<MysplashPopupWindow> popupList = new ArrayList<>();
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
 
     /**
      * Base saved state fragment.
@@ -47,21 +56,21 @@ public abstract class MysplashActivity extends AppCompatActivity {
             setRetainInstance(true);
         }
 
-        public void saveData(MysplashActivity a) {
-            Fragment f = a.getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        public void saveData(BaseActivity baseActivity) {
+            Fragment f = baseActivity.getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
             if (f != null) {
-                a.getSupportFragmentManager().beginTransaction().remove(f).commit();
+                baseActivity.getSupportFragmentManager().beginTransaction().remove(f).commit();
             }
-            a.getSupportFragmentManager()
+            baseActivity.getSupportFragmentManager()
                     .beginTransaction()
                     .add(this, FRAGMENT_TAG)
                     .commitAllowingStateLoss();
         }
 
-        public static BaseSavedStateFragment getData(MysplashActivity a) {
-            Fragment f = a.getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+        public static BaseSavedStateFragment getData(BaseActivity baseActivity) {
+            Fragment f = baseActivity.getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
             if (f != null) {
-                a.getSupportFragmentManager().beginTransaction().remove(f).commitAllowingStateLoss();
+                baseActivity.getSupportFragmentManager().beginTransaction().remove(f).commitAllowingStateLoss();
                 return (BaseSavedStateFragment) f;
             } else {
                 return null;
@@ -75,10 +84,17 @@ public abstract class MysplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+        mFirebaseRemoteConfig.setDefaults(R.xml.local_config);
+        fetchSetting();
         if (savedInstanceState == null) {
-            Unsplash.getInstance().addActivity(this);
+            UnsplashApplication.getInstance().addActivity(this);
         } else {
-            Unsplash.getInstance().addActivityToFirstPosition(this);
+            UnsplashApplication.getInstance().addActivityToFirstPosition(this);
         }
 
         setTheme();
@@ -99,7 +115,23 @@ public abstract class MysplashActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Unsplash.getInstance().removeActivity(this);
+        UnsplashApplication.getInstance().removeActivity(this);
+    }
+
+    public void fetchSetting() {
+        mFirebaseRemoteConfig.fetch(0)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            mFirebaseRemoteConfig.activateFetched();
+                        }
+                        PrefsUtils.Companion.setAuthenBearer(BaseActivity.this, mFirebaseRemoteConfig.getString("authen_bearer"));
+                        PrefsUtils.Companion.setAuthenId(BaseActivity.this, mFirebaseRemoteConfig.getString("authen_id"));
+                        PrefsUtils.Companion.setShowAds(BaseActivity.this, mFirebaseRemoteConfig.getBoolean("isAds"));
+
+                    }
+                });
     }
 
     // control style.
@@ -108,7 +140,7 @@ public abstract class MysplashActivity extends AppCompatActivity {
 
     /**
      * If return true, child class will be responsible for the operation of the status bar.
-     * Otherwise, MysplashActivity class will deal with it.
+     * Otherwise, BaseActivity class will deal with it.
      * */
     protected boolean operateStatusBarBySelf() {
         return false;
@@ -149,13 +181,13 @@ public abstract class MysplashActivity extends AppCompatActivity {
     @Override
     public void finish() {
         super.finish();
-        Unsplash.getInstance().removeActivity(this);
+        UnsplashApplication.getInstance().removeActivity(this);
     }
 
     @Override
     public void finishAfterTransition() {
         super.finishAfterTransition();
-        Unsplash.getInstance().removeActivity(this);
+        UnsplashApplication.getInstance().removeActivity(this);
     }
 
     // manage snack bar container.
@@ -196,7 +228,7 @@ public abstract class MysplashActivity extends AppCompatActivity {
         return started;
     }
 
-    public List<MysplashDialogFragment> getDialogList() {
+    public List<BaseDialogFragment> getDialogList() {
         return dialogList;
     }
 

@@ -20,10 +20,10 @@ import android.widget.TextView;
 import com.wallpapers.unsplash.Mysplash;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.table.DownloadMissionEntity;
-import com.wallpapers.unsplash.common._basic.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.MysplashActivity;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.manager.ThreadManager;
-import com.wallpapers.unsplash.common._basic.FlagRunnable;
+import com.wallpapers.unsplash.common.basic.FlagRunnable;
 
 import java.util.ArrayList;
 import java.util.List;

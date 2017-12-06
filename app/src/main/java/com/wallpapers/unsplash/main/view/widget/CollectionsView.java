@@ -14,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.Constants;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.interfaces.model.CollectionsModel;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
@@ -25,7 +27,6 @@ import com.wallpapers.unsplash.common.interfaces.presenter.CollectionsPresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.LoadPresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.PagerPresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.ScrollPresenter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.adapter.CollectionAdapter;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
 import com.wallpapers.unsplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout;
@@ -136,14 +137,14 @@ public class CollectionsView extends NestedScrollFrameLayout
         };
     }
 
-    public CollectionsView(MysplashActivity a, @Unsplash.CollectionTypeRule int type, int id,
+    public CollectionsView(BaseActivity a, @UnsplashApplication.CollectionTypeRule int type, int id,
                            int index, boolean selected) {
         super(a);
         this.setId(id);
         this.initialize(a, type, index, selected);
     }
 
-    public CollectionsView(MysplashActivity a, @Unsplash.CollectionTypeRule int type, int id,
+    public CollectionsView(BaseActivity a, @UnsplashApplication.CollectionTypeRule int type, int id,
                            int index, boolean selected, String query) {
         super(a);
         this.setId(id);
@@ -153,7 +154,7 @@ public class CollectionsView extends NestedScrollFrameLayout
 
     // init.
 
-    private void initialize(MysplashActivity a, @Unsplash.CollectionTypeRule int type,
+    private void initialize(BaseActivity a, @UnsplashApplication.CollectionTypeRule int type,
                             int index, boolean selected) {
         View loadingView = LayoutInflater.from(getContext())
                 .inflate(R.layout.container_loading_view_large, this, false);
@@ -167,21 +168,24 @@ public class CollectionsView extends NestedScrollFrameLayout
         initModel(a, type, index, selected);
         initPresenter(a);
         initView();
+        if (Constants.SHOW_ADS) {
+            initUpdateAdsTimer();
+        }
     }
 
-    private void initModel(MysplashActivity a, @Unsplash.CollectionTypeRule int type,
+    private void initModel(BaseActivity a, @UnsplashApplication.CollectionTypeRule int type,
                            int index, boolean selected) {
         this.collectionsModel = new CollectionsObject(
                 new CollectionAdapter(
                         a,
-                        new ArrayList<Collection>(Unsplash.DEFAULT_PER_PAGE)),
+                        new ArrayList<Collection>(UnsplashApplication.DEFAULT_PER_PAGE), false),
                 type);
         this.pagerModel = new PagerObject(index, selected);
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
         this.scrollModel = new ScrollObject(true);
     }
 
-    private void initPresenter(MysplashActivity a) {
+    private void initPresenter(BaseActivity a) {
         this.collectionsPresenter = new CollectionsImplementor(collectionsModel, this);
         this.pagerPresenter = new PagerImplementor(pagerModel, this);
         this.loadPresenter = new LoadImplementor(loadModel, this);
@@ -207,7 +211,14 @@ public class CollectionsView extends NestedScrollFrameLayout
                 navigationBarHeight + getResources().getDimensionPixelSize(R.dimen.normal_margin));
 
         int columnCount = DisplayUtils.getGirdColumnCount(getContext());
-        recyclerView.setAdapter(collectionsPresenter.getAdapter());
+        if (Constants.SHOW_ADS) {
+            initAds();
+            if (adapterWrapper != null) {
+                recyclerView.setAdapter(adapterWrapper);
+            }
+        } else {
+            recyclerView.setAdapter(collectionsPresenter.getAdapter());
+        }
         if (columnCount > 1) {
             int margin = getResources().getDimensionPixelSize(R.dimen.little_margin);
             recyclerView.setPadding(margin, margin, 0, 0);
@@ -225,6 +236,11 @@ public class CollectionsView extends NestedScrollFrameLayout
 
         ImageView feedbackImg = findViewById(R.id.container_loading_view_large_feedbackImg);
         ImageHelper.loadResourceImage(getContext(), feedbackImg, R.drawable.feedback_no_photos);
+    }
+
+    @Override
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> getAdapterContent() {
+        return collectionsPresenter.getAdapter();
     }
 
     // control.
@@ -395,6 +411,9 @@ public class CollectionsView extends NestedScrollFrameLayout
     @Override
     public void cancelRequest() {
         collectionsPresenter.cancelRequest();
+        if (Constants.SHOW_ADS) {
+            onDestroy();
+        }
     }
 
     @Override
@@ -439,7 +458,7 @@ public class CollectionsView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -450,14 +469,14 @@ public class CollectionsView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(feedbackContainer);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

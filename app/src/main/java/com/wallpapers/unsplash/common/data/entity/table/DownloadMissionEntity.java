@@ -6,7 +6,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.utils.helper.DownloadHelper;
@@ -91,7 +91,7 @@ public class DownloadMissionEntity {
      * */
     public String getFilePath() {
         return Environment.getExternalStorageDirectory()
-                + Unsplash.DOWNLOAD_PATH
+                + UnsplashApplication.DOWNLOAD_PATH
                 + title + getFormat();
     }
 
@@ -113,12 +113,12 @@ public class DownloadMissionEntity {
      *
      * @return format of downloaded file.
      * */
-    @Unsplash.DownloadFormatRule
+    @UnsplashApplication.DownloadFormatRule
     public String getFormat() {
         if (downloadType == DownloadHelper.COLLECTION_TYPE) {
-            return Unsplash.DOWNLOAD_COLLECTION_FORMAT;
+            return UnsplashApplication.DOWNLOAD_COLLECTION_FORMAT;
         } else {
-            return Unsplash.DOWNLOAD_PHOTO_FORMAT;
+            return UnsplashApplication.DOWNLOAD_PHOTO_FORMAT;
         }
     }
 

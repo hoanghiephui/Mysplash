@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -15,9 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.Constants;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
@@ -100,6 +100,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
     private ScrollPresenter scrollPresenter;
     private String query;
 
+
     private static class SavedState implements Parcelable {
 
         String order;
@@ -163,7 +164,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
     }
 
     public HomePhotosView(MainActivity a,
-                          @Unsplash.PhotosTypeRule int photosType,
+                          @UnsplashApplication.PhotosTypeRule int photosType,
                           int id,
                           int index,
                           boolean selected) {
@@ -173,7 +174,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
     }
 
     public HomePhotosView(MainActivity a,
-                          @Unsplash.PhotosTypeRule int photosType,
+                          @UnsplashApplication.PhotosTypeRule int photosType,
                           int id,
                           int index,
                           boolean selected,
@@ -187,7 +188,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
     // init.
 
     @SuppressLint("InflateParams")
-    private void initialize(MainActivity a, @Unsplash.PhotosTypeRule int photosType,
+    private void initialize(MainActivity a, @UnsplashApplication.PhotosTypeRule int photosType,
                             int index, boolean selected) {
         View loadingView = LayoutInflater.from(getContext())
                 .inflate(R.layout.container_loading_view_large, this, false);
@@ -201,20 +202,23 @@ public class HomePhotosView extends NestedScrollFrameLayout
         initModel(a, photosType, index, selected);
         initPresenter(a);
         initView();
+        if (Constants.SHOW_ADS) {
+            initUpdateAdsTimer();
+        }
     }
 
-    private void initModel(MainActivity a, @Unsplash.PhotosTypeRule int photosType,
+    private void initModel(MainActivity mainActivity, @UnsplashApplication.PhotosTypeRule int photosType,
                            int index, boolean selected) {
         this.photosModel = new PhotosObject(
-                a,
-                new PhotoAdapter(a, new ArrayList<Photo>(Unsplash.DEFAULT_PER_PAGE), this, a, false),
+                mainActivity,
+                new PhotoAdapter(mainActivity, new ArrayList<Photo>(UnsplashApplication.DEFAULT_PER_PAGE), this, mainActivity, false),
                 photosType);
         this.pagerModel = new PagerObject(index, selected);
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
         this.scrollModel = new ScrollObject(true);
     }
 
-    private void initPresenter(MysplashActivity a) {
+    private void initPresenter(BaseActivity a) {
         this.photosPresenter = new PhotosImplementor(photosModel, this);
         this.pagerPresenter = new PagerImplementor(pagerModel, this);
         this.loadPresenter = new LoadImplementor(loadModel, this);
@@ -240,7 +244,12 @@ public class HomePhotosView extends NestedScrollFrameLayout
                 navigationBarHeight + getResources().getDimensionPixelSize(R.dimen.normal_margin));
 
         int columnCount = DisplayUtils.getGirdColumnCount(getContext());
-        recyclerView.setAdapter(photosPresenter.getAdapter());
+        if (Constants.SHOW_ADS) {
+            initAds();
+            recyclerView.setAdapter(adapterWrapper);
+        } else {
+            recyclerView.setAdapter(photosPresenter.getAdapter());
+        }
         if (columnCount > 1) {
             int margin = getResources().getDimensionPixelSize(R.dimen.little_margin);
             recyclerView.setPadding(margin, margin, 0, 0);
@@ -258,9 +267,13 @@ public class HomePhotosView extends NestedScrollFrameLayout
         progressView.setVisibility(VISIBLE);
         feedbackContainer.setVisibility(GONE);
 
-        ImageView feedbackImg = ButterKnife.findById(
-                this, R.id.container_loading_view_large_feedbackImg);
+        ImageView feedbackImg = this.findViewById(R.id.container_loading_view_large_feedbackImg);
         ImageHelper.loadResourceImage(getContext(), feedbackImg, R.drawable.feedback_no_photos);
+    }
+
+    @Override
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> getAdapterContent() {
+        return photosPresenter.getAdapter();
     }
 
     // control.
@@ -279,7 +292,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
         if (!headDirection && photosPresenter.canLoadMore()) {
             photosPresenter.loadMore(getContext(), false, query);
         }
-        if (!ViewCompat.canScrollVertically(recyclerView, 1) && photosPresenter.isLoading()) {
+        if (!recyclerView.canScrollVertically(1) && photosPresenter.isLoading()) {
             refreshLayout.setLoading(true);
         }
 
@@ -481,6 +494,9 @@ public class HomePhotosView extends NestedScrollFrameLayout
     @Override
     public void cancelRequest() {
         photosPresenter.cancelRequest();
+        if (Constants.SHOW_ADS) {
+            onDestroy();
+        }
     }
 
     @Override
@@ -525,7 +541,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -536,14 +552,14 @@ public class HomePhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(feedbackContainer);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());
@@ -576,7 +592,7 @@ public class HomePhotosView extends NestedScrollFrameLayout
         } else {
             scrollPresenter.setToTop(false);
         }
-        if (!recyclerView.canScrollVertically( 1) && photosPresenter.isLoading()) {
+        if (!recyclerView.canScrollVertically(1) && photosPresenter.isLoading()) {
             refreshLayout.setLoading(true);
         }
     }

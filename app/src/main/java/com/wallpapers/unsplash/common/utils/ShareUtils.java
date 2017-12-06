@@ -3,7 +3,7 @@ package com.wallpapers.unsplash.common.utils;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
@@ -19,7 +19,7 @@ import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 public class ShareUtils {
 
     public static void sharePhoto(Photo p) {
-        Activity a = Unsplash.getInstance().getTopActivity();
+        Activity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
@@ -44,7 +44,7 @@ public class ShareUtils {
     }
 
     public static void shareCollection(Collection c) {
-        Activity a = Unsplash.getInstance().getTopActivity();
+        Activity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
@@ -72,7 +72,7 @@ public class ShareUtils {
     }
 
     public static void shareUser(User u) {
-        Activity a = Unsplash.getInstance().getTopActivity();
+        Activity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");

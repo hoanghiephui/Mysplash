@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.ui.activity.SetWallpaperActivity;
 import com.wallpapers.unsplash.common.utils.AnimUtils;
 
@@ -27,7 +27,7 @@ import butterknife.OnClick;
  *
  * */
 
-public class WallpaperWhereDialog extends MysplashDialogFragment {
+public class WallpaperWhereDialog extends BaseDialogFragment {
 
     @BindView(R.id.dialog_wallpaper_where_container)
     CoordinatorLayout container;

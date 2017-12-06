@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.photo.view.holder;
 
 import android.view.View;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
@@ -33,10 +33,10 @@ public class TouchHolder extends PhotoInfoAdapter.ViewHolder {
     }
 
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
+    protected void onBindView(PhotoActivity activity, Photo photo) {
         touchView.setSize(photo.width, photo.height);
         touchView.setShowShadow(false);
-        this.activity = a;
+        this.activity = activity;
     }
 
     @Override
@@ -47,6 +47,6 @@ public class TouchHolder extends PhotoInfoAdapter.ViewHolder {
     @OnClick(R.id.item_photo_touch)
     void clickTouchView() {
         IntentHelper.startPreviewActivity(
-                Unsplash.getInstance().getTopActivity(), activity.getPhoto(), true);
+                UnsplashApplication.getInstance().getTopActivity(), activity.getPhoto(), true);
     }
 }

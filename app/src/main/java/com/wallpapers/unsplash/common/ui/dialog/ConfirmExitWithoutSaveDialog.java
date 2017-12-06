@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.ui.activity.MuzeiConfigurationActivity;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -26,7 +26,7 @@ import butterknife.OnClick;
  *
  * */
 
-public class ConfirmExitWithoutSaveDialog extends MysplashDialogFragment {
+public class ConfirmExitWithoutSaveDialog extends BaseDialogFragment {
 
     @BindView(R.id.dialog_confirm_exit_without_save_container)
     CoordinatorLayout container;

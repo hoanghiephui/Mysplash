@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.common.interfaces.presenter;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.FollowingAdapter;
 
 /**
@@ -40,7 +40,7 @@ public interface FollowingPresenter {
 
     void setOver(boolean over);
 
-    void setActivityForAdapter(MysplashActivity a);
+    void setActivityForAdapter(BaseActivity a);
     int getAdapterItemCount();
 
     FollowingAdapter getAdapter();

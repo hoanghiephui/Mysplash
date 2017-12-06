@@ -5,10 +5,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.interfaces.model.AboutModel;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.AboutAdapter;
 import com.wallpapers.unsplash.common.ui.dialog.TotalDialog;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -53,7 +53,7 @@ public class HeaderHolder extends AboutAdapter.ViewHolder {
     }
 
     @Override
-    protected void onBindView(MysplashActivity a, AboutModel model) {
+    protected void onBindView(BaseActivity a, AboutModel model) {
         ImageHelper.loadResourceImage(a, appIcon, R.drawable.ic_launcher);
     }
 
@@ -63,7 +63,7 @@ public class HeaderHolder extends AboutAdapter.ViewHolder {
     }
 
     @OnClick(R.id.item_about_header_backButton) void close() {
-        MysplashActivity activity = Unsplash.getInstance()
+        BaseActivity activity = UnsplashApplication.getInstance()
                 .getTopActivity();
         if (activity != null) {
             activity.finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);
@@ -71,7 +71,7 @@ public class HeaderHolder extends AboutAdapter.ViewHolder {
     }
 
     @OnClick(R.id.item_about_header_unsplashContainer) void checkTotal() {
-        MysplashActivity activity = Unsplash.getInstance()
+        BaseActivity activity = UnsplashApplication.getInstance()
                 .getTopActivity();
         if (activity != null) {
             TotalDialog dialog = new TotalDialog();

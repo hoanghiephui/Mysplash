@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.collection.view.activity.CollectionActivity;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.MysplashFragment;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.interfaces.model.PagerManageModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.PagerManagePresenter;
@@ -129,7 +129,7 @@ public class CollectionFragment extends MysplashFragment
     }
 
     @Override
-    public void writeLargeData(MysplashActivity.BaseSavedStateFragment outState) {
+    public void writeLargeData(BaseActivity.BaseSavedStateFragment outState) {
         if (pagers[0] != null) {
             ((MainActivity.SavedStateFragment) outState).setFeaturedCollectionList(
                     ((CollectionsView) pagers[0]).getCollections());
@@ -145,7 +145,7 @@ public class CollectionFragment extends MysplashFragment
     }
 
     @Override
-    public void readLargeData(MysplashActivity.BaseSavedStateFragment savedInstanceState) {
+    public void readLargeData(BaseActivity.BaseSavedStateFragment savedInstanceState) {
         if (pagers[0] != null) {
             ((CollectionsView) pagers[0]).setCollections(
                     ((MainActivity.SavedStateFragment) savedInstanceState).getFeaturedCollectionList());
@@ -176,7 +176,7 @@ public class CollectionFragment extends MysplashFragment
     @Override
     public void handleActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
-            case Unsplash.COLLECTION_ACTIVITY:
+            case UnsplashApplication.COLLECTION_ACTIVITY:
                 Collection collection = data.getParcelableExtra(
                         CollectionActivity.KEY_COLLECTION_ACTIVITY_COLLECTION);
                 if (collection != null) {
@@ -216,19 +216,19 @@ public class CollectionFragment extends MysplashFragment
         pageList.add(
                 new CollectionsView(
                         (MainActivity) getActivity(),
-                        Unsplash.COLLECTION_TYPE_FEATURED,
+                        UnsplashApplication.COLLECTION_TYPE_FEATURED,
                         R.id.fragment_collection_page_featured,
                         0, pagerManagePresenter.getPagerPosition() == 0));
         pageList.add(
                 new CollectionsView(
                         (MainActivity) getActivity(),
-                        Unsplash.COLLECTION_TYPE_ALL,
+                        UnsplashApplication.COLLECTION_TYPE_ALL,
                         R.id.fragment_collection_page_all,
                         1, pagerManagePresenter.getPagerPosition() == 1));
         pageList.add(
                 new CollectionsView(
                         (MainActivity) getActivity(),
-                        Unsplash.COLLECTION_TYPE_CURATED,
+                        UnsplashApplication.COLLECTION_TYPE_CURATED,
                         R.id.fragment_collection_page_curated,
                         2, pagerManagePresenter.getPagerPosition() == 2));
         for (int i = 0; i < pageList.size(); i ++) {
@@ -278,13 +278,13 @@ public class CollectionFragment extends MysplashFragment
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                toolbarPresenter.touchNavigatorIcon((MysplashActivity) getActivity());
+                toolbarPresenter.touchNavigatorIcon((BaseActivity) getActivity());
                 break;
         }
     }
 
     @OnClick(R.id.fragment_collection_toolbar) void clickToolbar() {
-        toolbarPresenter.touchToolbar((MysplashActivity) getActivity());
+        toolbarPresenter.touchToolbar((BaseActivity) getActivity());
     }
 
     // on page changed listener.

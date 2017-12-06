@@ -2,8 +2,8 @@ package com.wallpapers.unsplash.common.interfaces.presenter;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.CollectionAdapter;
 
 /**
@@ -17,7 +17,7 @@ public interface CollectionsPresenter {
 
     // HTTP request.
 
-    void requestCollections(Context c, @Unsplash.PageRule int page, boolean refresh, String query);
+    void requestCollections(Context c, @UnsplashApplication.PageRule int page, boolean refresh, String query);
     void cancelRequest();
 
     // load data interface.
@@ -42,9 +42,9 @@ public interface CollectionsPresenter {
     void setType(int key);
     int getType();
 
-    void setPage(@Unsplash.PageRule int page);
+    void setPage(@UnsplashApplication.PageRule int page);
     void setOver(boolean over);
 
-    void setActivityForAdapter(MysplashActivity a);
+    void setActivityForAdapter(BaseActivity a);
     CollectionAdapter getAdapter();
 }

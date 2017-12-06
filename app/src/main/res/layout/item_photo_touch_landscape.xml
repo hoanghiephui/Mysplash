@@ -104,6 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/item_photo_touch_landscape_touch"
+        android:background="@drawable/shadow"
         tools:ignore="RtlHardcoded">
 
         <com.wallpapers.unsplash.common.ui.widget.CircleImageView

@@ -9,10 +9,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.wallpapers.unsplash.Unsplash
+import com.wallpapers.unsplash.UnsplashApplication
 import com.wallpapers.unsplash.R
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity
-import com.wallpapers.unsplash.common._basic.fragment.LoadableFragment
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity
+import com.wallpapers.unsplash.common.basic.fragment.LoadableFragment
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo
 import com.wallpapers.unsplash.common.interfaces.model.PagerManageModel
 import com.wallpapers.unsplash.common.interfaces.presenter.PagerManagePresenter
@@ -53,32 +53,36 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = arguments.getString("title")
+        title = arguments?.getString("title")
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_home, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val toolbar = view?.findViewById<Toolbar>(R.id.fragment_home_toolbar)
+        val toolbar = view.findViewById<Toolbar>(R.id.fragment_home_toolbar)
         toolbar?.title = title
         container_notification_bar_title.text = title
         container_notification_bar_button.visibility = View.GONE
         container_notification_bar_unreadFlag.visibility = View.GONE
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            container_notification_bar_title.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    context.resources.getDimension(R.dimen.subtitle_text_size))
+            context?.resources?.getDimension(R.dimen.subtitle_text_size)?.let {
+                container_notification_bar_title.setTextSize(
+                        TypedValue.COMPLEX_UNIT_PX,
+                        it)
+            }
         } else {
-            container_notification_bar_title.setTextSize(
-                    TypedValue.COMPLEX_UNIT_PX,
-                    context.resources.getDimension(R.dimen.large_title_text_size))
+            context?.resources?.getDimension(R.dimen.large_title_text_size)?.let {
+                container_notification_bar_title.setTextSize(
+                        TypedValue.COMPLEX_UNIT_PX,
+                        it)
+            }
         }
         val paint = container_notification_bar_title.getPaint()
         paint.setFakeBoldText(true)
-        if (getNavigationBarHeight(activity.resources) != 0) {
+        if (getNavigationBarHeight(activity?.resources) != 0) {
             bottom_navigation.getLayoutParams().height = resources.getDimensionPixelSize(R.dimen.bottom_navigation_height)
             bottom_navigation.setPadding(0, 0, 0, resources.getDimensionPixelSize(R.dimen.navigation_bar_padding))
             bottom_navigation.requestLayout()
@@ -124,9 +128,9 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
 
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        pagerManagePresenter?.pagerPosition?.let { outState?.putInt(KEY_HOME_FRAGMENT_PAGE_POSITION, it) }
+        pagerManagePresenter?.pagerPosition?.let { outState.putInt(KEY_HOME_FRAGMENT_PAGE_POSITION, it) }
         for (viewPage in pagers) {
             viewPage?.onSaveInstanceState(outState)
         }
@@ -153,7 +157,7 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
         pageList.add(
                 HomePhotosView(
                         activity as MainActivity,
-                        Unsplash.CATEGORY_PHOTO_TAG,
+                        UnsplashApplication.CATEGORY_PHOTO_TAG,
                         R.id.fragment_home_page_new,
                         0, pagerManagePresenter?.getPagerPosition() == 0,
                         title))
@@ -161,7 +165,7 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
         pageList.add(
                 CollectionsView(
                         activity as MainActivity,
-                        Unsplash.COLLECTION_TYPE_QUERY,
+                        UnsplashApplication.COLLECTION_TYPE_QUERY,
                         R.id.fragment_collection_page_query,
                         1, pagerManagePresenter?.getPagerPosition() == 1,
                         title))
@@ -232,15 +236,17 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
     }
 
     override fun initStatusBarStyle() {
-        DisplayUtils.setStatusBarStyle(activity, needSetDarkStatusBar())
+        activity?.let { DisplayUtils.setStatusBarStyle(it, needSetDarkStatusBar()) }
     }
 
     override fun initNavigationBarStyle() {
         pagers[pagerManagePresenter?.getPagerPosition()!!]?.isNormalState()?.let {
-            DisplayUtils.setNavigationBarStyle(
-                    activity,
-                    it,
-                    true)
+            activity?.let { it1 ->
+                DisplayUtils.setNavigationBarStyle(
+                        it1,
+                        it,
+                        true)
+            }
         }
 
     }
@@ -249,7 +255,7 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
         return fragment_home_appBar.y <= -fragment_home_appBar.measuredHeight
     }
 
-    override fun writeLargeData(outState: MysplashActivity.BaseSavedStateFragment) {
+    override fun writeLargeData(outState: BaseActivity.BaseSavedStateFragment) {
         if (pagers[0] != null) {
             (outState as MainActivity.SavedStateFragment).photoQueryList = (pagers[0] as HomePhotosView).getPhotos()
         }
@@ -261,7 +267,7 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
         }
     }
 
-    override fun readLargeData(savedInstanceState: MysplashActivity.BaseSavedStateFragment) {
+    override fun readLargeData(savedInstanceState: BaseActivity.BaseSavedStateFragment) {
         if (pagers[0] != null) {
             (pagers[0] as HomePhotosView).photos = (savedInstanceState as MainActivity.SavedStateFragment).photoQueryList
         }
@@ -283,7 +289,7 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
 
     override fun backToTop() {
         fragment_home_statusBar.animToInitAlpha()
-        DisplayUtils.setStatusBarStyle(activity, false)
+        activity?.let { DisplayUtils.setStatusBarStyle(it, false) }
         BackToTopUtils.showTopBar(fragment_home_appBar, fragment_home_viewPager)
         pagerManagePresenter?.pagerScrollToTop()
     }
@@ -333,21 +339,23 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
 
         pagerManagePresenter?.pagerPosition = position
         pagerManagePresenter?.checkToRefresh(position)
-        DisplayUtils.setNavigationBarStyle(activity,
+        activity?.let {
+            DisplayUtils.setNavigationBarStyle(it,
                 pagers[position]!!.isNormalState,
                 false)
+        }
     }
 
     override fun onStartNestedScroll() {
         if (needSetDarkStatusBar()) {
             if (fragment_home_statusBar.isInitState) {
                 fragment_home_statusBar.animToDarkerAlpha()
-                DisplayUtils.setStatusBarStyle(activity, true)
+                activity?.let { DisplayUtils.setStatusBarStyle(it, true) }
             }
         } else {
             if (!fragment_home_statusBar.isInitState) {
                 fragment_home_statusBar.animToInitAlpha()
-                DisplayUtils.setStatusBarStyle(activity, false)
+                activity?.let { DisplayUtils.setStatusBarStyle(it, false) }
             }
         }
     }
@@ -356,12 +364,12 @@ class SearchQueryFragment : LoadableFragment<Photo>(),
         if (needSetDarkStatusBar()) {
             if (fragment_home_statusBar.isInitState) {
                 fragment_home_statusBar.animToDarkerAlpha()
-                DisplayUtils.setStatusBarStyle(activity, true)
+                activity?.let { DisplayUtils.setStatusBarStyle(it, true) }
             }
         } else {
             if (!fragment_home_statusBar.isInitState) {
                 fragment_home_statusBar.animToInitAlpha()
-                DisplayUtils.setStatusBarStyle(activity, false)
+                activity?.let { DisplayUtils.setStatusBarStyle(it, false) }
             }
         }
     }

@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Collection.
  * */
@@ -40,6 +42,7 @@ public class Collection implements Parcelable {
     public String share_key;
 
     public Photo cover_photo;
+    public PreviewPhotosItem[] preview_photos;
     public User user;
     public CollectionLinks links;
 

@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.common.data.service;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.BaseOkHttpClient;
 import com.wallpapers.unsplash.common.data.api.AuthorizeApi;
 import com.wallpapers.unsplash.common.data.entity.unsplash.AccessToken;
@@ -32,7 +32,7 @@ public class AuthorizeService {
     }
     private AuthorizeApi buildApi() {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(buildClient())
                 .build()
@@ -42,9 +42,9 @@ public class AuthorizeService {
     public void requestAccessToken(Context c, String code, final OnRequestAccessTokenListener l) {
         Call<AccessToken> getAccessToken = buildApi()
                 .getAccessToken(
-                        Unsplash.getAppId(c, true),
-                        Unsplash.getSecret(c),
-                        "livingphoto://" + Unsplash.UNSPLASH_LOGIN_CALLBACK,
+                        UnsplashApplication.getAppId(c, true),
+                        UnsplashApplication.getSecret(c),
+                        "livingphoto://" + UnsplashApplication.UNSPLASH_LOGIN_CALLBACK,
                         code,
                         "authorization_code");
         getAccessToken.enqueue(new Callback<AccessToken>() {

@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common._basic.activity;
+package com.wallpapers.unsplash.common.basic.activity;
 
 import android.os.Bundle;
 

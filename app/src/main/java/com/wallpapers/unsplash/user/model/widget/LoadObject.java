@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.user.model.widget;
 
 import android.support.annotation.NonNull;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
 
 /**
@@ -11,7 +11,7 @@ import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
 
 public class LoadObject implements LoadModel {
 
-    private MysplashActivity activity;
+    private BaseActivity activity;
 
     @StateRule
     private int state;
@@ -21,12 +21,12 @@ public class LoadObject implements LoadModel {
     }
 
     @Override
-    public MysplashActivity getActivity() {
+    public BaseActivity getActivity() {
         return activity;
     }
 
     @Override
-    public void setActivity(@NonNull MysplashActivity activity) {
+    public void setActivity(@NonNull BaseActivity activity) {
         this.activity = activity;
     }
 

@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common._basic;
+package com.wallpapers.unsplash.common.basic;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,14 +9,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.PopupWindow;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
- * Unsplash popup window.
+ * UnsplashApplication popup window.
  *
- * Basic PopupWindow class for Unsplash.
+ * Basic PopupWindow class for UnsplashApplication.
  *
  * */
 
@@ -24,7 +24,7 @@ public class MysplashPopupWindow extends PopupWindow {
 
     public MysplashPopupWindow(Context context) {
         super(context);
-        final MysplashActivity activity = Unsplash.getInstance().getTopActivity();
+        final BaseActivity activity = UnsplashApplication.getInstance().getTopActivity();
         if (activity != null) {
             activity.getPopupList().add(this);
             setOnDismissListener(new OnDismissListener() {

@@ -16,10 +16,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.collection.view.activity.CollectionActivity;
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
@@ -170,7 +170,7 @@ public class SearchActivity extends LoadableActivity<Photo>
         super.onActivityResult(requestCode, resultCode, data);
         if (data != null) {
             switch (requestCode) {
-                case Unsplash.COLLECTION_ACTIVITY:
+                case UnsplashApplication.COLLECTION_ACTIVITY:
                     Collection collection = data.getParcelableExtra(
                             CollectionActivity.KEY_COLLECTION_ACTIVITY_COLLECTION);
                     if (collection != null) {
@@ -178,7 +178,7 @@ public class SearchActivity extends LoadableActivity<Photo>
                     }
                     break;
 
-                case Unsplash.USER_ACTIVITY:
+                case UnsplashApplication.USER_ACTIVITY:
                     User user = data.getParcelableExtra(
                             UserActivity.KEY_USER_ACTIVITY_USER);
                     if (user != null) {
@@ -186,7 +186,7 @@ public class SearchActivity extends LoadableActivity<Photo>
                     }
                     break;
 
-                case Unsplash.ME_ACTIVITY:
+                case UnsplashApplication.ME_ACTIVITY:
                     User me = AuthManager.getInstance().getUser();
                     if (me != null) {
                         ((SearchPageView) pagers[2]).updateUser(me, false);

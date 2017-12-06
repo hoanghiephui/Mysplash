@@ -2,15 +2,15 @@ package com.wallpapers.unsplash.main.presenter.widget;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collections;
 import com.wallpapers.unsplash.common.data.service.CollectionService;
 import com.wallpapers.unsplash.common.interfaces.model.CollectionsModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.CollectionsPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.CollectionsView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.adapter.CollectionAdapter;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
 
@@ -47,18 +47,18 @@ public class CollectionsImplementor
                 model.setLoading(true);
             }
             switch (model.getCollectionsType()) {
-                case Unsplash.COLLECTION_TYPE_FEATURED:
+                case UnsplashApplication.COLLECTION_TYPE_FEATURED:
                     requestFeaturedCollections(context, page, refresh);
                     break;
 
-                case Unsplash.COLLECTION_TYPE_ALL:
+                case UnsplashApplication.COLLECTION_TYPE_ALL:
                     requestAllCollections(context, page, refresh);
                     break;
 
-                case Unsplash.COLLECTION_TYPE_CURATED:
+                case UnsplashApplication.COLLECTION_TYPE_CURATED:
                     requestCuratedCollections(context, page, refresh);
                     break;
-                case Unsplash.COLLECTION_TYPE_QUERY:
+                case UnsplashApplication.COLLECTION_TYPE_QUERY:
                     requestQueryCollections(context, page, refresh, query);
                     break;
                 default:
@@ -152,7 +152,7 @@ public class CollectionsImplementor
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 
@@ -166,7 +166,7 @@ public class CollectionsImplementor
         model.getService()
                 .requestAllCollections(
                         Math.max(1, refresh ? 1 : page + 1),
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         listener);
     }
 
@@ -176,7 +176,7 @@ public class CollectionsImplementor
         model.getService()
                 .requestCuratedCollections(
                         page,
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         listener);
     }
 
@@ -186,7 +186,7 @@ public class CollectionsImplementor
         model.getService()
                 .requestFeaturedCollections(
                         page,
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         listener);
     }
 
@@ -196,7 +196,7 @@ public class CollectionsImplementor
         model.getService()
                 .requestQueryCollections(
                         page,
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         query,
                         queryListener);
     }
@@ -244,7 +244,7 @@ public class CollectionsImplementor
                 for (int i = 0; i < response.body().size(); i ++) {
                     model.getAdapter().insertItem(response.body().get(i), model.getAdapter().getRealItemCount());
                 }
-                if (response.body().size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     setOver(true);
                 }
                 view.requestCollectionsSuccess();
@@ -313,7 +313,7 @@ public class CollectionsImplementor
                 for (int i = 0; i < response.body().getResults().size(); i ++) {
                     model.getAdapter().insertItem(response.body().getResults().get(i), model.getAdapter().getRealItemCount());
                 }
-                if (response.body().getResults().size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().getResults().size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     setOver(true);
                 }
                 view.requestCollectionsSuccess();

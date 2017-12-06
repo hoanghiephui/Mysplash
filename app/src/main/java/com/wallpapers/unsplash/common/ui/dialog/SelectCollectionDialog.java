@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.ChangeCollectionPhotoResult;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
@@ -32,7 +32,7 @@ import com.wallpapers.unsplash.common.data.entity.unsplash.Me;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.CollectionService;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
@@ -58,7 +58,7 @@ import retrofit2.Response;
  *
  * */
 
-public class SelectCollectionDialog extends MysplashDialogFragment
+public class SelectCollectionDialog extends BaseDialogFragment
         implements AuthManager.OnAuthDataChangedListener,
         CollectionMiniAdapter.OnCollectionResponseListener, CollectionService.OnRequestACollectionListener {
 
@@ -253,7 +253,7 @@ public class SelectCollectionDialog extends MysplashDialogFragment
         service.cancel();
 
         serviceListener = new OnRequestCollectionsListener();
-        service.requestUserCollections(me.username, page, Unsplash.DEFAULT_PER_PAGE, serviceListener);
+        service.requestUserCollections(me.username, page, UnsplashApplication.DEFAULT_PER_PAGE, serviceListener);
     }
 
     private void createCollection() {
@@ -523,7 +523,7 @@ public class SelectCollectionDialog extends MysplashDialogFragment
                             .addCollections(response.body());
                     adapter.notifyItemRangeInserted(startPosition, response.body().size());
                 }
-                if (response.body().size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     AuthManager.getInstance().getCollectionsManager().setLoadFinish(true);
                 } else {
                     page ++;

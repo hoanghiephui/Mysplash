@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.BaseOkHttpClient;
 import com.wallpapers.unsplash.common.data.api.SearchApi;
 import com.wallpapers.unsplash.common.data.entity.unsplash.SearchCollectionsResult;
@@ -35,19 +35,19 @@ public class SearchService {
 
     private SearchApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_API_BASE_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_API_BASE_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
                                 new GsonBuilder()
-                                        .setDateFormat(Unsplash.DATE_FORMAT)
+                                        .setDateFormat(UnsplashApplication.DATE_FORMAT)
                                         .create()))
                 .build()
                 .create((SearchApi.class));
     }
 
     public void searchPhotos(String query, int page, final OnRequestPhotosListener l) {
-        Call<SearchPhotosResult> searchPhotos = buildApi(buildClient()).searchPhotos(query, page, Unsplash.DEFAULT_PER_PAGE);
+        Call<SearchPhotosResult> searchPhotos = buildApi(buildClient()).searchPhotos(query, page, UnsplashApplication.DEFAULT_PER_PAGE);
         searchPhotos.enqueue(new Callback<SearchPhotosResult>() {
             @Override
             public void onResponse(Call<SearchPhotosResult> call, retrofit2.Response<SearchPhotosResult> response) {
@@ -67,7 +67,7 @@ public class SearchService {
     }
 
     public void searchUsers(String query, int page, final OnRequestUsersListener l) {
-        Call<SearchUsersResult> searchUsers = buildApi(buildClient()).searchUsers(query, page, Unsplash.DEFAULT_PER_PAGE);
+        Call<SearchUsersResult> searchUsers = buildApi(buildClient()).searchUsers(query, page, UnsplashApplication.DEFAULT_PER_PAGE);
         searchUsers.enqueue(new Callback<SearchUsersResult>() {
             @Override
             public void onResponse(Call<SearchUsersResult> call, retrofit2.Response<SearchUsersResult> response) {
@@ -87,7 +87,7 @@ public class SearchService {
     }
 
     public void searchCollections(String query, int page, final OnRequestCollectionsListener l) {
-        Call<SearchCollectionsResult> searchCollections = buildApi(buildClient()).searchCollections(query, page, Unsplash.DEFAULT_PER_PAGE);
+        Call<SearchCollectionsResult> searchCollections = buildApi(buildClient()).searchCollections(query, page, UnsplashApplication.DEFAULT_PER_PAGE);
         searchCollections.enqueue(new Callback<SearchCollectionsResult>() {
             @Override
             public void onResponse(Call<SearchCollectionsResult> call, retrofit2.Response<SearchCollectionsResult> response) {

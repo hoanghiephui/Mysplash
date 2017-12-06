@@ -9,15 +9,19 @@ import android.view.ViewGroup;
 
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
+import com.wallpapers.unsplash.common.ui.dialog.SelectCollectionDialog;
 import com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.photo.view.activity.PhotoActivity;
+import com.wallpapers.unsplash.photo.view.holder.AdsViewHolder;
 import com.wallpapers.unsplash.photo.view.holder.BaseHolder;
 import com.wallpapers.unsplash.photo.view.holder.BaseLandscapeHolder;
 import com.wallpapers.unsplash.photo.view.holder.ExifHolder;
+import com.wallpapers.unsplash.photo.view.holder.FeaturedCollectionsHolder;
 import com.wallpapers.unsplash.photo.view.holder.MoreHolder;
 import com.wallpapers.unsplash.photo.view.holder.MoreLandscapeHolder;
 import com.wallpapers.unsplash.photo.view.holder.ProgressHolder;
+import com.wallpapers.unsplash.photo.view.holder.RelatedPhotoHolder;
 import com.wallpapers.unsplash.photo.view.holder.StoryHolder;
 import com.wallpapers.unsplash.photo.view.holder.TagHolder;
 import com.wallpapers.unsplash.photo.view.holder.TouchHolder;
@@ -35,16 +39,18 @@ import java.util.List;
 public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.ViewHolder> {
 
     private PhotoActivity photoActivity;
-    private OnScrollListener tagListener, moreListener;
+    private OnScrollListener tagListener, moreListener, collectionListener;
 
     private Photo photo;
     private List<Integer> typeList; // information of view holder.
+    private List<Photo> photoListRelated;
 
     private boolean complete; // if true, means the photo object is completely. (has data like exif)
     private boolean needShowInitAnim; // need do the initialize animation when first bind basic view.
     private ViewHolder holder;
 
     private MoreHolder.MoreHolderModel moreHolderModel;
+    private SelectCollectionDialog.OnCollectionsChangedListener collectionsChangedListener;
 
     public static abstract class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -52,9 +58,14 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
             super(itemView);
         }
 
-        protected abstract void onBindView(PhotoActivity a, Photo photo);
+        protected void onBindView(PhotoActivity activity, Photo photo) {
+        }
 
-        protected void updateData(Photo photo){}
+        public void onBindView(PhotoActivity activity, List<Photo> photo) {
+        }
+
+        protected void updateData(Photo photo) {
+        }
 
         protected abstract void onRecycled();
     }
@@ -79,15 +90,17 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
         }
     }
 
-    public PhotoInfoAdapter(PhotoActivity photoActivity, Photo photo) {
+    public PhotoInfoAdapter(PhotoActivity photoActivity, Photo photo, List<Photo> photoListRelated) {
         this.photoActivity = photoActivity;
         this.tagListener = new OnScrollListener();
+        this.collectionListener = new OnScrollListener();
         this.moreListener = new OnScrollListener();
         this.photo = photo;
+        this.photoListRelated = photoListRelated;
         this.complete = photo != null && photo.complete;
         resetNeedShowInitAnimFlag();
         this.moreHolderModel = null;
-        buildTypeList();
+        buildTypeList(photoListRelated);
     }
 
     @Override
@@ -144,6 +157,18 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
                         LayoutInflater.from(parent.getContext())
                                 .inflate(R.layout.item_photo_more_landscape, parent, false),
                         photoActivity);
+            case FeaturedCollectionsHolder.TYPE_COLLECTION:
+                return new FeaturedCollectionsHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_featuerd_collection, parent, false),
+                        photoActivity);
+            case RelatedPhotoHolder.TYPE_PHOTO:
+                return new RelatedPhotoHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_featuerd_collection, parent, false),
+                        photoActivity);
+            case AdsViewHolder.TYPE_ADS:
+                return new AdsViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_ads_banner, parent, false),
+                        photoActivity);
 
             default:
                 return new ExifHolder(
@@ -155,18 +180,28 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         this.holder = holder;
-        holder.onBindView(photoActivity, photo);
-        if (needShowInitAnim && getItemViewType(position) == BaseHolder.TYPE_BASE) {
-            needShowInitAnim = false;
-            ((BaseHolder) holder).showInitAnim();
-        } else if (getItemViewType(position) >= ExifHolder.TYPE_EXIF) {
-            ((ExifHolder) holder).drawExif(photoActivity, getItemViewType(position), photo);
-        } else if (getItemViewType(position) == TagHolder.TYPE_TAG) {
-            ((TagHolder) holder).scrollTo(tagListener.scrollX, 0);
-            ((TagHolder) holder).setScrollListener(tagListener);
-        } else if (getItemViewType(position) == MoreLandscapeHolder.TYPE_MORE_LANDSCAPE) {
-            ((MoreLandscapeHolder) holder).scrollTo(moreListener.scrollX, 0);
-            ((MoreLandscapeHolder) holder).setScrollListener(moreListener);
+        if (getItemViewType(position) == RelatedPhotoHolder.TYPE_PHOTO) {
+            holder.onBindView(photoActivity,
+                    photoListRelated);
+            ((RelatedPhotoHolder) holder).scrollTo(collectionListener.scrollX, 0);
+            ((RelatedPhotoHolder) holder).setScrollListener(collectionListener);
+        } else {
+            holder.onBindView(photoActivity, photo);
+            if (needShowInitAnim && getItemViewType(position) == BaseHolder.TYPE_BASE) {
+                needShowInitAnim = false;
+                ((BaseHolder) holder).showInitAnim();
+            } else if (getItemViewType(position) >= ExifHolder.TYPE_EXIF) {
+                ((ExifHolder) holder).drawExif(photoActivity, getItemViewType(position), photo);
+            } else if (getItemViewType(position) == TagHolder.TYPE_TAG) {
+                ((TagHolder) holder).scrollTo(tagListener.scrollX, 0);
+                ((TagHolder) holder).setScrollListener(tagListener);
+            } else if (getItemViewType(position) == MoreLandscapeHolder.TYPE_MORE_LANDSCAPE) {
+                ((MoreLandscapeHolder) holder).scrollTo(moreListener.scrollX, 0);
+                ((MoreLandscapeHolder) holder).setScrollListener(moreListener);
+            } else if (getItemViewType(position) == FeaturedCollectionsHolder.TYPE_COLLECTION) {
+                ((FeaturedCollectionsHolder) holder).scrollTo(collectionListener.scrollX, 0);
+                ((FeaturedCollectionsHolder) holder).setScrollListener(collectionListener);
+            }
         }
     }
 
@@ -189,7 +224,7 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
         return typeList.get(position);
     }
 
-    private void buildTypeList() {
+    private void buildTypeList(List<Photo> photoListRelated) {
         typeList = new ArrayList<>();
         /*if (DisplayUtils.isLandscape(photoActivity)) {
             typeList.add(TouchLandscapeHolder.TYPE_TOUCH_LANDSCAPE);
@@ -201,15 +236,24 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
         typeList.add(TouchLandscapeHolder.TYPE_TOUCH_LANDSCAPE);
         typeList.add(BaseLandscapeHolder.TYPE_BASE_LANDSCAPE);
         if (complete) {
+            typeList.add(AdsViewHolder.TYPE_ADS);
+            if (photoListRelated != null && photoListRelated.size() > 0){
+                typeList.add(RelatedPhotoHolder.TYPE_PHOTO);
+            }
+
+            typeList.add(FeaturedCollectionsHolder.TYPE_COLLECTION);
             if (photo.story != null
                     && !TextUtils.isEmpty(photo.story.title)
                     && !TextUtils.isEmpty(photo.story.description)) {
                 typeList.add(StoryHolder.TYPE_STORY);
             }
-            for (int i = 0; i < 8; i ++) {
+            for (int i = 0; i < 8; i++) {
                 typeList.add(ExifHolder.TYPE_EXIF + i);
             }
-            typeList.add(TagHolder.TYPE_TAG);
+            typeList.add(AdsViewHolder.TYPE_ADS);
+            if (photo.tags != null && photo.tags.size() > 0) {
+                typeList.add(TagHolder.TYPE_TAG);
+            }
             if (photo.related_collections != null && photo.related_collections.results.size() > 0) {
                 if (DisplayUtils.isLandscape(photoActivity)) {
                     typeList.add(MoreLandscapeHolder.TYPE_MORE_LANDSCAPE);
@@ -223,15 +267,16 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
     }
 
     public void reset(Photo photo) {
-        updatePhoto(photo);
+        updatePhoto(photo, null);
         resetNeedShowInitAnimFlag();
         this.moreHolderModel = null;
     }
 
-    public void updatePhoto(Photo photo) {
+    public void updatePhoto(Photo photo, List<Photo> list) {
         this.photo = photo;
         this.complete = photo.exif != null;
-        buildTypeList();
+        this.photoListRelated = list;
+        buildTypeList(list);
         holder.updateData(photo);
         notifyItemChanged(0);
     }

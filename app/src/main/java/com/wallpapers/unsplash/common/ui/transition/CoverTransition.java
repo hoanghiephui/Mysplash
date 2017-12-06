@@ -8,7 +8,7 @@ import android.transition.ChangeBounds;
 import android.transition.TransitionValues;
 import android.util.AttributeSet;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView;
 
@@ -34,7 +34,7 @@ public class CoverTransition extends ChangeBounds {
     @Override
     public void captureEndValues(TransitionValues transitionValues) {
         super.captureEndValues(transitionValues);
-        Photo photo = Unsplash.getInstance().getPhoto();
+        Photo photo = UnsplashApplication.getInstance().getPhoto();
         if (photo != null) {
             int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
             int[] sizes = FreedomImageView.getMeasureSize(

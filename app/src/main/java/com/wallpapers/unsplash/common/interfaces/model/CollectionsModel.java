@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.model;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.CollectionService;
 import com.wallpapers.unsplash.common.ui.adapter.CollectionAdapter;
 
@@ -21,13 +21,13 @@ public interface CollectionsModel {
     Object getRequestKey();
     void setRequestKey(Object key);
 
-    @Unsplash.CollectionTypeRule
+    @UnsplashApplication.CollectionTypeRule
     int getCollectionsType();
     void setCollectionsType(int type);
 
-    @Unsplash.PageRule
+    @UnsplashApplication.PageRule
     int getCollectionsPage();
-    void setCollectionsPage(@Unsplash.PageRule int page);
+    void setCollectionsPage(@UnsplashApplication.PageRule int page);
 
     // control load state.
 

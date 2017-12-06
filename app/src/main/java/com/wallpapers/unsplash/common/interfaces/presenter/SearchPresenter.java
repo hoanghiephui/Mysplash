@@ -3,7 +3,7 @@ package com.wallpapers.unsplash.common.interfaces.presenter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 
 /**
  * Search presenter.
@@ -16,7 +16,7 @@ public interface SearchPresenter {
 
     // HTTP request.
 
-    void requestPhotos(Context c, @Unsplash.PageRule int page, boolean refresh);
+    void requestPhotos(Context c, @UnsplashApplication.PageRule int page, boolean refresh);
     void cancelRequest();
 
     // load data interface.
@@ -38,7 +38,7 @@ public interface SearchPresenter {
     void setQuery(String key);
     String getQuery();
 
-    void setPage(@Unsplash.PageRule int page);
+    void setPage(@UnsplashApplication.PageRule int page);
     void setOver(boolean over);
 
     int getAdapterItemCount();

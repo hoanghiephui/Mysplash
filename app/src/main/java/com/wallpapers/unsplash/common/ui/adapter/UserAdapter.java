@@ -13,8 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.FooterAdapter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.FooterAdapter;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -112,9 +112,9 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
         // interface.
 
         @OnClick(R.id.item_user_background) void clickItem() {
-            if (a instanceof MysplashActivity) {
+            if (a instanceof BaseActivity) {
                 IntentHelper.startUserActivity(
-                        (MysplashActivity) a,
+                        (BaseActivity) a,
                         avatar,
                         itemList.get(getAdapterPosition()),
                         UserActivity.PAGE_PHOTO);
@@ -191,7 +191,7 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
                 && DisplayUtils.getNavigationBarHeight(a.getResources()) != 0;
     }
 
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         this.a = a;
     }
 

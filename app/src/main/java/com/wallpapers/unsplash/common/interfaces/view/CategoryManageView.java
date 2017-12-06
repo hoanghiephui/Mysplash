@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.view;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 
 /**
  * Category manage view.
@@ -11,5 +11,5 @@ import com.wallpapers.unsplash.Unsplash;
 
 public interface CategoryManageView {
 
-    void setCategory(@Unsplash.CategoryIdRule int categoryId);
+    void setCategory(@UnsplashApplication.CategoryIdRule int categoryId);
 }

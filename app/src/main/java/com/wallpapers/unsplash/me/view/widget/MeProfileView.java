@@ -16,9 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Me;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
 import com.wallpapers.unsplash.common.ui.widget.rippleButton.RippleButton;
@@ -169,7 +169,7 @@ public class MeProfileView  extends FrameLayout
     @Override
     public void onSwitch(boolean switchTo) {
         if (AuthManager.getInstance().isAuthorized()) {
-            IntentHelper.startMyFollowActivity(Unsplash.getInstance().getTopActivity());
+            IntentHelper.startMyFollowActivity(UnsplashApplication.getInstance().getTopActivity());
         }
     }
 
@@ -188,18 +188,18 @@ public class MeProfileView  extends FrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         animShow(progressView);
         animHide(profileContainer);
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         // do nothing.
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         animShow(profileContainer);
         animHide(progressView);
     }

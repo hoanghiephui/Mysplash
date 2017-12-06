@@ -2,14 +2,14 @@ package com.wallpapers.unsplash.main.presenter.widget;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.api.PhotoApi;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.service.PhotoService;
 import com.wallpapers.unsplash.common.interfaces.model.CategoryModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.CategoryPresenter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
 import com.wallpapers.unsplash.common.utils.ValueUtils;
@@ -138,7 +138,7 @@ public class CategoryImplementor
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 
@@ -159,21 +159,21 @@ public class CategoryImplementor
                 .requestPhotosInAGivenCategory(
                         model.getPhotosCategory(),
                         page,
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         listener);
     }
 
     private void requestPhotosInCategoryRandom(Context c, int page, boolean refresh) {
         if (refresh) {
             page = 0;
-            model.setPageList(ValueUtils.getPageListByCategory(Unsplash.CATEGORY_TOTAL_NEW));
+            model.setPageList(ValueUtils.getPageListByCategory(UnsplashApplication.CATEGORY_TOTAL_NEW));
         }
         listener = new OnRequestPhotosListener(c, page, refresh, true);
         model.getService()
                 .requestPhotosInAGivenCategory(
                         model.getPhotosCategory(),
                         model.getPageList().get(page),
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         listener);
     }
 
@@ -226,7 +226,7 @@ public class CategoryImplementor
                 for (int i = 0; i < response.body().size(); i ++) {
                     model.getAdapter().insertItem(response.body().get(i));
                 }
-                if (response.body().size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     setOver(true);
                 }
                 view.requestPhotosSuccess();

@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.common.interfaces.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
  * Load presenter.
@@ -13,7 +13,7 @@ import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 
 public interface LoadPresenter {
 
-    void bindActivity(@NonNull MysplashActivity activity);
+    void bindActivity(@NonNull BaseActivity activity);
 
     int getLoadState();
 

@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.common.interfaces.presenter;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.NotificationAdapter;
 
 /**
@@ -34,6 +34,6 @@ public interface NotificationsPresenter {
 
     // manage HTTP request parameters.
 
-    void setActivityForAdapter(MysplashActivity a);
+    void setActivityForAdapter(BaseActivity a);
     NotificationAdapter getAdapter();
 }

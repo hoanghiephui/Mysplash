@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.presenter.SwipeBackManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.SwipeBackManageView;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -30,7 +30,7 @@ import butterknife.OnClick;
  *
  * */
 
-public class NotificationActivity extends MysplashActivity
+public class NotificationActivity extends BaseActivity
         implements SwipeBackManageView,
         View.OnClickListener, Toolbar.OnMenuItemClickListener,
         SwipeBackCoordinatorLayout.OnSwipeListener {

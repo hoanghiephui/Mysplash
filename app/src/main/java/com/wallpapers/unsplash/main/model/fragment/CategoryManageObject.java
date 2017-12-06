@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.main.model.fragment;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.interfaces.model.CategoryManageModel;
 
 /**
@@ -11,7 +11,7 @@ import com.wallpapers.unsplash.common.interfaces.model.CategoryManageModel;
 public class CategoryManageObject
         implements CategoryManageModel {
 
-    @Unsplash.CategoryIdRule
+    @UnsplashApplication.CategoryIdRule
     private int categoryId;
 
     public CategoryManageObject(int categoryId) {

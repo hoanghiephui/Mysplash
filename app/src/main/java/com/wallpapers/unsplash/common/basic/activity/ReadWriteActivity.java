@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common._basic.activity;
+package com.wallpapers.unsplash.common.basic.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -16,7 +16,7 @@ import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
  *
  * */
 
-public abstract class ReadWriteActivity extends MysplashActivity {
+public abstract class ReadWriteActivity extends BaseActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     protected void requestReadWritePermission() {

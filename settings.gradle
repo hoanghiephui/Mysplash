@@ -1,1 +1,2 @@
-include ':app'
+include ':app', 'admobadapter'
+project(':admobadapter').projectDir = new File('admobadapter/admobadapter')

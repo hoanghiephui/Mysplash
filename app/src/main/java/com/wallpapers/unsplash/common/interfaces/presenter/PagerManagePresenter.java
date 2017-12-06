@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.presenter;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.view.PagerView;
 
 /**
@@ -29,7 +29,7 @@ public interface PagerManagePresenter {
     void checkToRefresh(int position);
 
     /**
-     * {@link MysplashActivity#backToTop()}
+     * {@link BaseActivity#backToTop()}
      * {@link com.wallpapers.unsplash.common.utils.BackToTopUtils}
      * */
     boolean needPagerBackToTop();

@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.adapter.MoreHorizontalAdapter;
@@ -30,7 +30,7 @@ public class MoreLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
 
     public static final int TYPE_MORE_LANDSCAPE = 10;
 
-    public MoreLandscapeHolder(View itemView, MysplashActivity a) {
+    public MoreLandscapeHolder(View itemView, BaseActivity a) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
@@ -42,14 +42,14 @@ public class MoreLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
     }
 
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
+    protected void onBindView(PhotoActivity activity, Photo photo) {
         List<Collection> collectionList = new ArrayList<>();
         if (photo.related_collections != null) {
             for (int i = 0; i < photo.related_collections.results.size(); i ++) {
                 collectionList.add(photo.related_collections.results.get(i));
             }
         }
-        recyclerView.setAdapter(new MoreHorizontalAdapter(a, collectionList));
+        recyclerView.setAdapter(new MoreHorizontalAdapter(activity, collectionList));
     }
 
     @Override

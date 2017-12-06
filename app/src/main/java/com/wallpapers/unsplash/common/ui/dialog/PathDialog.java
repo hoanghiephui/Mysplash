@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 
 import butterknife.BindView;
@@ -27,7 +27,7 @@ import butterknife.OnClick;
  *
  * */
 
-public class PathDialog extends MysplashDialogFragment {
+public class PathDialog extends BaseDialogFragment {
 
     @BindView(R.id.dialog_path_container)
     CoordinatorLayout container;
@@ -60,8 +60,8 @@ public class PathDialog extends MysplashDialogFragment {
         ((ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE))
                 .setPrimaryClip(
                         ClipData.newPlainText(
-                                "storage/emulated/0/Pictures/Unsplash",
-                                "storage/emulated/0/Pictures/Unsplash"));
+                                "storage/emulated/0/Pictures/UnsplashApplication",
+                                "storage/emulated/0/Pictures/UnsplashApplication"));
     }
 
     @OnClick(R.id.dialog_path_enterBtn) void enter() {

@@ -9,10 +9,9 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.wallpapers.unsplash.R
-import com.wallpapers.unsplash.Unsplash
-import com.wallpapers.unsplash.common._basic.FooterAdapter
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity
-import com.wallpapers.unsplash.common.data.entity.unsplash.ResultsItem
+import com.wallpapers.unsplash.UnsplashApplication
+import com.wallpapers.unsplash.common.basic.FooterAdapter
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity
 import com.wallpapers.unsplash.common.data.entity.unsplash.User
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView
 import com.wallpapers.unsplash.common.utils.DisplayUtils
@@ -29,7 +28,7 @@ class UsersQueryAdapter : FooterAdapter<RecyclerView.ViewHolder>() {
     init {
         isHasHeader = false
     }
-    fun setActivity(activity: MysplashActivity) {
+    fun setActivity(activity: BaseActivity) {
         this.context = activity
     }
 
@@ -64,7 +63,7 @@ class UsersQueryAdapter : FooterAdapter<RecyclerView.ViewHolder>() {
 
     internal fun clickAvatar(avatar : CircleImageView, user: User) {
         IntentHelper.startUserActivity(
-                Unsplash.getInstance().topActivity,
+                UnsplashApplication.getInstance().topActivity,
                 avatar,
                 user,
                 UserActivity.PAGE_PHOTO)

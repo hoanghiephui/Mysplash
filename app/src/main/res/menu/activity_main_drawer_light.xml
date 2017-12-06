@@ -19,8 +19,15 @@
     <item
         android:id="@+id/action_collection"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_collected_light"
+        android:icon="@drawable/ic_collections_grey_600_24dp"
         android:title="@string/action_collection"
+        android:checkable="true" />
+
+    <item
+        android:id="@+id/action_explore"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_loyalty_grey_600_24dp"
+        android:title="@string/action_explore"
         android:checkable="true" />
 
     <item
@@ -37,6 +44,8 @@
         android:icon="@drawable/ic_tag_light"
         android:title="@string/action_category"
         android:checkable="true" />
+
+
 
     <item
         android:id="@+id/action_change_theme"

@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.Tag;
+import com.wallpapers.unsplash.common.basic.Tag;
 import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
 import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
 
@@ -63,7 +63,7 @@ public class TagAdapter extends RecyclerView.Adapter<TagAdapter.ViewHolder> {
 
         @OnClick(R.id.item_tag_card) void clickItem() {
             IntentHelper.startSearchActivity(
-                    Unsplash.getInstance().getTopActivity(),
+                    UnsplashApplication.getInstance().getTopActivity(),
                     itemList.get(getAdapterPosition()).getTitle());
         }
     }

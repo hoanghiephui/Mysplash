@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common._basic;
+package com.wallpapers.unsplash.common.basic;
 
 /**
  * Flag runnable.

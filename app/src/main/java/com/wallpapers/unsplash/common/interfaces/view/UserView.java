@@ -1,5 +1,7 @@
 package com.wallpapers.unsplash.common.interfaces.view;
 
+import android.content.Context;
+
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 
 /**
@@ -19,4 +21,6 @@ public interface UserView {
 
     void followRequestSuccess(boolean follow);
     void followRequestFailed(boolean follow);
+
+    Context getContexts();
 }

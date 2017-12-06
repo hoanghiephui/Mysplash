@@ -1,9 +1,9 @@
 package com.wallpapers.unsplash.main.presenter.widget
 
 import android.content.Context
-import com.wallpapers.unsplash.Unsplash
+import com.wallpapers.unsplash.UnsplashApplication
 import com.wallpapers.unsplash.R
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity
 import com.wallpapers.unsplash.common.data.entity.unsplash.Users
 import com.wallpapers.unsplash.common.data.service.UserService
 import com.wallpapers.unsplash.common.interfaces.model.UsersQueryModel
@@ -79,7 +79,7 @@ class UsersQueryImplementor(private val model: UsersQueryModel, private val view
         view.setPermitLoading(!over)
     }
 
-    override fun setActivityForAdapter(activity: MysplashActivity) {
+    override fun setActivityForAdapter(activity: BaseActivity) {
         model.getAdapter()?.setActivity(activity)
     }
 
@@ -90,7 +90,7 @@ class UsersQueryImplementor(private val model: UsersQueryModel, private val view
     fun onRequestUsersQuey(context: Context, query: String, page: Int, refresh: Boolean) {
         val mPage = Math.max(1, if (refresh) 1 else page + 1)
         listen = OnRequestUsersListener(context, mPage, refresh)
-        model.getService()?.requestUserByQuery(query, Unsplash.DEFAULT_PER_PAGE, mPage, listen)
+        model.getService()?.requestUserByQuery(query, UnsplashApplication.DEFAULT_PER_PAGE, mPage, listen)
     }
 
     inner class OnRequestUsersListener(// data
@@ -122,7 +122,7 @@ class UsersQueryImplementor(private val model: UsersQueryModel, private val view
                 for (i in 0 until response.body()?.results!!.size) {
                     response.body()?.results?.get(i)?.let { model.getAdapter()?.insertItem(it) }
                 }
-                if (response.body()?.results!!.size < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body()?.results!!.size < UnsplashApplication.DEFAULT_PER_PAGE) {
                     setOver(true)
                 }
                 view.requestUsersSuccess()

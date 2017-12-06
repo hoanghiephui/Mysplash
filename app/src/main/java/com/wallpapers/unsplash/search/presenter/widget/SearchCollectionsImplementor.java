@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.SearchCollectionsResult;
 import com.wallpapers.unsplash.common.data.service.SearchService;
@@ -180,7 +180,7 @@ public class SearchCollectionsImplementor
                             response.body().results.get(i),
                             adapter.getRealItemCount());
                 }
-                if (response.body().results.size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().results.size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     setOver(true);
                 }
                 view.searchSuccess();

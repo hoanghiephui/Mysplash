@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
 import com.wallpapers.unsplash.common.interfaces.model.UserModel;
@@ -270,6 +270,11 @@ public class UserProfileView extends FrameLayout
         }
     }
 
+    @Override
+    public Context getContexts() {
+        return getContext();
+    }
+
     // load view.
 
     @Override
@@ -283,18 +288,18 @@ public class UserProfileView extends FrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         animShow(progressView);
         animHide(profileContainer);
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         // do nothing.
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         animShow(profileContainer);
         animHide(progressView);
     }

@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.AboutAdapter;
 import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  *
  * */
 
-public class AboutActivity extends MysplashActivity
+public class AboutActivity extends BaseActivity
         implements SwipeBackCoordinatorLayout.OnSwipeListener {
 
     @BindView(R.id.activity_about_container)

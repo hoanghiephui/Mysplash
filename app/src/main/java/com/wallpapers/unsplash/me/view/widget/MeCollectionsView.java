@@ -14,7 +14,7 @@ import android.widget.Button;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.interfaces.model.CollectionsModel;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
@@ -164,7 +164,7 @@ public class MeCollectionsView extends NestedScrollFrameLayout
         this.scrollModel = new ScrollObject();
     }
 
-    private void initPresenter(MysplashActivity a) {
+    private void initPresenter(BaseActivity a) {
         this.collectionsPresenter = new CollectionsImplementor(collectionsModel, this);
         this.pagerPresenter = new PagerImplementor(pagerModel, this);
         this.loadPresenter = new LoadImplementor(loadModel, this);
@@ -439,7 +439,7 @@ public class MeCollectionsView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -450,14 +450,14 @@ public class MeCollectionsView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(retryButton);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

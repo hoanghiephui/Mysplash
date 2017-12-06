@@ -3,13 +3,13 @@ package com.wallpapers.unsplash.common.data.entity.unsplash;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 
 /**
  * Category.
  * */
 
-public class Category implements com.wallpapers.unsplash.common._basic.Tag, Parcelable {
+public class Category implements com.wallpapers.unsplash.common.basic.Tag, Parcelable {
 
     /**
      * id : 2
@@ -25,22 +25,22 @@ public class Category implements com.wallpapers.unsplash.common._basic.Tag, Parc
 
     private String getRawCoverUrl() {
         switch (id) {
-            case Unsplash.CATEGORY_BUILDINGS_ID:
+            case UnsplashApplication.CATEGORY_BUILDINGS_ID:
                 return "https://images.unsplash.com/photo-1481205009193-0b6b42cc81ac";
 
-            case Unsplash.CATEGORY_FOOD_DRINK_ID:
+            case UnsplashApplication.CATEGORY_FOOD_DRINK_ID:
                 return "https://images.unsplash.com/photo-1453831362806-3d5577f014a4";
 
-            case Unsplash.CATEGORY_NATURE_ID:
+            case UnsplashApplication.CATEGORY_NATURE_ID:
                 return "https://images.unsplash.com/photo-1433351120803-a29aeee7d1e7";
 
-            case Unsplash.CATEGORY_OBJECTS_ID:
+            case UnsplashApplication.CATEGORY_OBJECTS_ID:
                 return "https://images.unsplash.com/photo-1444881421460-d838c3b98f95";
 
-            case Unsplash.CATEGORY_PEOPLE_ID:
+            case UnsplashApplication.CATEGORY_PEOPLE_ID:
                 return "https://images.unsplash.com/photo-1482028655172-fa4270a17164";
 
-            case Unsplash.CATEGORY_TECHNOLOGY_ID:
+            case UnsplashApplication.CATEGORY_TECHNOLOGY_ID:
                 return "https://images.unsplash.com/photo-1445620466293-d6316372ab59";
 
             default:

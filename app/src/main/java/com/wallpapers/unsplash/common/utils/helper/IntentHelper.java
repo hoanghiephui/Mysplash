@@ -17,11 +17,11 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.wallpapers.unsplash.BuildConfig;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.ui.activity.CustomApiActivity;
 import com.wallpapers.unsplash.common.ui.activity.MuzeiConfigurationActivity;
@@ -50,7 +50,7 @@ import java.util.List;
 /**
  * Intent helper.
  *
- * This helper that can build {@link Intent} and make start {@link MysplashActivity} easier.
+ * This helper that can build {@link Intent} and make start {@link BaseActivity} easier.
  *
  * */
 
@@ -63,13 +63,13 @@ public class IntentHelper {
         a.startActivity(intent);
     }
 
-    public static void startNotificationActivity(MysplashActivity a) {
+    public static void startNotificationActivity(BaseActivity a) {
         Intent intent = new Intent(a, NotificationActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startSearchActivity(MysplashActivity a, @Nullable String query) {
+    public static void startSearchActivity(BaseActivity a, @Nullable String query) {
         Intent intent = new Intent(a, SearchActivity.class);
         if (!TextUtils.isEmpty(query)) {
             intent.putExtra(SearchActivity.KEY_SEARCH_ACTIVITY_QUERY, query);
@@ -78,10 +78,10 @@ public class IntentHelper {
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startPhotoActivity(MysplashActivity a, View image, View background,
+    public static void startPhotoActivity(BaseActivity a, View image, View background,
                                           ArrayList<Photo> photoList, int currentIndex, int headIndex,
                                           Bundle bundle) {
-        Unsplash.getInstance().setPhoto(photoList.get(currentIndex - headIndex));
+        UnsplashApplication.getInstance().setPhoto(photoList.get(currentIndex - headIndex));
 
         Intent intent = new Intent(a, PhotoActivity.class);
         intent.putParcelableArrayListExtra(PhotoActivity.KEY_PHOTO_ACTIVITY_PHOTO_LIST, photoList);
@@ -114,7 +114,7 @@ public class IntentHelper {
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startPreviewActivity(MysplashActivity a, Photo photo, boolean showIcon) {
+    public static void startPreviewActivity(BaseActivity a, Photo photo, boolean showIcon) {
         Intent intent = new Intent(a, PreviewActivity.class);
         intent.putExtra(PreviewActivity.KEY_PREVIEW_ACTIVITY_PREVIEW, photo);
         intent.putExtra(PreviewActivity.KEY_PREVIEW_ACTIVITY_SHOW_ICON, showIcon);
@@ -122,7 +122,7 @@ public class IntentHelper {
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startPreviewActivity(MysplashActivity a, User user, boolean showIcon) {
+    public static void startPreviewActivity(BaseActivity a, User user, boolean showIcon) {
         Intent intent = new Intent(a, PreviewActivity.class);
         intent.putExtra(PreviewActivity.KEY_PREVIEW_ACTIVITY_PREVIEW, user);
         intent.putExtra(PreviewActivity.KEY_PREVIEW_ACTIVITY_SHOW_ICON, showIcon);
@@ -130,7 +130,7 @@ public class IntentHelper {
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startCollectionActivity(MysplashActivity a,
+    public static void startCollectionActivity(BaseActivity a,
                                                View avatar, View background, Collection c) {
         Intent intent = new Intent(a, CollectionActivity.class);
         intent.putExtra(CollectionActivity.KEY_COLLECTION_ACTIVITY_COLLECTION, c);
@@ -151,10 +151,10 @@ public class IntentHelper {
         }
 
         ActivityCompat.startActivityForResult(
-                a, intent, Unsplash.COLLECTION_ACTIVITY, options.toBundle());
+                a, intent, UnsplashApplication.COLLECTION_ACTIVITY, options.toBundle());
     }
 
-    public static void startCollectionActivity(MysplashActivity a, Collection c) {
+    public static void startCollectionActivity(BaseActivity a, Collection c) {
         Intent intent = new Intent(a, CollectionActivity.class);
         intent.putExtra(CollectionActivity.KEY_COLLECTION_ACTIVITY_COLLECTION, c);
         a.startActivity(intent);
@@ -168,7 +168,7 @@ public class IntentHelper {
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startUserActivity(MysplashActivity activity,
+    public static void startUserActivity(BaseActivity activity,
                                          View avatar, User user, @UserActivity.UserPageRule int page) {
         if (AuthManager.getInstance().isAuthorized()
                 && !TextUtils.isEmpty(AuthManager.getInstance().getUsername())
@@ -188,7 +188,7 @@ public class IntentHelper {
                                 activity,
                                 Pair.create(avatar, activity.getString(R.string.transition_user_avatar)));
                 ActivityCompat.startActivityForResult(
-                        activity, intent, Unsplash.USER_ACTIVITY, options.toBundle());
+                        activity, intent, UnsplashApplication.USER_ACTIVITY, options.toBundle());
             }
         }
     }
@@ -200,13 +200,13 @@ public class IntentHelper {
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startLoginActivity(MysplashActivity a) {
+    public static void startLoginActivity(BaseActivity a) {
         Intent intent = new Intent(a, LoginActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startMeActivity(MysplashActivity a,
+    public static void startMeActivity(BaseActivity a,
                                        View avatar, @UserActivity.UserPageRule int page) {
         if (!AuthManager.getInstance().isAuthorized()) {
             startLoginActivity(a);
@@ -218,7 +218,7 @@ public class IntentHelper {
                             a,
                             Pair.create(avatar, a.getString(R.string.transition_me_avatar)));
             ActivityCompat.startActivityForResult(
-                    a, intent, Unsplash.ME_ACTIVITY, options.toBundle());
+                    a, intent, UnsplashApplication.ME_ACTIVITY, options.toBundle());
         } else {
             Intent intent = new Intent(a, MeActivity.class);
             intent.putExtra(MeActivity.KEY_ME_ACTIVITY_PAGE_POSITION, page);
@@ -227,7 +227,7 @@ public class IntentHelper {
         }
     }
 
-    public static void startMyFollowActivity(MysplashActivity a) {
+    public static void startMyFollowActivity(BaseActivity a) {
         if (!AuthManager.getInstance().isAuthorized()) {
             startLoginActivity(a);
         } else {
@@ -237,13 +237,13 @@ public class IntentHelper {
         }
     }
 
-    public static void startUpdateMeActivity(MysplashActivity a) {
+    public static void startUpdateMeActivity(BaseActivity a) {
         Intent intent = new Intent(a, UpdateMeActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startDownloadManageActivity(MysplashActivity a) {
+    public static void startDownloadManageActivity(BaseActivity a) {
         Intent intent = new Intent(a, DownloadManageActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
@@ -256,19 +256,19 @@ public class IntentHelper {
         context.startActivity(intent);
     }
 
-    public static void startSettingsActivity(MysplashActivity a) {
+    public static void startSettingsActivity(BaseActivity a) {
         Intent intent = new Intent(a, SettingsActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startAboutActivity(MysplashActivity a) {
+    public static void startAboutActivity(BaseActivity a) {
         Intent intent = new Intent(a, AboutActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startIntroduceActivity(MysplashActivity a) {
+    public static void startIntroduceActivity(BaseActivity a) {
         Intent intent = new Intent(a, IntroduceActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
@@ -280,12 +280,14 @@ public class IntentHelper {
             Uri uri = FileUtils.filePathToUri(
                     c,
                     Environment.getExternalStorageDirectory()
-                            + Unsplash.DOWNLOAD_PATH
-                            + title + Unsplash.DOWNLOAD_PHOTO_FORMAT);
+                            + UnsplashApplication.DOWNLOAD_PATH
+                            + title + UnsplashApplication.DOWNLOAD_PHOTO_FORMAT);
             intent.setDataAndType(uri, "image/jpg");
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             c.startActivity(
                     Intent.createChooser(
                             intent,
@@ -294,8 +296,8 @@ public class IntentHelper {
             Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
             File file = new File(
                     Environment.getExternalStorageDirectory()
-                            + Unsplash.DOWNLOAD_PATH
-                            + title + Unsplash.DOWNLOAD_PHOTO_FORMAT);
+                            + UnsplashApplication.DOWNLOAD_PATH
+                            + title + UnsplashApplication.DOWNLOAD_PHOTO_FORMAT);
             Uri uri = FileProvider.getUriForFile(c, BuildConfig.APPLICATION_ID, file);
             intent.setDataAndType(uri, "image/jpg");
             intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -315,13 +317,15 @@ public class IntentHelper {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             Uri uri = Uri.parse("file://"
                     + Environment.getExternalStorageDirectory()
-                    + Unsplash.DOWNLOAD_PATH
+                    + UnsplashApplication.DOWNLOAD_PATH
                     + title
                     + ".zip");
             intent.setDataAndType(uri, "application/x-zip-compressed");
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             c.startActivity(
                     Intent.createChooser(
                             intent,
@@ -330,7 +334,7 @@ public class IntentHelper {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             File file = new File(
                     Environment.getExternalStorageDirectory()
-                            + Unsplash.DOWNLOAD_PATH
+                            + UnsplashApplication.DOWNLOAD_PATH
                             + title
                             + ".zip");
             Uri uri = FileProvider.getUriForFile(c, BuildConfig.APPLICATION_ID, file);
@@ -362,17 +366,17 @@ public class IntentHelper {
 
     public static void startCustomApiActivity(SettingsActivity a) {
         Intent intent = new Intent(a, CustomApiActivity.class);
-        a.startActivityForResult(intent, Unsplash.CUSTOM_API_ACTIVITY);
+        a.startActivityForResult(intent, UnsplashApplication.CUSTOM_API_ACTIVITY);
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void startMuzeiConfigrationActivity(MysplashActivity a) {
+    public static void startMuzeiConfigrationActivity(BaseActivity a) {
         Intent intent = new Intent(a, MuzeiConfigurationActivity.class);
         a.startActivity(intent);
         a.overridePendingTransition(R.anim.activity_in, 0);
     }
 
-    public static void backToHome(MysplashActivity a) {
+    public static void backToHome(BaseActivity a) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);

@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.user.presenter.widget;
 
 import android.support.annotation.NonNull;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.LoadPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.LoadView;
@@ -22,7 +22,7 @@ public class LoadImplementor implements LoadPresenter {
     }
 
     @Override
-    public void bindActivity(@NonNull MysplashActivity activity) {
+    public void bindActivity(@NonNull BaseActivity activity) {
         model.setActivity(activity);
     }
 

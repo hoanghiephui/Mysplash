@@ -8,6 +8,7 @@ import com.wallpapers.unsplash.common.data.entity.unsplash.Photos;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -105,5 +106,9 @@ public interface PhotoApi {
     @GET("napi/search/photos")
     Call<Photos> getPhotoByTag(@Query("query") String query, @Query("per_page") int perPage, @Query("page") int page);
 
+    @GET("/napi/photos/{id}/related")
+    Observable<Photo.RelatedPhotos> getPhotoInfoRelated(@Path("id") String id);
 
+    @GET("napi/photos/{id}/info")
+    Observable<Photo> getPhotoInfoRx(@Path("id") String id);
 }

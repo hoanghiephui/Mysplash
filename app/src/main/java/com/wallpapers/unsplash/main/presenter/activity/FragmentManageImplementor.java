@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.MysplashFragment;
 import com.wallpapers.unsplash.common.interfaces.model.FragmentManageModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.FragmentManagePresenter;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -20,7 +20,7 @@ import com.wallpapers.unsplash.main.view.fragment.SearchQueryFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.wallpapers.unsplash.Unsplash.SEARCH_QUERY_ID;
+import static com.wallpapers.unsplash.UnsplashApplication.SEARCH_QUERY_ID;
 
 /**
  * Fragment manage implementor.
@@ -39,7 +39,7 @@ public class FragmentManageImplementor
     }
 
     @Override
-    public List<MysplashFragment> getFragmentList(MysplashActivity a, boolean includeHidden) {
+    public List<MysplashFragment> getFragmentList(BaseActivity a, boolean includeHidden) {
         List<Fragment> fragmentList = a.getSupportFragmentManager().getFragments();
         if (fragmentList == null) {
             fragmentList = new ArrayList<>();
@@ -56,7 +56,7 @@ public class FragmentManageImplementor
 
     @Override
     @Nullable
-    public MysplashFragment getTopFragment(MysplashActivity a) {
+    public MysplashFragment getTopFragment(BaseActivity a) {
         List<MysplashFragment> list = getFragmentList(a, false);
         if (list.size() > 0) {
             return list.get(list.size() - 1);
@@ -66,7 +66,7 @@ public class FragmentManageImplementor
     }
 
     @Override
-    public void changeFragment(MysplashActivity a, int code, String title) {
+    public void changeFragment(BaseActivity a, int code, String title) {
         int oldCode = model.getId();
         model.setId(code);
 
@@ -104,7 +104,7 @@ public class FragmentManageImplementor
     }
 /*
     @Override
-    public void addFragment(MysplashActivity a, int code) {
+    public void addFragment(BaseActivity a, int code) {
         MysplashFragment f = buildFragmentByCode(code);
         model.addFragmentToList(code);
 
@@ -118,7 +118,7 @@ public class FragmentManageImplementor
     }
 
     @Override
-    public void popFragment(MysplashActivity a) {
+    public void popFragment(BaseActivity a) {
         if (model.getFragmentCount() > 0) {
             MysplashFragment f = getFragmentList(a, false).get(model.getFragmentCount() - 1);
             model.popFragmentFromList();
@@ -128,7 +128,7 @@ public class FragmentManageImplementor
     }
 */
 
-    private void replaceFragment(MysplashActivity a, MysplashFragment f) {
+    private void replaceFragment(BaseActivity a, MysplashFragment f) {
         a.getSupportFragmentManager()
                 .beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -137,7 +137,7 @@ public class FragmentManageImplementor
         DisplayUtils.setStatusBarStyle(a, false);
     }
 
-    private void showAndHideFragment(MysplashActivity a, MysplashFragment newF, MysplashFragment oldF) {
+    private void showAndHideFragment(BaseActivity a, MysplashFragment newF, MysplashFragment oldF) {
         a.getSupportFragmentManager()
                 .beginTransaction()
                 .remove(oldF)
@@ -148,7 +148,7 @@ public class FragmentManageImplementor
         newF.initNavigationBarStyle();
     }
 
-    private void showAndHideNewFragment(MysplashActivity a, MysplashFragment newF, MysplashFragment oldF) {
+    private void showAndHideNewFragment(BaseActivity a, MysplashFragment newF, MysplashFragment oldF) {
         a.getSupportFragmentManager()
                 .beginTransaction()
                 .hide(oldF)

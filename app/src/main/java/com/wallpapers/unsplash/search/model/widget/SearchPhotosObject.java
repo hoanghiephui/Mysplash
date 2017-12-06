@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.search.model.widget;
 
-import com.wallpapers.unsplash.Unsplash;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.service.SearchService;
 import com.wallpapers.unsplash.common.interfaces.model.SearchModel;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
@@ -31,7 +31,7 @@ public class SearchPhotosObject
 
         this.searchQuery = "";
 
-        this.photosPage = adapter.getRealItemCount() / Unsplash.DEFAULT_PER_PAGE;
+        this.photosPage = adapter.getRealItemCount() / UnsplashApplication.DEFAULT_PER_PAGE;
 
         this.refreshing = false;
         this.loading = false;
@@ -49,7 +49,7 @@ public class SearchPhotosObject
     }
 
     @Override
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         adapter.setActivity(a);
     }
 

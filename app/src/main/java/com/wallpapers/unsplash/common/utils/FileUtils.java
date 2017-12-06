@@ -9,7 +9,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.table.DownloadMissionEntity;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
@@ -37,7 +37,7 @@ public class FileUtils {
                 return false;
             }
         }
-        File dirFile2 = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Unsplash");
+        File dirFile2 = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/UnsplashApplication");
         if (!dirFile2.exists()) {
             if (!dirFile2.mkdir()) {
                 NotificationHelper.showSnackbar(c.getString(R.string.feedback_create_file_failed) + " -2");
@@ -57,13 +57,13 @@ public class FileUtils {
         if (!f.exists()) {
             return false;
         }
-        f = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Unsplash");
+        f = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/UnsplashApplication");
         if (!f.exists()) {
             return false;
         }
         f = new File(Environment.getExternalStorageDirectory().toString()
-                + Unsplash.DOWNLOAD_PATH
-                + title + Unsplash.DOWNLOAD_PHOTO_FORMAT);
+                + UnsplashApplication.DOWNLOAD_PATH
+                + title + UnsplashApplication.DOWNLOAD_PHOTO_FORMAT);
         return f.exists();
     }
 
@@ -77,13 +77,13 @@ public class FileUtils {
         if (!f.exists()) {
             return false;
         }
-        f = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/Unsplash");
+        f = new File(Environment.getExternalStorageDirectory().toString() + "/Pictures/UnsplashApplication");
         if (!f.exists()) {
             return false;
         }
         f = new File(Environment.getExternalStorageDirectory().toString()
-                + Unsplash.DOWNLOAD_PATH
-                + title + Unsplash.DOWNLOAD_COLLECTION_FORMAT);
+                + UnsplashApplication.DOWNLOAD_PATH
+                + title + UnsplashApplication.DOWNLOAD_COLLECTION_FORMAT);
         return f.exists();
     }
 

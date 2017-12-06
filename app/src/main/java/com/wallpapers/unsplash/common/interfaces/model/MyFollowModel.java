@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.model;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.UserService;
 import com.wallpapers.unsplash.common.ui.adapter.MyFollowAdapter;
 
@@ -21,7 +21,7 @@ public interface MyFollowModel {
     int getFollowType();
 
     int getUsersPage();
-    void setUsersPage(@Unsplash.PageRule int page);
+    void setUsersPage(@UnsplashApplication.PageRule int page);
 
     // control load state.
 

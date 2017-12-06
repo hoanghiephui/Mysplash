@@ -1,10 +1,10 @@
 package com.wallpapers.unsplash.main.model.widget;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.service.PhotoService;
 import com.wallpapers.unsplash.common.interfaces.model.PhotosModel;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 import com.wallpapers.unsplash.common.utils.manager.SettingsOptionManager;
 
@@ -22,7 +22,7 @@ public class PhotosObject
     private PhotoAdapter adapter;
     private PhotoService service;
 
-    @Unsplash.PhotosTypeRule
+    @UnsplashApplication.PhotosTypeRule
     private int photosType;
     private String photosOrder;
 
@@ -38,8 +38,8 @@ public class PhotosObject
     public static final int PHOTOS_TYPE_TAG = 5;
     private final String RANDOM_TXT;
 
-    public PhotosObject(MysplashActivity a,
-                        PhotoAdapter adapter, @Unsplash.PhotosTypeRule int photosType) {
+    public PhotosObject(BaseActivity a,
+                        PhotoAdapter adapter, @UnsplashApplication.PhotosTypeRule int photosType) {
         this.adapter = adapter;
         this.service = PhotoService.getService();
 
@@ -47,7 +47,7 @@ public class PhotosObject
         this.photosOrder = SettingsOptionManager.getInstance(a).getDefaultPhotoOrder();
         RANDOM_TXT = a.getResources().getStringArray(R.array.photo_order_values)[3];
 
-        this.photosPage = adapter.getRealItemCount() / Unsplash.DEFAULT_PER_PAGE;
+        this.photosPage = adapter.getRealItemCount() / UnsplashApplication.DEFAULT_PER_PAGE;
         this.pageList = new ArrayList<>();
 
         this.refreshing = false;

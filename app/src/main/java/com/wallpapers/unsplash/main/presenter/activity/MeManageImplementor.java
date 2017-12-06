@@ -4,7 +4,7 @@ import android.support.design.widget.NavigationView;
 import android.view.View;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
 import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 import com.wallpapers.unsplash.common.interfaces.presenter.MeManagePresenter;
@@ -27,7 +27,7 @@ public class MeManageImplementor
     }
 
     @Override
-    public void touchMeAvatar(MysplashActivity a) {
+    public void touchMeAvatar(BaseActivity a) {
         NavigationView nav = a.findViewById(R.id.activity_main_navView);
         View header = nav.getHeaderView(0);
         IntentHelper.startMeActivity(
@@ -37,7 +37,7 @@ public class MeManageImplementor
     }
 
     @Override
-    public void touchMeButton(MysplashActivity a) {
+    public void touchMeButton(BaseActivity a) {
         if (!AuthManager.getInstance().isAuthorized()) {
             IntentHelper.startLoginActivity(a);
         } else {

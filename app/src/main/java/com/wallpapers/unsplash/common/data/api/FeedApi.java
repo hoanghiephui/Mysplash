@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.data.api;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.entity.unsplash.FollowingFeed;
 import com.wallpapers.unsplash.common.data.entity.unsplash.TrendingFeed;
 
@@ -18,10 +18,10 @@ import retrofit2.http.Query;
 
 public interface FeedApi {
 
-    @GET(Unsplash.UNSPLASH_TREND_FEEDING_URL)
+    @GET(UnsplashApplication.UNSPLASH_TREND_FEEDING_URL)
     Call<TrendingFeed> getTrendingFeed(@Query("after") String after);
 
-    @GET(Unsplash.UNSPLASH_FOLLOWING_FEED_URL)
+    @GET(UnsplashApplication.UNSPLASH_FOLLOWING_FEED_URL)
     Call<FollowingFeed> getFollowingFeed(@Query("after") String after);
 
     @POST("napi/users/{username}/follow")

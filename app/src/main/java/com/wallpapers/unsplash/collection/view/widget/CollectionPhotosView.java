@@ -13,14 +13,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.Constants;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.interfaces.model.ScrollModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.SwipeBackPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.SwipeBackView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 import com.wallpapers.unsplash.common.ui.dialog.SelectCollectionDialog;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -119,6 +120,9 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
 
         ButterKnife.bind(this, this);
         initView();
+        if (Constants.SHOW_ADS) {
+            initUpdateAdsTimer();
+        }
     }
 
     private void initView() {
@@ -148,6 +152,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
         recyclerView.setLayoutManager(
                 new StaggeredGridLayoutManager(columnCount, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.addOnScrollListener(onScrollListener);
+
     }
 
     private void initLoadingView() {
@@ -158,14 +163,21 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
     public void initMP(CollectionActivity a, Collection c) {
         initModel(a, c);
         initPresenter();
-        recyclerView.setAdapter(photosPresenter.getAdapter());
+        if (Constants.SHOW_ADS) {
+            initAds();
+            if (adapterWrapper != null) {
+                recyclerView.setAdapter(adapterWrapper);
+            }
+        } else {
+            recyclerView.setAdapter(photosPresenter.getAdapter());
+        }
         photosPresenter.getAdapter().setRecyclerView(recyclerView);
         loadPresenter.bindActivity(a);
     }
 
     private void initModel(CollectionActivity a, Collection c) {
         PhotoAdapter adapter = new PhotoAdapter(
-                a, new ArrayList<Photo>(Unsplash.DEFAULT_PER_PAGE), this, a, false);
+                a, new ArrayList<Photo>(UnsplashApplication.DEFAULT_PER_PAGE), this, a, false);
         adapter.setInMyCollection(
                 AuthManager.getInstance().getUsername() != null
                         && AuthManager.getInstance().getUsername().equals(c.user.username));
@@ -185,6 +197,11 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
         this.swipeBackPresenter = new SwipeBackImplementor(this);
     }
 
+    @Override
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> getAdapterContent() {
+        return photosPresenter.getAdapter();
+    }
+
     // control nested scroll.
 
     @Override
@@ -199,7 +216,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
      *
      * @param a Container activity.
      * */
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         photosPresenter.setActivityForAdapter(a);
     }
 
@@ -248,6 +265,9 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
 
     public void cancelRequest() {
         photosPresenter.cancelRequest();
+        if (Constants.SHOW_ADS) {
+            onDestroy();
+        }
     }
 
     public boolean needPagerBackToTop() {
@@ -292,7 +312,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
             list = new ArrayList<>();
         }
         photosPresenter.getAdapter().setPhotoData(list);
-        photosPresenter.setPage(list.size() / Unsplash.DEFAULT_PER_PAGE + 1);
+        photosPresenter.setPage(list.size() / UnsplashApplication.DEFAULT_PER_PAGE + 1);
         if (list.size() == 0) {
             initRefresh();
         } else {
@@ -412,7 +432,7 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -423,14 +443,14 @@ public class CollectionPhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(retryButton);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.MysplashPopupWindow;
+import com.wallpapers.unsplash.common.basic.MysplashPopupWindow;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 
@@ -70,37 +70,37 @@ public class SearchCategoryPopupWindow extends MysplashPopupWindow
 
         TextView buildingsTxt = ButterKnife.findById(v, R.id.popup_search_category_buildingsTxt);
         DisplayUtils.setTypeface(v.getContext(), buildingsTxt);
-        if (valueNow == Unsplash.CATEGORY_BUILDINGS_ID) {
+        if (valueNow == UnsplashApplication.CATEGORY_BUILDINGS_ID) {
             buildingsTxt.setTextColor(ThemeManager.getSubtitleColor(v.getContext()));
         }
 
         TextView foodDrinkTxt = ButterKnife.findById(v, R.id.popup_search_category_food_drinkTxt);
         DisplayUtils.setTypeface(v.getContext(), foodDrinkTxt);
-        if (valueNow == Unsplash.CATEGORY_FOOD_DRINK_ID) {
+        if (valueNow == UnsplashApplication.CATEGORY_FOOD_DRINK_ID) {
             foodDrinkTxt.setTextColor(ThemeManager.getSubtitleColor(v.getContext()));
         }
 
         TextView naturedTxt = ButterKnife.findById(v, R.id.popup_search_category_natureTxt);
         DisplayUtils.setTypeface(v.getContext(), naturedTxt);
-        if (valueNow == Unsplash.CATEGORY_NATURE_ID) {
+        if (valueNow == UnsplashApplication.CATEGORY_NATURE_ID) {
             naturedTxt.setTextColor(ThemeManager.getSubtitleColor(v.getContext()));
         }
 
         TextView objectTxt = ButterKnife.findById(v, R.id.popup_search_category_objectTxt);
         DisplayUtils.setTypeface(v.getContext(), objectTxt);
-        if (valueNow == Unsplash.CATEGORY_OBJECTS_ID) {
+        if (valueNow == UnsplashApplication.CATEGORY_OBJECTS_ID) {
             objectTxt.setTextColor(ThemeManager.getSubtitleColor(v.getContext()));
         }
 
         TextView peopleTxt = ButterKnife.findById(v, R.id.popup_search_category_peopleTxt);
         DisplayUtils.setTypeface(v.getContext(), peopleTxt);
-        if (valueNow == Unsplash.CATEGORY_PEOPLE_ID) {
+        if (valueNow == UnsplashApplication.CATEGORY_PEOPLE_ID) {
             peopleTxt.setTextColor(ThemeManager.getSubtitleColor(v.getContext()));
         }
 
         TextView technologyTxt = ButterKnife.findById(v, R.id.popup_search_category_technologyTxt);
         DisplayUtils.setTypeface(v.getContext(), technologyTxt);
-        if (valueNow == Unsplash.CATEGORY_TECHNOLOGY_ID) {
+        if (valueNow == UnsplashApplication.CATEGORY_TECHNOLOGY_ID) {
             technologyTxt.setTextColor(ThemeManager.getSubtitleColor(v.getContext()));
         }
 
@@ -166,27 +166,27 @@ public class SearchCategoryPopupWindow extends MysplashPopupWindow
                 break;
 
             case R.id.popup_search_category_buildings:
-                newValue = Unsplash.CATEGORY_BUILDINGS_ID;
+                newValue = UnsplashApplication.CATEGORY_BUILDINGS_ID;
                 break;
 
             case R.id.popup_search_category_food_drink:
-                newValue = Unsplash.CATEGORY_FOOD_DRINK_ID;
+                newValue = UnsplashApplication.CATEGORY_FOOD_DRINK_ID;
                 break;
 
             case R.id.popup_search_category_nature:
-                newValue = Unsplash.CATEGORY_NATURE_ID;
+                newValue = UnsplashApplication.CATEGORY_NATURE_ID;
                 break;
 
             case R.id.popup_search_category_object:
-                newValue = Unsplash.CATEGORY_OBJECTS_ID;
+                newValue = UnsplashApplication.CATEGORY_OBJECTS_ID;
                 break;
 
             case R.id.popup_search_category_people:
-                newValue = Unsplash.CATEGORY_PEOPLE_ID;
+                newValue = UnsplashApplication.CATEGORY_PEOPLE_ID;
                 break;
 
             case R.id.popup_search_category_technology:
-                newValue = Unsplash.CATEGORY_TECHNOLOGY_ID;
+                newValue = UnsplashApplication.CATEGORY_TECHNOLOGY_ID;
                 break;
         }
 

@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.presenter;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 
 /**
  * Auth response presenter.
@@ -11,8 +11,8 @@ import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 
 public interface MeManagePresenter {
 
-    void touchMeAvatar(MysplashActivity a);
-    void touchMeButton(MysplashActivity a);
+    void touchMeAvatar(BaseActivity a);
+    void touchMeButton(BaseActivity a);
 
     /** {@link com.wallpapers.unsplash.common.utils.manager.AuthManager#listenerList} */
     void responseWriteAccessToken();

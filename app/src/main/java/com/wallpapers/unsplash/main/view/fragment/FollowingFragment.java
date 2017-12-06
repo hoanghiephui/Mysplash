@@ -10,10 +10,10 @@ import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.LoadableFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.LoadableFragment;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.interfaces.presenter.ToolbarPresenter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -121,14 +121,14 @@ public class FollowingFragment extends LoadableFragment<Photo>
     }
 
     @Override
-    public void writeLargeData(MysplashActivity.BaseSavedStateFragment outState) {
+    public void writeLargeData(BaseActivity.BaseSavedStateFragment outState) {
         if (feedView != null) {
             ((MainActivity.SavedStateFragment) outState).setFollowingFeedList(feedView.getFeeds());
         }
     }
 
     @Override
-    public void readLargeData(MysplashActivity.BaseSavedStateFragment savedInstanceState) {
+    public void readLargeData(BaseActivity.BaseSavedStateFragment savedInstanceState) {
         if (feedView != null) {
             feedView.setFeeds(((MainActivity.SavedStateFragment) savedInstanceState).getFollowingFeedList());
         }
@@ -193,7 +193,7 @@ public class FollowingFragment extends LoadableFragment<Photo>
                 toolbar, R.drawable.ic_toolbar_menu_light, R.drawable.ic_toolbar_menu_dark);
         toolbar.setNavigationOnClickListener(this);
 
-        feedView.setActivity((MysplashActivity) getActivity());
+        feedView.setActivity((BaseActivity) getActivity());
         if (saveInstanceState == null) {
             feedView.initRefresh();
         }
@@ -230,13 +230,13 @@ public class FollowingFragment extends LoadableFragment<Photo>
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                toolbarPresenter.touchNavigatorIcon((MysplashActivity) getActivity());
+                toolbarPresenter.touchNavigatorIcon((BaseActivity) getActivity());
                 break;
         }
     }
 
     @OnClick(R.id.fragment_following_toolbar) void clickToolbar() {
-        toolbarPresenter.touchToolbar((MysplashActivity) getActivity());
+        toolbarPresenter.touchToolbar((BaseActivity) getActivity());
     }
 
     // on nested scrolling listener.

@@ -200,5 +200,7 @@
     <string name="related_tags">Related tags</string>
     <string name="update">Updates</string>
     <string name="detail_login">Access 368,096 free, high-resolution photos you can’t find anywhere else</string>
+    <string name="related_photo">Related photos</string>
+    <string name="action_explore">explore</string>
 
 </resources>

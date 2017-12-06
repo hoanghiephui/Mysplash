@@ -16,7 +16,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.table.WallpaperSource;
 import com.wallpapers.unsplash.common.ui.adapter.WallpaperSourceAdapter;
 import com.wallpapers.unsplash.common.ui.dialog.ConfirmExitWithoutSaveDialog;
@@ -42,7 +42,7 @@ import butterknife.OnClick;
  *
  * */
 
-public class MuzeiConfigurationActivity extends MysplashActivity
+public class MuzeiConfigurationActivity extends BaseActivity
         implements SwipeBackCoordinatorLayout.OnSwipeListener {
 
     @BindView(R.id.activity_muzei_configuration_container)

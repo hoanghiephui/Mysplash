@@ -16,15 +16,14 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.FooterAdapter;
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
+import com.wallpapers.unsplash.common.basic.FooterAdapter;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.ActionObject;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.FollowingResult;
@@ -32,7 +31,6 @@ import com.wallpapers.unsplash.common.data.entity.unsplash.LikePhotoResult;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.PhotoService;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.dialog.SelectCollectionDialog;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
 import com.wallpapers.unsplash.common.ui.widget.CircularProgressIcon;
@@ -208,7 +206,7 @@ public class FollowingAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
     // control.
 
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         this.a = a;
     }
 
@@ -451,7 +449,7 @@ public class FollowingAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
         @Override
         public void onSetLikeSuccess(Call<LikePhotoResult> call, Response<LikePhotoResult> response) {
-            if (Unsplash.getInstance() != null && Unsplash.getInstance().getTopActivity() != null) {
+            if (UnsplashApplication.getInstance() != null && UnsplashApplication.getInstance().getTopActivity() != null) {
                 if (typeList.size() < position) {
                     return;
                 }
@@ -478,7 +476,7 @@ public class FollowingAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
         @Override
         public void onSetLikeFailed(Call<LikePhotoResult> call, Throwable t) {
-            if (Unsplash.getInstance() != null && Unsplash.getInstance().getTopActivity() != null) {
+            if (UnsplashApplication.getInstance() != null && UnsplashApplication.getInstance().getTopActivity() != null) {
                 if (typeList.size() < position) {
                     return;
                 }
@@ -517,7 +515,7 @@ public class FollowingAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
     @Override
     public void onClick(View image, View background, int position) {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             ViewType viewType = typeList.get(position);
             ArrayList<Photo> list = new ArrayList<>();
@@ -697,7 +695,7 @@ class TitleHolder extends RecyclerView.ViewHolder {
     @OnClick({
             R.id.item_following_title_avatar,
             R.id.item_following_title_actor}) void checkActor() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             IntentHelper.startUserActivity(
                     a,
@@ -708,7 +706,7 @@ class TitleHolder extends RecyclerView.ViewHolder {
     }
 
     @OnClick(R.id.item_following_title_verb) void clickVerb() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             switch (result.verb) {
                 case FollowingResult.VERB_COLLECTED:
@@ -841,7 +839,7 @@ class PhotoHolder extends RecyclerView.ViewHolder
     }
 
     @OnClick(R.id.item_following_photo_likeButton) void likePhoto() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             if (AuthManager.getInstance().isAuthorized()) {
                 if (likeButton.isUsable() && photo != null) {
@@ -855,7 +853,7 @@ class PhotoHolder extends RecyclerView.ViewHolder
     }
 
     @OnClick(R.id.item_following_photo_collectionButton) void collectPhoto() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             if (!AuthManager.getInstance().isAuthorized()) {
                 IntentHelper.startLoginActivity(a);
@@ -868,7 +866,7 @@ class PhotoHolder extends RecyclerView.ViewHolder
     }
 
     @OnClick(R.id.item_following_photo_downloadButton) void downloadPhoto() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             if (DatabaseHelper.getInstance(a).readDownloadingEntityCount(photo.id) == 0) {
                 DownloadHelper.getInstance(a).addMission(a, photo, DownloadHelper.DOWNLOAD_TYPE);
@@ -928,7 +926,7 @@ class UserHolder extends RecyclerView.ViewHolder
         super(itemView);
         ButterKnife.bind(this, itemView);
         this.adapter = adapter;
-        DisplayUtils.setTypeface(Unsplash.getInstance().getTopActivity(), subtitle);
+        DisplayUtils.setTypeface(UnsplashApplication.getInstance().getTopActivity(), subtitle);
 
         if (columnCount > 1) {
             StaggeredGridLayoutManager.LayoutParams params
@@ -967,7 +965,7 @@ class UserHolder extends RecyclerView.ViewHolder
     // interface.
 
     @OnClick(R.id.item_following_user_background) void cliclItem() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             IntentHelper.startUserActivity(
                     a,
@@ -1063,7 +1061,7 @@ class MoreHolder extends RecyclerView.ViewHolder
     // interface.
 
     @OnClick(R.id.item_following_more_background) void clickItem() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             switch (result.verb) {
                 case FollowingResult.VERB_COLLECTED:
@@ -1096,7 +1094,7 @@ class MoreHolder extends RecyclerView.ViewHolder
     }
 
     @OnClick(R.id.item_following_more_avatar) void checkActor() {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             IntentHelper.startUserActivity(
                     a,

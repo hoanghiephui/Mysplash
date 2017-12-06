@@ -1,6 +1,7 @@
 package com.wallpapers.unsplash.photo.presenter;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.wallpapers.unsplash.common.data.entity.unsplash.LikePhotoResult;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
@@ -10,6 +11,8 @@ import com.wallpapers.unsplash.common.interfaces.model.PhotoInfoModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.PhotoInfoPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.PhotoInfoView;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -35,7 +38,8 @@ public class PhotoInfoImplementor
     public void requestPhoto(Context context) {
         requestPhotoListener = new OnRequestPhotoDetailsListener();
         // model.getPhotoInfoService().requestAPhoto(model.getPhoto().id, requestPhotoListener);
-        model.getPhotoService().requestAPhoto(model.getPhoto().id, requestPhotoListener);
+        //model.getPhotoService().requestAPhoto(model.getPhoto().id, requestPhotoListener);
+        model.getPhotoService().onZipRequestPhotoInfo(model.getPhoto().id, requestPhotoListener);
     }
 
     @Override
@@ -68,6 +72,12 @@ public class PhotoInfoImplementor
         return model.getPhoto();
     }
 
+    @Nullable
+    @Override
+    public List<Photo> getPhotoList() {
+        return model.getListPhotoRe();
+    }
+
     @Override
     public void setPhoto(Photo photo, boolean init) {
         model.setPhoto(photo, init);
@@ -88,7 +98,7 @@ public class PhotoInfoImplementor
     // on request single photo requestPhotoListener.
 
     private class OnRequestPhotoDetailsListener
-            implements PhotoInfoService.OnRequestSinglePhotoListener {
+            implements PhotoService.OnRequestMutilPhotoListener {
 
         private boolean canceled;
 
@@ -101,12 +111,17 @@ public class PhotoInfoImplementor
         }
 
         @Override
-        public void onRequestSinglePhotoSuccess(Call<Photo> call, Response<Photo> response) {
+        public void onRequestMutilPhotoSuccess(PhotoService.Groups groups) {
             if (canceled) {
                 return;
             }
-            if (response.isSuccessful() && response.body() != null) {
-                Photo photo = response.body();
+
+            if (groups.getPhotoRe() != null && groups.getPhotoRe().size() > 0) {
+                model.setPhoto(groups.getPhotoRe(), false);
+            }
+
+            Photo photo = groups.getPhoto();
+            if (photo != null) {
                 photo.complete = true;
                 model.setPhoto(photo, false);
                 model.setFailed(false);
@@ -118,7 +133,7 @@ public class PhotoInfoImplementor
         }
 
         @Override
-        public void onRequestSinglePhotoFailed(Call<Photo> call, Throwable t) {
+        public void onRequestMutilPhotoFailed(Throwable t) {
             if (canceled) {
                 return;
             }

@@ -3,8 +3,8 @@ package com.wallpapers.unsplash.photo.presenter;
 import android.content.Context;
 import android.view.View;
 
-import com.wallpapers.unsplash.Unsplash;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.interfaces.presenter.PopupManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.PopupManageView;
@@ -27,7 +27,7 @@ public class PhotoActivityPopupManageImplementor
 
     @Override
     public void showPopup(Context c, View anchor, String value, int position) {
-        MysplashActivity activity = Unsplash.getInstance().getTopActivity();
+        BaseActivity activity = UnsplashApplication.getInstance().getTopActivity();
         if (activity != null && activity instanceof PhotoActivity) {
             Photo photo = ((PhotoActivity) activity).getPhoto();
             if (photo != null) {

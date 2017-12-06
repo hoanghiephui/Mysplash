@@ -76,24 +76,24 @@ public class MoreHolder extends PhotoInfoAdapter.ViewHolder
 
     @SuppressLint("InflateParams")
     @Override
-    protected void onBindView(final PhotoActivity a, final Photo photo) {
+    protected void onBindView(final PhotoActivity activity, final Photo photo) {
         int size = photo.related_collections.results.size();
         List<View> viewList = new ArrayList<>(size);
         List<String> titleList = new ArrayList<>(size);
         for (int i = 0; i < size; i ++) {
-            View view = LayoutInflater.from(a).inflate(R.layout.item_photo_more_page_vertical, null);
+            View view = LayoutInflater.from(activity).inflate(R.layout.item_photo_more_page_vertical, null);
             final int finalI = i;
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     IntentHelper.startCollectionActivity(
-                            a, photo.related_collections.results.get(finalI));
+                            activity, photo.related_collections.results.get(finalI));
                 }
             });
 
             covers[i] = ButterKnife.findById(view, R.id.item_photo_more_page_vertical_cover);
             ImageHelper.loadCollectionCover(
-                    a,
+                    activity,
                     covers[i],
                     photo.related_collections.results.get(i),
                     i,
@@ -102,7 +102,7 @@ public class MoreHolder extends PhotoInfoAdapter.ViewHolder
                         public void onLoadImageSucceed(Photo newT, int index) {
                             if (!model.hasFadedIn[index]) {
                                 model.hasFadedIn[index] = true;
-                                ImageHelper.startSaturationAnimation(a, covers[index]);
+                                ImageHelper.startSaturationAnimation(activity, covers[index]);
                             }
                         }
 
@@ -121,7 +121,7 @@ public class MoreHolder extends PhotoInfoAdapter.ViewHolder
         viewPager.setAdapter(new MyPagerAdapter(viewList, titleList));
         viewPager.setCurrentItem(model.position);
         viewPager.setTranslationY(
-                (float) (a.getResources()
+                (float) (activity.getResources()
                         .getDimensionPixelSize(R.dimen.item_photo_more_vertical_height) * (-0.5)));
         viewPager.clearOnPageChangeListeners();
         viewPager.addOnPageChangeListener(this);

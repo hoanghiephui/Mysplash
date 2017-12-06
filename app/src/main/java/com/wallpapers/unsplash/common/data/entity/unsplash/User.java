@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.wallpapers.unsplash.common._basic.Previewable;
+import com.wallpapers.unsplash.common.basic.Previewable;
 
 import java.util.List;
 

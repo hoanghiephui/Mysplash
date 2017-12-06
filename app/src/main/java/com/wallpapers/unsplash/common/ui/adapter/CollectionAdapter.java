@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.FooterAdapter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.FooterAdapter;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
@@ -27,7 +27,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Collection adapter.
@@ -43,7 +42,7 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
     private int columnCount;
 
     class ViewHolder extends RecyclerView.ViewHolder
-            implements ImageHelper.OnLoadImageListener<Photo> {
+            implements ImageHelper.OnLoadImageListener<Photo>, View.OnClickListener {
 
         @BindView(R.id.item_collection)
         CardView card;
@@ -62,8 +61,11 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
 
         @BindView(R.id.item_collection_name)
         TextView name;
+        @BindView(R.id.viewAvatar)
+        View viewAvatar;
 
         private Collection collection;
+        private int mPosition;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -73,10 +75,11 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
         }
 
         @SuppressLint("SetTextI18n")
-        public void onBindView(final Collection collection) {
+        public void onBindView(RecyclerView.ViewHolder holder, final Collection collection, final int position) {
             this.collection = collection;
 
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) card.getLayoutParams();
+            viewAvatar.setVisibility(columnCount > 1 ? View.GONE: View.VISIBLE);
             if (columnCount > 1) {
                 int margin = a.getResources().getDimensionPixelSize(R.dimen.little_margin);
                 params.setMargins(0, 0, margin, margin);
@@ -120,6 +123,13 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
                 card.setTransitionName(collection.id + "-background");
                 avatar.setTransitionName(collection.user.username + "-avatar");
             }
+            setOnClick((ViewHolder) holder, position);
+        }
+
+        private void setOnClick(ViewHolder holder, final int position) {
+            this.mPosition = position;
+            card.setOnClickListener(this);
+            avatar.setOnClickListener(this);
         }
 
         public void onRecycled() {
@@ -129,22 +139,20 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
 
         // interface.
 
-        @OnClick(R.id.item_collection)
         void clickItem() {
-            if (a instanceof MysplashActivity) {
+            if (a instanceof BaseActivity) {
                 IntentHelper.startCollectionActivity(
-                        (MysplashActivity) a,
+                        (BaseActivity) a,
                         avatar,
                         card,
                         collection);
             }
         }
 
-        @OnClick(R.id.item_collection_avatar)
         void checkAuthor() {
-            if (a instanceof MysplashActivity) {
+            if (a instanceof BaseActivity) {
                 IntentHelper.startUserActivity(
-                        (MysplashActivity) a,
+                        (BaseActivity) a,
                         avatar,
                         collection.user,
                         UserActivity.PAGE_PHOTO);
@@ -173,10 +181,28 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
             name.setText(collection.user.name);
             image.setShowShadow(true);
         }
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.item_collection_avatar:
+                    checkAuthor();
+                    break;
+                case R.id.item_collection:
+                    clickItem();
+                    break;
+            }
+        }
     }
 
-    public CollectionAdapter(Context a, List<Collection> list) {
+    public CollectionAdapter(Context a, List<Collection> list, boolean isHeader) {
         this(a, list, DisplayUtils.getGirdColumnCount(a));
+        isHasHeader = isHeader;
+    }
+
+    public CollectionAdapter(Context a, List<Collection> list, boolean isHeader, int columnCount) {
+        this(a, list, columnCount);
+        isHasHeader = isHeader;
     }
 
     public CollectionAdapter(Context a, List<Collection> list, int columnCount) {
@@ -186,21 +212,29 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        if (isFooter(position)) {
-            // footer.
-            return FooterHolder.buildInstance(parent);
-        } else {
-            View v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_collection, parent, false);
-            return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case CONTENT_TYPE:
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_collection, parent, false);
+                return new ViewHolder(view);
+            default:
+                return FooterHolder.buildInstance(parent);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder && position < itemList.size()) {
-            ((ViewHolder) holder).onBindView(itemList.get(position));
+        int viewType = getItemViewType(position);
+        switch (viewType) {
+            case CONTENT_TYPE:
+                ((ViewHolder) holder).onBindView(holder, itemList.get(isHasHeader ? position - 1 : position),
+                        isHasHeader ? position - 1 : position);
+                break;
+            default:
+                //update fooder
+                break;
+
         }
     }
 
@@ -217,10 +251,6 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
         return itemList.size();
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
 
     @Override
     protected boolean hasFooter() {
@@ -228,7 +258,7 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
                 && DisplayUtils.getNavigationBarHeight(a.getResources()) != 0;
     }
 
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         this.a = a;
     }
 

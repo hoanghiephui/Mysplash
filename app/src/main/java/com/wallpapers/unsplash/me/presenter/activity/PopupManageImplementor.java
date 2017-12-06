@@ -4,11 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.presenter.PopupManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.PopupManageView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.popup.MeMenuPopupWindow;
 import com.wallpapers.unsplash.common.ui.popup.PhotoOrderPopupWindow;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
@@ -58,13 +58,13 @@ public class PopupManageImplementor
 
     @Override
     public void onSelectItem(int id) {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a == null) {
             return;
         }
         switch (id) {
             case MeMenuPopupWindow.ITEM_SUBMIT:
-                IntentHelper.startWebActivity(a, Unsplash.UNSPLASH_SUBMIT_URL);
+                IntentHelper.startWebActivity(a, UnsplashApplication.UNSPLASH_SUBMIT_URL);
                 break;
 
             case MeMenuPopupWindow.ITEM_PORTFOLIO:

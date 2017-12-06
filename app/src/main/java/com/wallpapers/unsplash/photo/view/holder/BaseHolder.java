@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
@@ -73,15 +73,15 @@ public class BaseHolder extends PhotoInfoAdapter.ViewHolder
         this.activity = a;
 
         toolbar.setTitle("");
-        if (Unsplash.getInstance().getActivityCount() == 1) {
+        if (UnsplashApplication.getInstance().getActivityCount() == 1) {
             ThemeManager.setNavigationIcon(
                     toolbar, R.drawable.ic_toolbar_home_light, R.drawable.ic_toolbar_home_dark);
         } else {
             ThemeManager.setNavigationIcon(
                     toolbar, R.drawable.ic_toolbar_back_light, R.drawable.ic_toolbar_back_dark);
         }
-        ThemeManager.inflateMenu(
-                toolbar, R.menu.activity_photo_toolbar_light, R.menu.activity_photo_toolbar_dark);
+        /*ThemeManager.inflateMenu(
+                toolbar, R.menu.activity_photo_toolbar_light, R.menu.activity_photo_toolbar_dark);*/
         toolbar.setNavigationOnClickListener(this);
         toolbar.setOnMenuItemClickListener(this);
 
@@ -90,18 +90,18 @@ public class BaseHolder extends PhotoInfoAdapter.ViewHolder
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
-        title.setText(a.getString(R.string.by) + " " + photo.user.name);
-        subtitle.setText(a.getString(R.string.on) + " " + photo.created_at.split("T")[0]);
+    protected void onBindView(PhotoActivity activity, Photo photo) {
+        title.setText(activity.getString(R.string.by) + " " + photo.user.name);
+        subtitle.setText(activity.getString(R.string.on) + " " + photo.created_at.split("T")[0]);
 
-        ImageHelper.loadAvatar(a, avatar, photo.user);
+        ImageHelper.loadAvatar(activity, avatar, photo.user);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             avatar.setTransitionName(photo.user.username + "-1");
         }
 
         buttonBar.setState(photo);
-        if (DatabaseHelper.getInstance(a).readDownloadingEntityCount(photo.id) > 0) {
-            a.startCheckDownloadProgressThread();
+        if (DatabaseHelper.getInstance(activity).readDownloadingEntityCount(photo.id) > 0) {
+            activity.startCheckDownloadProgressThread();
         }
         buttonBar.setOnClickButtonListener(this);
 
@@ -132,7 +132,7 @@ public class BaseHolder extends PhotoInfoAdapter.ViewHolder
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                if (Unsplash.getInstance().getActivityCount() == 1) {
+                if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                     activity.visitParentActivity();
                 }
                 activity.finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);
@@ -142,7 +142,7 @@ public class BaseHolder extends PhotoInfoAdapter.ViewHolder
 
     @OnClick(R.id.item_photo_base_avatar) void clickAvatar() {
         IntentHelper.startUserActivity(
-                Unsplash.getInstance().getTopActivity(),
+                UnsplashApplication.getInstance().getTopActivity(),
                 avatar,
                 photo.user,
                 UserActivity.PAGE_PHOTO);
@@ -186,7 +186,7 @@ public class BaseHolder extends PhotoInfoAdapter.ViewHolder
 
     @Override
     public void onDownloadButtonClicked() {
-        activity.readyToDownload(DownloadHelper.DOWNLOAD_TYPE, true);
+        activity.readyToDownload(DownloadHelper.DOWNLOAD_TYPE, true, null);
     }
 
     @Override

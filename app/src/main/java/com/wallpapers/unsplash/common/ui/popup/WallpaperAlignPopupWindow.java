@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.MysplashPopupWindow;
+import com.wallpapers.unsplash.common.basic.MysplashPopupWindow;
 import com.wallpapers.unsplash.common.ui.activity.SetWallpaperActivity;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 

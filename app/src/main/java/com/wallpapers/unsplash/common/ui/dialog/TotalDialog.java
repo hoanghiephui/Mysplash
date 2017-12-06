@@ -15,7 +15,7 @@ import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Total;
 import com.wallpapers.unsplash.common.data.service.StatusService;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.utils.AnimUtils;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
@@ -28,11 +28,11 @@ import retrofit2.Response;
 /**
  * Total dialog.
  *
- * This dialog is used to show total stats for Unsplash.
+ * This dialog is used to show total stats for UnsplashApplication.
  *
  * */
 
-public class TotalDialog extends MysplashDialogFragment
+public class TotalDialog extends BaseDialogFragment
         implements StatusService.OnRequestTotalListener {
 
     @BindView(R.id.dialog_total_container)

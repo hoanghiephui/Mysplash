@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.google.gson.Gson;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.NotificationFeed;
 import com.wallpapers.unsplash.common.data.entity.unsplash.NotificationResult;
@@ -85,7 +85,7 @@ public class UserNotificationManager {
         loadFinish = false;
         requesting = false;
 
-        SharedPreferences sharedPreferences = Unsplash.getInstance().getSharedPreferences(
+        SharedPreferences sharedPreferences = UnsplashApplication.getInstance().getSharedPreferences(
                 PREFERENCE_TIME, Context.MODE_PRIVATE);
         latestSeenTime = sharedPreferences.getString(KEY_LATEST_SEEN_TIME, "");
         latestRefreshTime = -1;
@@ -215,7 +215,7 @@ public class UserNotificationManager {
         } else {
             latestSeenTime = notificationList.get(0).time;
         }
-        SharedPreferences.Editor editor = Unsplash.getInstance().getSharedPreferences(
+        SharedPreferences.Editor editor = UnsplashApplication.getInstance().getSharedPreferences(
                 PREFERENCE_TIME, Context.MODE_PRIVATE).edit();
         editor.putString(KEY_LATEST_SEEN_TIME, latestSeenTime);
         editor.apply();
@@ -328,7 +328,7 @@ public class UserNotificationManager {
                 listenerList.get(j).onRequestNotificationFailed();
             }
             NotificationHelper.showSnackbar(
-                    Unsplash.getInstance().getString(R.string.feedback_get_notification_failed)
+                    UnsplashApplication.getInstance().getString(R.string.feedback_get_notification_failed)
                             + "(" + msg + ")");
         }
     }
@@ -392,7 +392,7 @@ public class UserNotificationManager {
                 listenerList.get(j).onRequestNotificationFailed();
             }
             NotificationHelper.showSnackbar(
-                    Unsplash.getInstance().getString(R.string.feedback_get_notification_failed)
+                    UnsplashApplication.getInstance().getString(R.string.feedback_get_notification_failed)
                             + "(" + msg + ")");
         }
     }

@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.search.presenter.activity;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.presenter.SearchBarPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.SearchBarView;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
@@ -21,12 +21,12 @@ public class SearchBarImplementor
     }
 
     @Override
-    public void touchNavigatorIcon(MysplashActivity a) {
+    public void touchNavigatorIcon(BaseActivity a) {
         a.finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);
     }
 
     @Override
-    public boolean touchMenuItem(MysplashActivity a, int itemId) {
+    public boolean touchMenuItem(BaseActivity a, int itemId) {
         switch (itemId) {
             case R.id.action_clear_text:
                 view.clearSearchBarText();

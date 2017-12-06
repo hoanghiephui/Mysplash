@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.item.MyFollowUser;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.FeedService;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
 import com.wallpapers.unsplash.common.ui.widget.rippleButton.RippleButton;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
@@ -40,7 +40,7 @@ import retrofit2.Response;
 
 public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHolder> {
 
-    private Context a;
+    private Context context;
     private List<MyFollowUser> itemList;
     private OnFollowStateChangedListener listener;
 
@@ -67,7 +67,7 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
         }
 
         void onBindView(int position) {
-            ImageHelper.loadAvatar(a, avatar, itemList.get(position).user, getAdapterPosition(), null);
+            ImageHelper.loadAvatar(context, avatar, itemList.get(position).user, getAdapterPosition(), null);
 
             title.setText(itemList.get(position).user.name);
 
@@ -95,9 +95,9 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
         // interface.
 
         @OnClick(R.id.item_my_follow_user_background) void clickItem() {
-            if (a instanceof MysplashActivity) {
+            if (context instanceof BaseActivity) {
                 IntentHelper.startUserActivity(
-                        (MysplashActivity) a,
+                        (BaseActivity) context,
                         avatar,
                         itemList.get(getAdapterPosition()).user,
                         UserActivity.PAGE_PHOTO);
@@ -110,7 +110,7 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
             myFollowUser.requesting = true;
             myFollowUser.switchTo = switchTo;
             itemList.set(getAdapterPosition(), myFollowUser);
-            service.setFollowUser(
+            service.setFollowUser(context,
                     itemList.get(getAdapterPosition()).user.username,
                     switchTo,
                     new OnSetFollowListener(
@@ -119,8 +119,8 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
         }
     }
 
-    public MyFollowAdapter(Context a, List<MyFollowUser> list, OnFollowStateChangedListener l) {
-        this.a = a;
+    public MyFollowAdapter(Context context, List<MyFollowUser> list, OnFollowStateChangedListener l) {
+        this.context = context;
         this.itemList = list;
         this.listener = l;
         this.service = FeedService.getService();
@@ -153,8 +153,8 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
         return position;
     }
 
-    public void setActivity(MysplashActivity a) {
-        this.a = a;
+    public void setActivity(BaseActivity a) {
+        this.context = a;
     }
 
     public void insertItem(User u, int position) {
@@ -195,7 +195,7 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
 
         @Override
         public void onFollowSuccess(Call<ResponseBody> call, Response<ResponseBody> response) {
-            if (Unsplash.getInstance() != null && Unsplash.getInstance().getTopActivity() != null) {
+            if (UnsplashApplication.getInstance() != null && UnsplashApplication.getInstance().getTopActivity() != null) {
                 for (int i = 0; i < itemList.size(); i ++) {
                     if (itemList.get(i).user.username.equals(username)) {
                         User user = itemList.get(i).user;
@@ -211,7 +211,7 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
 
         @Override
         public void onCancelFollowSuccess(Call<ResponseBody> call, Response<ResponseBody> response) {
-            if (Unsplash.getInstance() != null && Unsplash.getInstance().getTopActivity() != null) {
+            if (UnsplashApplication.getInstance() != null && UnsplashApplication.getInstance().getTopActivity() != null) {
                 for (int i = 0; i < itemList.size(); i ++) {
                     if (itemList.get(i).user.username.equals(username)) {
                         User user = itemList.get(i).user;
@@ -227,8 +227,8 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
 
         @Override
         public void onFollowFailed(Call<ResponseBody> call, Throwable t) {
-            if (Unsplash.getInstance() != null && Unsplash.getInstance().getTopActivity() != null) {
-                NotificationHelper.showSnackbar(a.getString(R.string.feedback_follow_failed));
+            if (UnsplashApplication.getInstance() != null && UnsplashApplication.getInstance().getTopActivity() != null) {
+                NotificationHelper.showSnackbar(context.getString(R.string.feedback_follow_failed));
                 for (int i = 0; i < itemList.size(); i ++) {
                     if (itemList.get(i).user.username.equals(username)) {
                         User user = itemList.get(i).user;
@@ -243,8 +243,8 @@ public class MyFollowAdapter extends RecyclerView.Adapter<MyFollowAdapter.ViewHo
 
         @Override
         public void onCancelFollowFailed(Call<ResponseBody> call, Throwable t) {
-            if (Unsplash.getInstance() != null && Unsplash.getInstance().getTopActivity() != null) {
-                NotificationHelper.showSnackbar(a.getString(R.string.feedback_cancel_follow_failed));
+            if (UnsplashApplication.getInstance() != null && UnsplashApplication.getInstance().getTopActivity() != null) {
+                NotificationHelper.showSnackbar(context.getString(R.string.feedback_cancel_follow_failed));
                 for (int i = 0; i < itemList.size(); i ++) {
                     if (itemList.get(i).user.username.equals(username)) {
                         User user = itemList.get(i).user;

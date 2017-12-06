@@ -20,7 +20,7 @@ import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Me;
 import com.wallpapers.unsplash.common.data.service.UserService;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.manager.AuthManager;
@@ -46,7 +46,7 @@ import retrofit2.Response;
  *
  * */
 
-public class UpdateMeActivity extends MysplashActivity
+public class UpdateMeActivity extends BaseActivity
         implements SwipeBackCoordinatorLayout.OnSwipeListener,
         UserService.OnRequestMeProfileListener, SafeHandler.HandlerContainer {
 

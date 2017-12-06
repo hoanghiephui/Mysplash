@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.user.model.widget;
 
 import android.support.annotation.IntDef;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.PhotoService;
@@ -42,7 +42,7 @@ public class PhotosObject
     private @interface TypeRule {}
 
     public PhotosObject(UserActivity a, User u, @TypeRule int photosType) {
-        this.adapter = new PhotoAdapter(a, new ArrayList<Photo>(Unsplash.DEFAULT_PER_PAGE), a, a, false);
+        this.adapter = new PhotoAdapter(a, new ArrayList<Photo>(UnsplashApplication.DEFAULT_PER_PAGE), a, a, false);
         this.service = PhotoService.getService();
 
         this.requestKey = u;

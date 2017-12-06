@@ -16,9 +16,10 @@ import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.google.gson.GsonBuilder;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.Constants;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.CategoryModel;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
@@ -184,19 +185,21 @@ public class HomeTrendingView extends NestedScrollFrameLayout
         initModel(a, index, selected);
         initPresenter(a);
         initView();
-
+        if (Constants.SHOW_ADS) {
+            initUpdateAdsTimer();
+        }
     }
 
     private void initModel(MainActivity a,
                            int index, boolean selected) {
         this.trendingModel = new TrendingObject(
-                new PhotoAdapter(a, new ArrayList<Photo>(Unsplash.DEFAULT_PER_PAGE), this, a, true));
+                new PhotoAdapter(a, new ArrayList<Photo>(UnsplashApplication.DEFAULT_PER_PAGE), this, a, true));
         this.pagerModel = new PagerObject(index, selected);
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
         this.scrollModel = new ScrollObject(true);
     }
 
-    private void initPresenter(MysplashActivity a) {
+    private void initPresenter(BaseActivity a) {
         this.trendingPresenter = new TrendingImplementor(trendingModel, this);
         this.pagerPresenter = new PagerImplementor(pagerModel, this);
         this.loadPresenter = new LoadImplementor(loadModel, this);
@@ -215,14 +218,21 @@ public class HomeTrendingView extends NestedScrollFrameLayout
         refreshLayout.setProgressBackgroundColorSchemeColor(ThemeManager.getRootColor(getContext()));
         refreshLayout.setOnRefreshAndLoadListener(this);
         refreshLayout.setVisibility(GONE);
-
         int navigationBarHeight = DisplayUtils.getNavigationBarHeight(getResources());
         refreshLayout.setDragTriggerDistance(
                 BothWaySwipeRefreshLayout.DIRECTION_BOTTOM,
                 navigationBarHeight + getResources().getDimensionPixelSize(R.dimen.normal_margin));
 
         int columnCount = DisplayUtils.getGirdColumnCount(getContext());
-        recyclerView.setAdapter(trendingPresenter.getAdapter());
+        if (Constants.SHOW_ADS) {
+            initAds();
+
+            if (adapterWrapper != null) {
+                recyclerView.setAdapter(adapterWrapper);
+            }
+        } else {
+            recyclerView.setAdapter(trendingPresenter.getAdapter());
+        }
         if (columnCount > 1) {
             int margin = getResources().getDimensionPixelSize(R.dimen.little_margin);
             recyclerView.setPadding(margin, margin, 0, 0);
@@ -243,6 +253,11 @@ public class HomeTrendingView extends NestedScrollFrameLayout
 
         ImageView feedbackImg = getRootView().findViewById(R.id.container_loading_view_large_feedbackImg);
         ImageHelper.loadResourceImage(getContext(), feedbackImg, R.drawable.feedback_no_photos);
+    }
+
+    @Override
+    public RecyclerView.Adapter<RecyclerView.ViewHolder> getAdapterContent() {
+        return trendingPresenter.getAdapter();
     }
 
     // control.
@@ -456,6 +471,9 @@ public class HomeTrendingView extends NestedScrollFrameLayout
     @Override
     public void cancelRequest() {
         trendingPresenter.cancelRequest();
+        if (Constants.SHOW_ADS) {
+            onDestroy();
+        }
     }
 
     @Override
@@ -500,7 +518,7 @@ public class HomeTrendingView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -511,14 +529,14 @@ public class HomeTrendingView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(feedbackContainer);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

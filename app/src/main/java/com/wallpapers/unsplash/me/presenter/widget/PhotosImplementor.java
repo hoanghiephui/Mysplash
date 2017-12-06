@@ -2,11 +2,11 @@ package com.wallpapers.unsplash.me.presenter.widget;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.service.PhotoService;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 import com.wallpapers.unsplash.common.interfaces.model.PhotosModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.PhotosPresenter;
@@ -152,7 +152,7 @@ public class PhotosImplementor
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 
@@ -168,7 +168,7 @@ public class PhotosImplementor
                 .requestUserPhotos(
                         AuthManager.getInstance().getMe().username,
                         page,
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         order,
                         listener);
     }
@@ -180,7 +180,7 @@ public class PhotosImplementor
                 .requestUserLikes(
                         AuthManager.getInstance().getMe().username,
                         page,
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         order,
                         listener);
     }
@@ -226,7 +226,7 @@ public class PhotosImplementor
                 for (int i = 0; i < response.body().size(); i ++) {
                     model.getAdapter().insertItem(response.body().get(i));
                 }
-                if (response.body().size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     setOver(true);
                 }
                 view.requestPhotosSuccess();

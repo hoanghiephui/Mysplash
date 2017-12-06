@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
@@ -45,13 +45,13 @@ public class StoryHolder extends PhotoInfoAdapter.ViewHolder {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
-        DisplayUtils.setTypeface(Unsplash.getInstance().getTopActivity(), subtitle);
-        DisplayUtils.setTypeface(Unsplash.getInstance().getTopActivity(), content);
+        DisplayUtils.setTypeface(UnsplashApplication.getInstance().getTopActivity(), subtitle);
+        DisplayUtils.setTypeface(UnsplashApplication.getInstance().getTopActivity(), content);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
+    protected void onBindView(PhotoActivity activity, Photo photo) {
         if (TextUtils.isEmpty(photo.story.description)) {
             content.setVisibility(View.GONE);
         } else {
@@ -65,9 +65,9 @@ public class StoryHolder extends PhotoInfoAdapter.ViewHolder {
             title.setText(photo.story.title);
         }
 
-        subtitle.setText(a.getString(R.string.by) + " " + photo.user.name);
+        subtitle.setText(activity.getString(R.string.by) + " " + photo.user.name);
 
-        ImageHelper.loadAvatar(a, avatar, photo.user);
+        ImageHelper.loadAvatar(activity, avatar, photo.user);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             avatar.setTransitionName(photo.user.username + "-3");
         }
@@ -82,7 +82,7 @@ public class StoryHolder extends PhotoInfoAdapter.ViewHolder {
 
     @OnClick(R.id.item_photo_story_avatar) void checkAuthor() {
         IntentHelper.startUserActivity(
-                Unsplash.getInstance().getTopActivity(),
+                UnsplashApplication.getInstance().getTopActivity(),
                 avatar,
                 photo.user,
                 UserActivity.PAGE_PHOTO);

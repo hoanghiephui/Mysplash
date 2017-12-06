@@ -11,7 +11,7 @@ import android.support.v4.content.FileProvider;
 import android.view.View;
 
 import com.wallpapers.unsplash.BuildConfig;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.item.DownloadMission;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
@@ -100,7 +100,7 @@ public class DownloadHelper {
                 .setTitle(entity.getNotificationTitle())
                 .setDescription(c.getString(R.string.feedback_downloading))
                 .setDestinationInExternalPublicDir(
-                        Unsplash.DOWNLOAD_PATH,
+                        UnsplashApplication.DOWNLOAD_PATH,
                         entity.title + entity.getFormat());
         request.allowScanningByMediaScanner();
 
@@ -281,8 +281,8 @@ public class DownloadHelper {
                         Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
                         Uri.parse("file://" + entity.getFilePath())));
 
-        if (Unsplash.getInstance() != null
-                && Unsplash.getInstance().getTopActivity() != null) {
+        if (UnsplashApplication.getInstance() != null
+                && UnsplashApplication.getInstance().getTopActivity() != null) {
             switch (entity.downloadType) {
                 case DownloadHelper.DOWNLOAD_TYPE:
                     simpleDownloadSuccess(c, entity);
@@ -310,7 +310,7 @@ public class DownloadHelper {
         NotificationHelper.showActionSnackbar(
                 c.getString(R.string.feedback_download_photo_success),
                 c.getString(R.string.check),
-                new OnCheckPhotoListener(Unsplash.getInstance().getTopActivity(), entity.title));
+                new OnCheckPhotoListener(UnsplashApplication.getInstance().getTopActivity(), entity.title));
     }
 
     private static void shareDownloadSuccess(Context c, DownloadMissionEntity entity) {
@@ -325,10 +325,12 @@ public class DownloadHelper {
             intent.putExtra(Intent.EXTRA_STREAM, "image/*");*/
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             c.startActivity(
                     Intent.createChooser(
                             intent,
-                            Unsplash.getInstance()
+                            UnsplashApplication.getInstance()
                                     .getString(R.string.feedback_choose_share_app)));
         } catch (Exception e) {
             Uri uri = FileProvider.getUriForFile(
@@ -348,64 +350,58 @@ public class DownloadHelper {
             c.startActivity(
                     Intent.createChooser(
                             intent,
-                            Unsplash.getInstance()
+                            UnsplashApplication.getInstance()
                                     .getString(R.string.feedback_choose_share_app)));
         }
     }
 
-    private static void wallpaperDownloadSuccess(Context c, DownloadMissionEntity entity) {
+    private static void wallpaperDownloadSuccess(Context context, DownloadMissionEntity entity) {
         try {
             Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
-            intent.putExtra(Intent.EXTRA_STREAM, FileUtils.filePathToUri(c, entity.getFilePath()));
-            intent.setType("image/*");
-            /*
-            intent.setDataAndType(FileUtils.filePathToUri(c, entity.getFilePath()), "image/jpg");
+            intent.setDataAndType(FileUtils.filePathToUri(context, entity.getFilePath()), "image/jpg");
             intent.putExtra("mimeType", "image/jpg");
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, "image/jpg");*/
-            intent.addCategory(Intent.CATEGORY_DEFAULT);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            c.startActivity(
-                    Intent.createChooser(
-                            intent,
-                            Unsplash.getInstance()
-                                    .getString(R.string.feedback_choose_wallpaper_app)));
-        } catch (Exception e) {
-            Uri uri = FileProvider.getUriForFile(
-                    c, BuildConfig.APPLICATION_ID, new File(entity.getFilePath()));
-            Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.setType("image/*");
-            /*
-            intent.setDataAndType(uri, "image/jpg");
-            intent.putExtra("mimeType", "image/jpg");
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, "image/jpg");*/
             intent.addCategory(Intent.CATEGORY_DEFAULT);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            c.startActivity(
+            context.startActivity(
                     Intent.createChooser(
                             intent,
-                            Unsplash.getInstance()
+                            UnsplashApplication.getInstance()
+                                    .getString(R.string.feedback_choose_wallpaper_app)));
+        } catch (Exception e) {
+            Uri uri = FileProvider.getUriForFile(
+                    context, BuildConfig.APPLICATION_ID, new File(entity.getFilePath()));
+            Intent intent = new Intent(Intent.ACTION_ATTACH_DATA);
+            intent.setDataAndType(uri, "image/jpg");
+            intent.putExtra("mimeType", "image/jpg");
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            context.startActivity(
+                    Intent.createChooser(
+                            intent,
+                            UnsplashApplication.getInstance()
                                     .getString(R.string.feedback_choose_wallpaper_app)));
         }
     }
 
-    private static void downloadCollectionSuccess(Context c, DownloadMissionEntity entity) {
-        if (Unsplash.getInstance() != null
-                && Unsplash.getInstance().getTopActivity() != null) {
+    private static void downloadCollectionSuccess(Context context, DownloadMissionEntity entity) {
+        if (UnsplashApplication.getInstance() != null
+                && UnsplashApplication.getInstance().getTopActivity() != null) {
             NotificationHelper.showActionSnackbar(
-                    c.getString(R.string.feedback_download_collection_success),
-                    c.getString(R.string.check),
-                    new OnCheckCollectionListener(c, entity.title));
+                    context.getString(R.string.feedback_download_collection_success),
+                    context.getString(R.string.check),
+                    new OnCheckCollectionListener(context, entity.title));
         } else {
-            NotificationHelper.sendDownloadCollectionSuccessNotification(c, entity);
+            NotificationHelper.sendDownloadCollectionSuccessNotification(context, entity);
         }
     }
 
     private static void downloadPhotoFailed(Context c, DownloadMissionEntity entity) {
-        if (Unsplash.getInstance() != null
-                && Unsplash.getInstance().getTopActivity() != null) {
+        if (UnsplashApplication.getInstance() != null
+                && UnsplashApplication.getInstance().getTopActivity() != null) {
             NotificationHelper.showActionSnackbar(
                     c.getString(R.string.feedback_download_photo_failed),
                     c.getString(R.string.check),
@@ -416,8 +412,8 @@ public class DownloadHelper {
     }
 
     private static void downloadCollectionFailed(Context c, DownloadMissionEntity entity) {
-        if (Unsplash.getInstance() != null
-                && Unsplash.getInstance().getTopActivity() != null) {
+        if (UnsplashApplication.getInstance() != null
+                && UnsplashApplication.getInstance().getTopActivity() != null) {
             NotificationHelper.showActionSnackbar(
                     c.getString(R.string.feedback_download_collection_failed),
                     c.getString(R.string.check),
@@ -470,7 +466,7 @@ public class DownloadHelper {
     private static View.OnClickListener onStartManageActivityListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            IntentHelper.startDownloadManageActivity(Unsplash.getInstance().getTopActivity());
+            IntentHelper.startDownloadManageActivity(UnsplashApplication.getInstance().getTopActivity());
         }
     };
 }

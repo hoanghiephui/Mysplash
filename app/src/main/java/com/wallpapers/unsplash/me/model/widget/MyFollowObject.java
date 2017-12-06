@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.me.model.widget;
 
 import android.support.annotation.IntDef;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.UserService;
 import com.wallpapers.unsplash.common.interfaces.model.MyFollowModel;
 import com.wallpapers.unsplash.common.ui.adapter.MyFollowAdapter;
@@ -35,7 +35,7 @@ public class MyFollowObject implements MyFollowModel {
         this.service = UserService.getService();
 
         this.followType = followType;
-        this.userPage = adapter.getItemCount() / Unsplash.DEFAULT_PER_PAGE;
+        this.userPage = adapter.getItemCount() / UnsplashApplication.DEFAULT_PER_PAGE;
         this.deltaValue = 0;
 
         this.refreshing = false;

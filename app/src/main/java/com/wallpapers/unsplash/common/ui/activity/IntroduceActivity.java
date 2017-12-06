@@ -20,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.MyPagerAdapter;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -44,7 +44,7 @@ import butterknife.ButterKnife;
  *
  * */
 
-public class IntroduceActivity extends MysplashActivity
+public class IntroduceActivity extends BaseActivity
         implements View.OnClickListener, ViewPager.OnPageChangeListener,
         SafeHandler.HandlerContainer {
 
@@ -88,7 +88,7 @@ public class IntroduceActivity extends MysplashActivity
         }
     }
 
-    public static void checkAndStartIntroduce(final MysplashActivity a) {
+    public static void checkAndStartIntroduce(final BaseActivity a) {
         SharedPreferences sharedPreferences = a.getSharedPreferences(
                 PREFERENCE_NAME,
                 Context.MODE_PRIVATE);
@@ -102,7 +102,7 @@ public class IntroduceActivity extends MysplashActivity
         }
     }
 
-    public static void watchAllIntroduce(MysplashActivity a) {
+    public static void watchAllIntroduce(BaseActivity a) {
         SharedPreferences.Editor editor = a.getSharedPreferences(
                 PREFERENCE_NAME,
                 Context.MODE_PRIVATE).edit();

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.interfaces.model.AboutModel;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.AboutAdapter;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -51,7 +51,7 @@ public class TranslatorHolder extends AboutAdapter.ViewHolder {
     }
 
     @Override
-    protected void onBindView(MysplashActivity a, AboutModel model) {
+    protected void onBindView(BaseActivity a, AboutModel model) {
         TranslatorObject object = (TranslatorObject) model;
 
         ImageHelper.loadAvatar(a, avatar, object.avatarUrl);

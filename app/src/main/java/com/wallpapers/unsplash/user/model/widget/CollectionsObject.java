@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.user.model.widget;
 
 import android.app.Activity;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.CollectionService;
@@ -29,7 +29,7 @@ public class CollectionsObject
     private boolean over;
 
     public CollectionsObject(Activity a, User u) {
-        this.adapter = new CollectionAdapter(a, new ArrayList<Collection>(Unsplash.DEFAULT_PER_PAGE));
+        this.adapter = new CollectionAdapter(a, new ArrayList<Collection>(UnsplashApplication.DEFAULT_PER_PAGE), false);
         this.service = CollectionService.getService();
 
         this.requestKey = u;
@@ -62,7 +62,7 @@ public class CollectionsObject
 
     @Override
     public int getCollectionsType() {
-        return Unsplash.COLLECTION_TYPE_ALL;
+        return UnsplashApplication.COLLECTION_TYPE_ALL;
     }
 
     @Override

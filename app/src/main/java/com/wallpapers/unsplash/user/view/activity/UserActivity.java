@@ -16,9 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.collection.view.activity.CollectionActivity;
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
@@ -201,7 +201,7 @@ public class UserActivity extends LoadableActivity<Photo>
             return;
         }
         switch (requestCode) {
-            case Unsplash.COLLECTION_ACTIVITY:
+            case UnsplashApplication.COLLECTION_ACTIVITY:
                 Collection collection = data.getParcelableExtra(
                         CollectionActivity.KEY_COLLECTION_ACTIVITY_COLLECTION);
                 if (collection != null) {
@@ -266,7 +266,7 @@ public class UserActivity extends LoadableActivity<Photo>
                 && BackToTopUtils.isSetBackToTop(false)) {
             backToTop();
         } else {
-            if (Unsplash.getInstance().getActivityCount() == 1) {
+            if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                 IntentHelper.startMainActivity(this);
             }
             finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);
@@ -372,7 +372,7 @@ public class UserActivity extends LoadableActivity<Photo>
             ImageView locationIcon = findViewById(R.id.container_user_profile_locationIcon);
             ThemeManager.setImageResource(
                     locationIcon, R.drawable.ic_location_light, R.drawable.ic_location_dark);
-            if (Unsplash.getInstance().getActivityCount() == 1) {
+            if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                 ThemeManager.setNavigationIcon(
                         toolbar, R.drawable.ic_toolbar_home_light, R.drawable.ic_toolbar_home_dark);
             } else {
@@ -512,7 +512,7 @@ public class UserActivity extends LoadableActivity<Photo>
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                if (Unsplash.getInstance().getActivityCount() == 1) {
+                if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                     browsablePresenter.visitPreviousPage();
                 }
                 toolbarPresenter.touchNavigatorIcon(this);
@@ -704,6 +704,11 @@ public class UserActivity extends LoadableActivity<Photo>
             initPresenter();
             initView(false);
         }
+    }
+
+    @Override
+    public void drawBrowsableViewList(Object rusultList) {
+
     }
 
     @Override

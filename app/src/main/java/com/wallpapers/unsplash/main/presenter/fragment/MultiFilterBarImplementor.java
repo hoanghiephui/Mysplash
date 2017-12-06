@@ -3,7 +3,7 @@ package com.wallpapers.unsplash.main.presenter.fragment;
 import com.wallpapers.unsplash.common.interfaces.model.MultiFilterBarModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.MultiFilterBarPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.MultiFilterBarView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.main.view.activity.MainActivity;
 import com.wallpapers.unsplash.main.view.fragment.MultiFilterFragment;
 
@@ -29,7 +29,7 @@ public class MultiFilterBarImplementor
     }
 
     @Override
-    public void touchToolbar(MysplashActivity a) {
+    public void touchToolbar(BaseActivity a) {
         MainActivity activity = (MainActivity) a;
         MultiFilterFragment f = (MultiFilterFragment) activity.getTopFragment();
         if (f != null) {

@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.Previewable;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.Previewable;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollPhotoView;
@@ -30,7 +30,7 @@ import butterknife.OnLongClick;
  *
  * */
 
-public class PreviewActivity extends MysplashActivity
+public class PreviewActivity extends BaseActivity
         implements SwipeBackCoordinatorLayout.OnSwipeListener {
 
     @BindView(R.id.activity_preview_container)

@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
@@ -33,7 +33,7 @@ import butterknife.OnClick;
  *
  * */
 
-public class CustomApiActivity extends MysplashActivity
+public class CustomApiActivity extends BaseActivity
         implements SwipeBackCoordinatorLayout.OnSwipeListener, SafeHandler.HandlerContainer {
 
     @BindView(R.id.activity_custom_api_container)

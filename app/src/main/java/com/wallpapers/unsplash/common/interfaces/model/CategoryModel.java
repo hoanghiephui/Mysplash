@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.interfaces.model;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.PhotoService;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 
@@ -21,15 +21,15 @@ public interface CategoryModel {
     // manage HTTP request parameters.
 
     int getPhotosCategory();
-    void setPhotosCategory(@Unsplash.CategoryIdRule int category);
+    void setPhotosCategory(@UnsplashApplication.CategoryIdRule int category);
 
     String getPhotosOrder();
     void setPhotosOrder(String order);
     boolean isRandomType();
 
-    @Unsplash.PageRule
+    @UnsplashApplication.PageRule
     int getPhotosPage();
-    void setPhotosPage(@Unsplash.PageRule int page);
+    void setPhotosPage(@UnsplashApplication.PageRule int page);
 
     /** {@link com.wallpapers.unsplash.common.utils.ValueUtils#getPageListByCategory(int)} */
     List<Integer> getPageList();

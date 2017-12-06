@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.table.WallpaperSource;
 import com.wallpapers.unsplash.common.utils.helper.ImageHelper;
 import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
@@ -29,7 +29,7 @@ import butterknife.OnClick;
 
 public class WallpaperSourceAdapter extends RecyclerView.Adapter<WallpaperSourceAdapter.ViewHolder> {
 
-    private MysplashActivity c;
+    private BaseActivity c;
     public List<WallpaperSource> itemList;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -75,7 +75,7 @@ public class WallpaperSourceAdapter extends RecyclerView.Adapter<WallpaperSource
         }
     }
 
-    public WallpaperSourceAdapter(MysplashActivity c, List<WallpaperSource> list) {
+    public WallpaperSourceAdapter(BaseActivity c, List<WallpaperSource> list) {
         this.c = c;
         this.itemList = list;
     }

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.interfaces.model.AboutModel;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.about.presenter.CreateAboutModelImplementor;
 import com.wallpapers.unsplash.about.view.holder.AppHolder;
 import com.wallpapers.unsplash.about.view.holder.CategoryHolder;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> {
 
-    private MysplashActivity a;
+    private BaseActivity a;
     private List<AboutModel> itemList;
 
     /**
@@ -42,12 +42,12 @@ public class AboutAdapter extends RecyclerView.Adapter<AboutAdapter.ViewHolder> 
 
         // UI.
 
-        protected abstract void onBindView(MysplashActivity a, AboutModel model);
+        protected abstract void onBindView(BaseActivity a, AboutModel model);
 
         protected abstract void onRecycled();
     }
 
-    public AboutAdapter(MysplashActivity a) {
+    public AboutAdapter(BaseActivity a) {
         this.a = a;
         this.itemList = CreateAboutModelImplementor.createModelList(a);
     }

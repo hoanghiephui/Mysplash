@@ -15,7 +15,7 @@ import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 
 /**
- * Unsplash list preference.
+ * UnsplashApplication list preference.
  *
  * A ListPreference that can set style of the texts.
  *

@@ -1,6 +1,7 @@
 package com.wallpapers.unsplash.me.view.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
@@ -20,7 +21,7 @@ import com.wallpapers.unsplash.common.interfaces.view.PagerManageView;
 import com.wallpapers.unsplash.common.interfaces.view.PagerView;
 import com.wallpapers.unsplash.common.interfaces.view.SwipeBackManageView;
 import com.wallpapers.unsplash.common.interfaces.view.UserView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.MyPagerAdapter;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
@@ -52,7 +53,7 @@ import butterknife.ButterKnife;
  *
  * */
 
-public class MyFollowActivity extends MysplashActivity
+public class MyFollowActivity extends BaseActivity
         implements UserView, PagerManageView, SwipeBackManageView,
         View.OnClickListener, ViewPager.OnPageChangeListener,
         SwipeBackCoordinatorLayout.OnSwipeListener {
@@ -326,6 +327,11 @@ public class MyFollowActivity extends MysplashActivity
     @Override
     public void followRequestFailed(boolean follow) {
         // do nothing.
+    }
+
+    @Override
+    public Context getContexts() {
+        return this;
     }
 
     // pager manage view.

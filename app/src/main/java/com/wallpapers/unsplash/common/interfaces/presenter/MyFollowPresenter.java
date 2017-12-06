@@ -2,8 +2,8 @@ package com.wallpapers.unsplash.common.interfaces.presenter;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.UnsplashApplication;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.model.MyFollowModel;
 import com.wallpapers.unsplash.common.ui.adapter.MyFollowAdapter;
 
@@ -18,7 +18,7 @@ public interface MyFollowPresenter {
 
     // HTTP request.
 
-    void requestMyFollow(Context c, @Unsplash.PageRule int page, boolean refresh);
+    void requestMyFollow(Context c, @UnsplashApplication.PageRule int page, boolean refresh);
     void cancelRequest();
 
     // load data interface.
@@ -41,6 +41,6 @@ public interface MyFollowPresenter {
     int getDeltaValue();
     void setDeltaValue(int delta);
 
-    void setActivityForAdapter(MysplashActivity a);
+    void setActivityForAdapter(BaseActivity a);
     MyFollowAdapter getAdapter();
 }

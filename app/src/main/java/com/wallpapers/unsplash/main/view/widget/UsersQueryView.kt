@@ -13,8 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.github.rahatarmanahmed.cpv.CircularProgressView
 import com.wallpapers.unsplash.R
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity
-import com.wallpapers.unsplash.common.data.entity.unsplash.ResultsItem
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity
 import com.wallpapers.unsplash.common.data.entity.unsplash.User
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel
 import com.wallpapers.unsplash.common.interfaces.model.PagerModel
@@ -49,7 +48,7 @@ import java.util.*
 /**
  * Created by hoanghiep on 11/30/17.
  */
-class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected: Boolean, private val query: String) : NestedScrollFrameLayout(activity),
+class UsersQueryView(activity: BaseActivity?, id: Int, index: Int, selected: Boolean, private val query: String) : NestedScrollFrameLayout(activity),
         UsersView,
         PagerView, LoadView, ScrollView, BothWaySwipeRefreshLayout.OnRefreshAndLoadListener {
     var usersModel: UsersQueryModel? = null
@@ -74,7 +73,7 @@ class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected:
         this.initialize(activity, index, selected)
     }
 
-    fun initialize(activity: MysplashActivity?, index: Int, selected: Boolean) {
+    fun initialize(activity: BaseActivity?, index: Int, selected: Boolean) {
         val loadingView = LayoutInflater.from(context)
                 .inflate(R.layout.container_loading_view_large, this, false)
         addView(loadingView)
@@ -88,14 +87,14 @@ class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected:
         initView(contentView, loadingView)
     }
 
-    private fun initModel(activity: MysplashActivity?, index: Int, selected: Boolean) {
+    private fun initModel(activity: BaseActivity?, index: Int, selected: Boolean) {
         this.usersModel = UsersQueryObject(UsersQueryAdapter())
         this.pagerModel = PagerObject(index, selected)
         this.loadModel = LoadObject(LoadModel.LOADING_STATE)
         this.scrollModel = ScrollObject(true)
     }
 
-    private fun initPresenter(activity: MysplashActivity?) {
+    private fun initPresenter(activity: BaseActivity?) {
         this.usersPresenter = usersModel?.let { UsersQueryImplementor(it, this) }
         this.pagerPresenter = PagerImplementor(pagerModel, this)
         this.loadPresenter = LoadImplementor(loadModel, this)
@@ -280,7 +279,7 @@ class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected:
         AnimUtils.animHide(v)
     }
 
-    override fun setLoadingState(activity: MysplashActivity?, old: Int) {
+    override fun setLoadingState(activity: BaseActivity?, old: Int) {
         if (activity != null && pagerPresenter?.isSelected!!) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar())
@@ -302,7 +301,7 @@ class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected:
         return null
     }
 
-    override fun setFailedState(activity: MysplashActivity?, old: Int) {
+    override fun setFailedState(activity: BaseActivity?, old: Int) {
         animShow(feedbackContainer)
         animHide(progressView)
         animHide(refreshLayout)
@@ -323,7 +322,7 @@ class UsersQueryView(activity: MysplashActivity?, id: Int, index: Int, selected:
         return false
     }
 
-    override fun setNormalState(activity: MysplashActivity?, old: Int) {
+    override fun setNormalState(activity: BaseActivity?, old: Int) {
         if (activity != null && pagerPresenter?.isSelected!!) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar())

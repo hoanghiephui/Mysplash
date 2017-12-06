@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.TrendingFeed;
 import com.wallpapers.unsplash.common.data.service.FeedService;
 import com.wallpapers.unsplash.common.interfaces.model.TrendingModel;
@@ -108,7 +108,7 @@ public class TrendingImplementor implements TrendingPresenter {
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 
@@ -122,10 +122,10 @@ public class TrendingImplementor implements TrendingPresenter {
         return model.getAdapter();
     }
 
-    private void requestTrendingFeed(Context c, String nextPage, boolean refresh) {
-        listener = new OnRequestTrendingFeedListener(c, refresh);
+    private void requestTrendingFeed(Context context, String nextPage, boolean refresh) {
+        listener = new OnRequestTrendingFeedListener(context, refresh);
         model.getService()
-                .requestTrendingFeed(
+                .requestTrendingFeed(context,
                         refresh ? model.getFirstPage() : nextPage,
                         listener);
     }

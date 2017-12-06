@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.collection.view.activity.CollectionActivity;
-import com.wallpapers.unsplash.common._basic.FooterAdapter;
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.FooterAdapter;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.CategoryItem;
 import com.wallpapers.unsplash.common.data.entity.unsplash.ChangeCollectionPhotoResult;
 import com.wallpapers.unsplash.common.data.entity.unsplash.LikePhotoResult;
@@ -47,7 +47,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Response;
 
-import static com.wallpapers.unsplash.Unsplash.SEARCH_QUERY_ID;
+import static com.wallpapers.unsplash.UnsplashApplication.SEARCH_QUERY_ID;
 
 /**
  * Photo adapter.
@@ -65,7 +65,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
     private SelectCollectionDialog.OnCollectionsChangedListener collectionsChangedListener;
     private OnDownloadPhotoListener downloadPhotoListener;
 
-    private List<Photo> itemList;
+    private List<Photo> itemList = new ArrayList<>();
     private PhotoService service;
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
@@ -117,7 +117,6 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
         private Photo photo;
         private int mPosition;
-        private ViewHolder mHolder = null;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -144,6 +143,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
             title.setText("");
             image.setShowShadow(false);
+            avatar.setVisibility(isHasFooder() ? View.VISIBLE : View.GONE);
 
             // ImageHelper.loadFullPhoto(a, image, photo, position, this);
             ImageHelper.loadRegularPhoto(a, image, photo, position, this);
@@ -193,7 +193,6 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
         private void setOnClick(ViewHolder holder, final int position) {
             this.mPosition = position;
-            this.mHolder = holder;
             card.setOnClickListener(this);
             avatar.setOnClickListener(this);
             deleteButton.setOnClickListener(this);
@@ -233,7 +232,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
         }
 
         void clickItem() {
-            if (a instanceof MysplashActivity && mPosition < itemList.size()) {
+            if (a instanceof BaseActivity && mPosition < itemList.size()) {
 
                 ArrayList<Photo> list = new ArrayList<>();
                 int headIndex = mPosition - 2;
@@ -249,7 +248,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                 }
 
                 IntentHelper.startPhotoActivity(
-                        (MysplashActivity) a, image, card,
+                        (BaseActivity) a, image, card,
                         list, mPosition, headIndex,
                         a instanceof LoadableActivity ? ((LoadableActivity) a).getBundleOfList() : new Bundle());
             }
@@ -276,18 +275,18 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                             mPosition);
                 }
             } else {
-                IntentHelper.startLoginActivity((MysplashActivity) a);
+                IntentHelper.startLoginActivity((BaseActivity) a);
             }
         }
 
         void collectPhoto() {
-            if (a instanceof MysplashActivity) {
+            if (a instanceof BaseActivity) {
                 if (!AuthManager.getInstance().isAuthorized()) {
-                    IntentHelper.startLoginActivity((MysplashActivity) a);
+                    IntentHelper.startLoginActivity((BaseActivity) a);
                 } else {
                     SelectCollectionDialog dialog = new SelectCollectionDialog();
                     dialog.setPhotoAndListener(itemList.get(mPosition), collectionsChangedListener);
-                    dialog.show(((MysplashActivity) a).getFragmentManager(), null);
+                    dialog.show(((BaseActivity) a).getFragmentManager(), null);
                 }
             }
         }
@@ -298,7 +297,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
             if (DatabaseHelper.getInstance(a).readDownloadingEntityCount(p.id) > 0) {
                 NotificationHelper.showSnackbar(a.getString(R.string.feedback_download_repeat));
             } else if (FileUtils.isPhotoExists(a, p.id)) {
-                MysplashActivity activity = Unsplash.getInstance().getTopActivity();
+                BaseActivity activity = UnsplashApplication.getInstance().getTopActivity();
                 if (activity != null) {
                     DownloadRepeatDialog dialog = new DownloadRepeatDialog();
                     dialog.setDownloadKey(p);
@@ -334,6 +333,14 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                         OnDownloadPhotoListener dl, boolean isHeader) {
         this(a, list, DisplayUtils.getGirdColumnCount(a), sl, dl);
         isHasHeader = isHeader;
+    }
+
+    public PhotoAdapter(Context a, List<Photo> list,
+                        SelectCollectionDialog.OnCollectionsChangedListener sl,
+                        OnDownloadPhotoListener dl, boolean isHeader, boolean isFooter) {
+        this(a, list, 2, sl, dl);
+        isHasHeader = isHeader;
+        isHasFooder = isFooter;
     }
 
     public PhotoAdapter(Context a, List<Photo> list, int columnCount,
@@ -402,7 +409,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
                 && DisplayUtils.getNavigationBarHeight(a.getResources()) != 0;
     }
 
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         this.a = a;
     }
 
@@ -485,7 +492,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
 
     private void dispatchUpdate(int position) {
         if (a instanceof LoadableActivity) {
-            Unsplash.getInstance().dispatchPhotoUpdate(
+            UnsplashApplication.getInstance().dispatchPhotoUpdate(
                     (LoadableActivity<Photo>) a,
                     itemList.get(position));
         }

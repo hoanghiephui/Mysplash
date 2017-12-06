@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.table.DownloadMissionEntity;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
 
@@ -148,7 +148,7 @@ public class NotificationHelper {
     // snack bar.
 
     public static void showSnackbar(String content) {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             View container = a.provideSnackbarContainer();
             if (container != null) {
@@ -169,7 +169,7 @@ public class NotificationHelper {
 
     public static void showActionSnackbar(String content, String action,
                                            View.OnClickListener l) {
-        MysplashActivity a = Unsplash.getInstance().getTopActivity();
+        BaseActivity a = UnsplashApplication.getInstance().getTopActivity();
         if (a != null) {
             View container = a.provideSnackbarContainer();
             if (container != null) {

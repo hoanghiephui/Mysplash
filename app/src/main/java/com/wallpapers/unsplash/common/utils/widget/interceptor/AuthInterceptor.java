@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.common.utils.widget.interceptor;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.utils.manager.AuthManager;
 
 import java.io.IOException;
@@ -30,7 +30,7 @@ public class AuthInterceptor implements Interceptor {
         } else {
             request = chain.request()
                     .newBuilder()
-                    .addHeader("Authorization", "Client-ID " + Unsplash.getAppId(Unsplash.getInstance(), false))
+                    .addHeader("Authorization", "Client-ID " + UnsplashApplication.getAppId(UnsplashApplication.getInstance(), false))
                     .build();
         }
         return chain.proceed(request);

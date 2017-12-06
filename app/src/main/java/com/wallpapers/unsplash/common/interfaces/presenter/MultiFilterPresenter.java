@@ -2,7 +2,7 @@ package com.wallpapers.unsplash.common.interfaces.presenter;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 
 /**
@@ -53,6 +53,6 @@ public interface MultiFilterPresenter {
     void setOver(boolean over);
 
     int getAdapterItemCount();
-    void setActivityForAdapter(MysplashActivity a);
+    void setActivityForAdapter(BaseActivity a);
     PhotoAdapter getAdapter();
 }

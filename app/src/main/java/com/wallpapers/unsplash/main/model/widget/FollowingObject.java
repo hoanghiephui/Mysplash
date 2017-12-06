@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.main.model.widget;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.FeedService;
 import com.wallpapers.unsplash.common.interfaces.model.FollowingModel;
 import com.wallpapers.unsplash.common.ui.adapter.FollowingAdapter;
@@ -44,7 +44,7 @@ public class FollowingObject implements FollowingModel {
 
     @Override
     public String getFirstPage() {
-        return Unsplash.UNSPLASH_URL + Unsplash.UNSPLASH_FOLLOWING_FEED_URL;
+        return UnsplashApplication.UNSPLASH_URL + UnsplashApplication.UNSPLASH_FOLLOWING_FEED_URL;
     }
 
     @Override

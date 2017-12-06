@@ -7,10 +7,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
@@ -48,11 +47,11 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
-        DisplayUtils.setTypeface(Unsplash.getInstance().getTopActivity(), text);
+        DisplayUtils.setTypeface(UnsplashApplication.getInstance().getTopActivity(), text);
     }
 
     @Override
-    protected void onBindView(PhotoActivity a, Photo photo) {
+    protected void onBindView(PhotoActivity activity, Photo photo) {
         // do nothing.
     }
 
@@ -121,7 +120,7 @@ public class ExifHolder extends PhotoInfoAdapter.ViewHolder {
                 } else {
                     icon.setImageResource(R.drawable.ic_camera_dark);
                 }
-                text.setText(photo.exif.make == null ? "Unknown" : photo.exif.make);
+                text.setText(photo.exif.make == null || photo.exif.make.equals("") ? "Unknown" : photo.exif.make);
                 break;
 
             case 1:

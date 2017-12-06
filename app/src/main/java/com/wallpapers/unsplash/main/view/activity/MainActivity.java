@@ -18,18 +18,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
-import com.wallpapers.unsplash.common._basic.fragment.LoadableFragment;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
+import com.wallpapers.unsplash.common.basic.fragment.LoadableFragment;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.FollowingResult;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
-import com.wallpapers.unsplash.common.data.entity.unsplash.ResultsItem;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.interfaces.model.DownloadModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.DownloadPresenter;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashFragment;
+import com.wallpapers.unsplash.common.basic.fragment.MysplashFragment;
 import com.wallpapers.unsplash.common.ui.activity.invisible.RestartActivity;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
@@ -45,7 +44,6 @@ import com.wallpapers.unsplash.common.interfaces.presenter.MeManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.MessageManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.DrawerView;
 import com.wallpapers.unsplash.common.interfaces.view.MeManageView;
-import com.wallpapers.unsplash.common.ui.activity.IntroduceActivity;
 import com.wallpapers.unsplash.common.utils.BackToTopUtils;
 import com.wallpapers.unsplash.common.utils.manager.ShortcutsManager;
 import com.wallpapers.unsplash.common.utils.manager.ThemeManager;
@@ -136,7 +134,7 @@ public class MainActivity extends LoadableActivity<Photo>
             }
 
             // check to show introduce.
-            IntroduceActivity.checkAndStartIntroduce(MainActivity.this);
+            //IntroduceActivity.checkAndStartIntroduce(MainActivity.this);
 
             // draw profile.
             handler.obtainMessage(DRAW_PROFILE).sendToTarget();
@@ -296,7 +294,7 @@ public class MainActivity extends LoadableActivity<Photo>
         if (fragment != null && data != null) {
             fragment.handleActivityResult(requestCode, resultCode, data);
         }
-        if (requestCode == Unsplash.ME_ACTIVITY) {
+        if (requestCode == UnsplashApplication.ME_ACTIVITY) {
             drawMeAvatar();
         }
     }

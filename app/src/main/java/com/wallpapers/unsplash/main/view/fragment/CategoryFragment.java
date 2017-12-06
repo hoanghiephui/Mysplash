@@ -10,16 +10,16 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.LoadableFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.LoadableFragment;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.interfaces.model.CategoryManageModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.CategoryManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.PopupManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.ToolbarPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.CategoryManageView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.popup.SearchCategoryPopupWindow;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
 import com.wallpapers.unsplash.common.utils.BackToTopUtils;
@@ -123,14 +123,14 @@ public class CategoryFragment extends LoadableFragment<Photo>
     }
 
     @Override
-    public void writeLargeData(MysplashActivity.BaseSavedStateFragment outState) {
+    public void writeLargeData(BaseActivity.BaseSavedStateFragment outState) {
         if (photosView != null) {
             ((MainActivity.SavedStateFragment) outState).setCategoryList(photosView.getPhotos());
         }
     }
 
     @Override
-    public void readLargeData(MysplashActivity.BaseSavedStateFragment savedInstanceState) {
+    public void readLargeData(BaseActivity.BaseSavedStateFragment savedInstanceState) {
         if (photosView != null) {
             photosView.setPhotos(((MainActivity.SavedStateFragment) savedInstanceState).getCategoryList());
         }
@@ -179,9 +179,9 @@ public class CategoryFragment extends LoadableFragment<Photo>
 
     private void initModel(Bundle savedInstanceState) {
         int categoryId = savedInstanceState == null ?
-                Unsplash.CATEGORY_BUILDINGS_ID
+                UnsplashApplication.CATEGORY_BUILDINGS_ID
                 :
-                savedInstanceState.getInt(KEY_CATEGORY_FRAGMENT_CATEGORY_ID, Unsplash.CATEGORY_BUILDINGS_ID);
+                savedInstanceState.getInt(KEY_CATEGORY_FRAGMENT_CATEGORY_ID, UnsplashApplication.CATEGORY_BUILDINGS_ID);
         this.categoryManageModel = new CategoryManageObject(categoryId);
     }
 
@@ -232,13 +232,13 @@ public class CategoryFragment extends LoadableFragment<Photo>
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                toolbarPresenter.touchNavigatorIcon((MysplashActivity) getActivity());
+                toolbarPresenter.touchNavigatorIcon((BaseActivity) getActivity());
                 break;
         }
     }
 
     @OnClick(R.id.fragment_category_toolbar) void clickToolbar() {
-        toolbarPresenter.touchToolbar((MysplashActivity) getActivity());
+        toolbarPresenter.touchToolbar((BaseActivity) getActivity());
     }
 
     @OnClick({
@@ -256,7 +256,7 @@ public class CategoryFragment extends LoadableFragment<Photo>
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        return toolbarPresenter.touchMenuItem((MysplashActivity) getActivity(), item.getItemId());
+        return toolbarPresenter.touchMenuItem((BaseActivity) getActivity(), item.getItemId());
     }
 
     // on nested scrolling listener.

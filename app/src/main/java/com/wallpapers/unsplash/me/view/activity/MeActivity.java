@@ -14,9 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Me;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
@@ -180,7 +180,7 @@ public class MeActivity extends LoadableActivity<Photo>
             return;
         }
         switch (requestCode) {
-            case Unsplash.COLLECTION_ACTIVITY:
+            case UnsplashApplication.COLLECTION_ACTIVITY:
                 Collection collection = data.getParcelableExtra(KEY_ME_ACTIVITY_COLLECTION);
                 if (collection != null) {
                     if (data.getBooleanExtra(KEY_ME_ACTIVITY_DELETE_COLLECTION, false)) {
@@ -351,7 +351,7 @@ public class MeActivity extends LoadableActivity<Photo>
                 this, R.id.activity_me_swipeBackView);
         swipeBackView.setOnSwipeListener(this);
 
-        if (Unsplash.getInstance().getActivityCount() == 1) {
+        if (UnsplashApplication.getInstance().getActivityCount() == 1) {
             ThemeManager.setNavigationIcon(
                     toolbar, R.drawable.ic_toolbar_home_light, R.drawable.ic_toolbar_home_dark);
         } else {
@@ -502,7 +502,7 @@ public class MeActivity extends LoadableActivity<Photo>
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                if (Unsplash.getInstance().getActivityCount() == 1) {
+                if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                     IntentHelper.startMainActivity(this);
                 }
                 toolbarPresenter.touchNavigatorIcon(this);

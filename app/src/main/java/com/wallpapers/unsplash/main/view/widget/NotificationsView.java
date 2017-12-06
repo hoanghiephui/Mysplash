@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
 import com.wallpapers.unsplash.common.interfaces.model.NotificationsModel;
 import com.wallpapers.unsplash.common.interfaces.model.ScrollModel;
@@ -164,7 +164,7 @@ public class NotificationsView extends NestedScrollFrameLayout
      *
      * @param a Container activity.
      * */
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         notificationsPresenter.setActivityForAdapter(a);
         loadPresenter.bindActivity(a);
     }
@@ -303,7 +303,7 @@ public class NotificationsView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -314,14 +314,14 @@ public class NotificationsView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(feedbackContainer);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

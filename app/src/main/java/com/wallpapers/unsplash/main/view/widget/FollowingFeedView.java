@@ -19,7 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.FollowingResult;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
@@ -33,7 +33,7 @@ import com.wallpapers.unsplash.common.interfaces.presenter.ScrollPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.FollowingView;
 import com.wallpapers.unsplash.common.interfaces.view.LoadView;
 import com.wallpapers.unsplash.common.interfaces.view.ScrollView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.adapter.FollowingAdapter;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollFrameLayout;
@@ -193,7 +193,7 @@ public class FollowingFeedView extends NestedScrollFrameLayout
         this.followingModel = new FollowingObject(
                 new FollowingAdapter(
                         getContext(),
-                        new ArrayList<FollowingResult>(Unsplash.DEFAULT_PER_PAGE)));
+                        new ArrayList<FollowingResult>(UnsplashApplication.DEFAULT_PER_PAGE)));
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
         this.scrollModel = new ScrollObject(true);
 
@@ -288,7 +288,7 @@ public class FollowingFeedView extends NestedScrollFrameLayout
      *
      * @param a Container activity.
      * */
-    public void setActivity(MysplashActivity a) {
+    public void setActivity(BaseActivity a) {
         followingPresenter.setActivityForAdapter(a);
         loadPresenter.bindActivity(a);
     }
@@ -404,7 +404,7 @@ public class FollowingFeedView extends NestedScrollFrameLayout
         int adapterPosition = ((StaggeredGridLayoutManager) recyclerView.getLayoutManager())
                 .findFirstVisibleItemPositions(null)[0];
         IntentHelper.startUserActivity(
-                Unsplash.getInstance().getTopActivity(),
+                UnsplashApplication.getInstance().getTopActivity(),
                 avatar,
                 followingPresenter.getAdapter().getActor(adapterPosition),
                 UserActivity.PAGE_PHOTO);
@@ -602,7 +602,7 @@ public class FollowingFeedView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -613,14 +613,14 @@ public class FollowingFeedView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(feedbackContainer);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

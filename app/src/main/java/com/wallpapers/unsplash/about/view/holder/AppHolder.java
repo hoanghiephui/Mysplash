@@ -4,10 +4,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.model.AboutModel;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.activity.IntroduceActivity;
 import com.wallpapers.unsplash.common.ui.adapter.AboutAdapter;
 import com.wallpapers.unsplash.common.utils.helper.DonateHelper;
@@ -41,7 +41,7 @@ public class AppHolder extends AboutAdapter.ViewHolder {
     }
 
     @Override
-    public void onBindView(MysplashActivity a, AboutModel model) {
+    public void onBindView(BaseActivity a, AboutModel model) {
         AppObject object = (AppObject) model;
 
         icon.setImageResource(object.iconId);
@@ -57,7 +57,7 @@ public class AppHolder extends AboutAdapter.ViewHolder {
     @OnClick(R.id.item_about_app_container) void clickItem() {
         switch (id) {
             case 1:
-                IntroduceActivity.watchAllIntroduce(Unsplash.getInstance().getTopActivity());
+                IntroduceActivity.watchAllIntroduce(UnsplashApplication.getInstance().getTopActivity());
                 break;
 
             case 2:
@@ -73,7 +73,7 @@ public class AppHolder extends AboutAdapter.ViewHolder {
                 break;
 
             case 5:
-                DonateHelper.donateByAlipay(Unsplash.getInstance().getTopActivity());
+                DonateHelper.donateByAlipay(UnsplashApplication.getInstance().getTopActivity());
                 break;
         }
     }

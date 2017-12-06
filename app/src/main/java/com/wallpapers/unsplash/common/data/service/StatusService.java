@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.common.data.service;
 
 import com.google.gson.GsonBuilder;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.BaseOkHttpClient;
 import com.wallpapers.unsplash.common.data.api.StatusApi;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Total;
@@ -33,12 +33,12 @@ public class StatusService {
 
     private StatusApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_API_BASE_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_API_BASE_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
                                 new GsonBuilder()
-                                        .setDateFormat(Unsplash.DATE_FORMAT)
+                                        .setDateFormat(UnsplashApplication.DATE_FORMAT)
                                         .create()))
                 .build()
                 .create((StatusApi.class));

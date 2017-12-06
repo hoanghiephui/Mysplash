@@ -12,9 +12,10 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringDef;
 import android.text.TextUtils;
 
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
-import com.wallpapers.unsplash.common._basic.activity.RequestLoadActivity;
+import com.google.android.gms.ads.MobileAds;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
+import com.wallpapers.unsplash.common.basic.activity.RequestLoadActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.utils.manager.CustomApiManager;
 import com.wallpapers.unsplash.main.view.activity.MainActivity;
@@ -25,20 +26,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Unsplash.
+ * UnsplashApplication.
  * <p>
- * Application class for Unsplash.
+ * Application class for UnsplashApplication.
  */
 
-public class Unsplash extends Application {
+public class UnsplashApplication extends Application {
 
-    private static Unsplash instance;
+    private static UnsplashApplication instance;
 
-    public static Unsplash getInstance() {
+    public static UnsplashApplication getInstance() {
         return instance;
     }
 
-    private List<MysplashActivity> activityList;
+    private List<BaseActivity> activityList;
 
     private Photo photo;
 
@@ -53,7 +54,7 @@ public class Unsplash extends Application {
     public static final String UNSPLASH_LOGIN_CALLBACK = "unsplash-auth-callback";
 
     public static final String DATE_FORMAT = "yyyy/MM/dd";
-    public static final String DOWNLOAD_PATH = "/Pictures/Unsplash/";
+    public static final String DOWNLOAD_PATH = "/Pictures/UnsplashApplication/";
     public static final String DOWNLOAD_PHOTO_FORMAT = ".jpg";
     public static final String DOWNLOAD_COLLECTION_FORMAT = ".zip";
 
@@ -123,23 +124,23 @@ public class Unsplash extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         instance = this;
+        MobileAds.initialize(getApplicationContext(), Constants.ADMOB_APP_ID);
         activityList = new ArrayList<>();
     }
 
-    public static String getAppId(Context c, boolean auth) {
-        if (isDebug(c)) {
+    public static String getAppId(Context context, boolean auth) {
+        if (isDebug(context)) {
             return BuildConfig.APP_ID_BETA;
-        } else if (TextUtils.isEmpty(CustomApiManager.getInstance(c).getCustomApiKey())
-                || TextUtils.isEmpty(CustomApiManager.getInstance(c).getCustomApiSecret())) {
+        } else if (TextUtils.isEmpty(CustomApiManager.getInstance(context).getCustomApiKey())
+                || TextUtils.isEmpty(CustomApiManager.getInstance(context).getCustomApiSecret())) {
             if (auth) {
                 return BuildConfig.APP_ID_RELEASE;
             } else {
                 return BuildConfig.APP_ID_RELEASE_UNAUTH;
             }
         } else {
-            return CustomApiManager.getInstance(c).getCustomApiKey();
+            return CustomApiManager.getInstance(context).getCustomApiKey();
         }
     }
 
@@ -165,15 +166,15 @@ public class Unsplash extends Application {
     }
 
     public static String getLoginUrl(Context c) {
-        return Unsplash.UNSPLASH_URL + "oauth/authorize"
+        return UnsplashApplication.UNSPLASH_URL + "oauth/authorize"
                 + "?client_id=" + getAppId(c, true)
                 + "&redirect_uri=" + "livingphoto%3A%2F%2F" + UNSPLASH_LOGIN_CALLBACK
                 + "&response_type=" + "code"
                 + "&scope=" + "public+read_user+write_user+read_photos+write_photos+write_likes+write_followers+read_collections+write_collections";
     }
 
-    public void addActivity(@NonNull MysplashActivity a) {
-        for (MysplashActivity activity : activityList) {
+    public void addActivity(@NonNull BaseActivity a) {
+        for (BaseActivity activity : activityList) {
             if (activity.equals(a)) {
                 return;
             }
@@ -181,8 +182,8 @@ public class Unsplash extends Application {
         activityList.add(a);
     }
 
-    public void addActivityToFirstPosition(@NonNull MysplashActivity a) {
-        for (MysplashActivity activity : activityList) {
+    public void addActivityToFirstPosition(@NonNull BaseActivity a) {
+        for (BaseActivity activity : activityList) {
             if (activity.equals(a)) {
                 return;
             }
@@ -190,12 +191,12 @@ public class Unsplash extends Application {
         activityList.add(0, a);
     }
 
-    public void removeActivity(MysplashActivity a) {
+    public void removeActivity(BaseActivity a) {
         activityList.remove(a);
     }
 
     @Nullable
-    public MysplashActivity getTopActivity() {
+    public BaseActivity getTopActivity() {
         if (activityList != null && activityList.size() > 0) {
             return activityList.get(activityList.size() - 1);
         } else {

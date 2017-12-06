@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.main.model.widget;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.FeedService;
 import com.wallpapers.unsplash.common.interfaces.model.TrendingModel;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
@@ -43,7 +43,7 @@ public class TrendingObject implements TrendingModel {
 
     @Override
     public String getFirstPage() {
-        return Unsplash.UNSPLASH_URL + Unsplash.UNSPLASH_TREND_FEEDING_URL;
+        return UnsplashApplication.UNSPLASH_URL + UnsplashApplication.UNSPLASH_TREND_FEEDING_URL;
     }
 
     @Override

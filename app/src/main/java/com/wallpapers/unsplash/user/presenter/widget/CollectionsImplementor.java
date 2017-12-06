@@ -2,15 +2,15 @@ package com.wallpapers.unsplash.user.presenter.widget;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.CollectionService;
 import com.wallpapers.unsplash.common.interfaces.model.CollectionsModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.CollectionsPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.CollectionsView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.adapter.CollectionAdapter;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
 
@@ -50,7 +50,7 @@ public class CollectionsImplementor
                     .requestUserCollections(
                             ((User) model.getRequestKey()).username,
                             page,
-                            Unsplash.DEFAULT_PER_PAGE,
+                            UnsplashApplication.DEFAULT_PER_PAGE,
                             listener);
         }
     }
@@ -135,7 +135,7 @@ public class CollectionsImplementor
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 
@@ -185,7 +185,7 @@ public class CollectionsImplementor
                 for (int i = 0; i < response.body().size(); i ++) {
                     model.getAdapter().insertItem(response.body().get(i), model.getAdapter().getRealItemCount());
                 }
-                if (response.body().size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     setOver(true);
                 }
                 view.requestCollectionsSuccess();

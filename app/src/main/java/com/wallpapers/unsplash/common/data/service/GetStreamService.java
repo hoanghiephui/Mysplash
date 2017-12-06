@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.common.data.service;
 
 import com.wallpapers.unsplash.BuildConfig;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.BaseOkHttpClient;
 import com.wallpapers.unsplash.common.data.api.GetStreamApi;
 import com.wallpapers.unsplash.common.utils.manager.AuthManager;
@@ -32,7 +32,7 @@ public class GetStreamService {
 
     private GetStreamApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.STREAM_API_BASE_URL)
+                .baseUrl(UnsplashApplication.STREAM_API_BASE_URL)
                 .client(client)
                 .build()
                 .create((GetStreamApi.class));
@@ -49,7 +49,7 @@ public class GetStreamService {
         Call<ResponseBody> optionFirstPageStream = buildApi(buildClient())
                 .optionFirstPageStream(
                         numeric_id,
-                        Unsplash.DEFAULT_PER_PAGE,
+                        UnsplashApplication.DEFAULT_PER_PAGE,
                         BuildConfig.GET_STREAM_KEY,
                         "unspecified");
         optionFirstPageStream.enqueue(new Callback<ResponseBody>() {
@@ -77,7 +77,7 @@ public class GetStreamService {
     private void requestFirstPageStream(int numeric_id, final OnRequestStreamListener l) {
         Call<ResponseBody> getFirstPageStream = buildApi(buildClient())
                 .getFirstPageStream(
-                        numeric_id, Unsplash.DEFAULT_PER_PAGE, BuildConfig.GET_STREAM_KEY, "unspecified");
+                        numeric_id, UnsplashApplication.DEFAULT_PER_PAGE, BuildConfig.GET_STREAM_KEY, "unspecified");
         getFirstPageStream.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

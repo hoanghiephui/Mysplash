@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.ui.fragment.SettingsFragment;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView;
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
  *
  * */
 
-public class SettingsActivity extends MysplashActivity
+public class SettingsActivity extends BaseActivity
         implements View.OnClickListener, SwipeBackCoordinatorLayout.OnSwipeListener {
 
     @BindView(R.id.activity_settings_container)
@@ -65,7 +65,7 @@ public class SettingsActivity extends MysplashActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case Unsplash.CUSTOM_API_ACTIVITY:
+            case UnsplashApplication.CUSTOM_API_ACTIVITY:
                 if (resultCode == RESULT_OK) {
                     showSnackbar(
                             getString(R.string.feedback_please_login),

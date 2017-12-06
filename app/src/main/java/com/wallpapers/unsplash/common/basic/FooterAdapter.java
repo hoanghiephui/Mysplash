@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common._basic;
+package com.wallpapers.unsplash.common.basic;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,10 +17,9 @@ import com.wallpapers.unsplash.R;
 
 public abstract class FooterAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
-    public static final int HEADER_TYPE = 0;
-    public static final int CONTENT_TYPE = 1;
-    public static final int FOODER_TYPE = 2;
-    public static final int ADS = 3;
+    public static final int HEADER_TYPE = 11;
+    public static final int CONTENT_TYPE = 12;
+    public static final int FOODER_TYPE = 13;
     protected boolean isHasFooder = true;
     protected boolean isHasHeader = true;
 

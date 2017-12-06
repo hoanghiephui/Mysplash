@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.main.model.widget;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.service.CollectionService;
 import com.wallpapers.unsplash.common.interfaces.model.CollectionsModel;
 import com.wallpapers.unsplash.common.ui.adapter.CollectionAdapter;
@@ -24,13 +24,13 @@ public class CollectionsObject
     private boolean loading;
     private boolean over;
 
-    public CollectionsObject(CollectionAdapter adapter, @Unsplash.CategoryIdRule int type) {
+    public CollectionsObject(CollectionAdapter adapter, @UnsplashApplication.CategoryIdRule int type) {
         this.adapter = adapter;
         this.service = CollectionService.getService();
 
         this.collectionsType = type;
 
-        this.collectionsPage = adapter.getItemCount() / Unsplash.DEFAULT_PER_PAGE;
+        this.collectionsPage = adapter.getItemCount() / UnsplashApplication.DEFAULT_PER_PAGE;
 
         this.refreshing = false;
         this.loading = false;

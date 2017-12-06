@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.service.PhotoInfoService;
+import com.wallpapers.unsplash.common.data.service.PhotoService;
 import com.wallpapers.unsplash.common.interfaces.model.BrowsableModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.BrowsablePresenter;
 import com.wallpapers.unsplash.common.interfaces.view.BrowsableView;
@@ -17,7 +18,7 @@ import retrofit2.Response;
 
 public class BrowsableImplementor
         implements BrowsablePresenter,
-        PhotoInfoService.OnRequestSinglePhotoListener {
+        PhotoService.OnRequestMutilPhotoListener {
 
     private BrowsableModel model;
     private BrowsableView view;
@@ -41,7 +42,7 @@ public class BrowsableImplementor
     public void requestBrowsableData() {
         view.showRequestDialog();
         ((PhotoInfoService) model.getService())
-                .requestAPhoto(model.getBrowsableDataKey().get(0), this);
+                .onZipRequestPhotoInfo(model.getBrowsableDataKey().get(0), this);
     }
 
     @Override
@@ -56,22 +57,29 @@ public class BrowsableImplementor
 
     // interface.
 
+
     @Override
-    public void onRequestSinglePhotoSuccess(Call<Photo> call, Response<Photo> response) {
-        if (response.isSuccessful() && response.body() != null) {
-            Photo photo = response.body();
-            photo.complete = true;
+    public void onRequestMutilPhotoSuccess(PhotoService.Groups groups) {
+        if (groups.getPhoto() != null) {
+            Photo photo = groups.getPhoto();
+            if (photo != null) {
+                photo.complete = true;
+            }
             view.dismissRequestDialog();
             view.drawBrowsableView(photo);
         } else {
             ((PhotoInfoService) model.getService())
-                    .requestAPhoto(model.getBrowsableDataKey().get(0), this);
+                    .onZipRequestPhotoInfo(model.getBrowsableDataKey().get(0), this);
+        }
+        if (groups.getPhotoRe() != null) {
+            view.drawBrowsableViewList(groups.getPhotoRe());
         }
     }
 
     @Override
-    public void onRequestSinglePhotoFailed(Call<Photo> call, Throwable t) {
+    public void onRequestMutilPhotoFailed(Throwable t) {
+
         ((PhotoInfoService) model.getService())
-                .requestAPhoto(model.getBrowsableDataKey().get(0), this);
+                .onZipRequestPhotoInfo(model.getBrowsableDataKey().get(0), this);
     }
 }

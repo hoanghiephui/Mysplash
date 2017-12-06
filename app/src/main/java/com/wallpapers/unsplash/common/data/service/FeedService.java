@@ -1,5 +1,6 @@
 package com.wallpapers.unsplash.common.data.service;
 
+import android.content.Context;
 import android.net.Uri;
 
 import com.google.gson.GsonBuilder;
@@ -29,9 +30,9 @@ public class FeedService {
         return new FeedService();
     }
 
-    private OkHttpClient buildClient() {
+    private OkHttpClient buildClient(Context context) {
         return new BaseOkHttpClient().invoke()
-                .addInterceptor(new FeedInterceptor())
+                .addInterceptor(new FeedInterceptor(context))
                 .build();
     }
 
@@ -46,9 +47,9 @@ public class FeedService {
                 .create((FeedApi.class));
     }
 
-    public void requestTrendingFeed(String url, final OnRequestTrendingFeedListener l) {
+    public void requestTrendingFeed(Context context, String url, final OnRequestTrendingFeedListener l) {
         String after = Uri.parse(url).getQueryParameter("after");
-        Call<TrendingFeed> getFeed = buildApi(buildClient()).getTrendingFeed(after);
+        Call<TrendingFeed> getFeed = buildApi(buildClient(context)).getTrendingFeed(after);
         getFeed.enqueue(new Callback<TrendingFeed>() {
             @Override
             public void onResponse(Call<TrendingFeed> call, retrofit2.Response<TrendingFeed> response) {
@@ -67,9 +68,9 @@ public class FeedService {
         call = getFeed;
     }
 
-    public void requestFollowingFeed(String url, final OnRequestFollowingFeedListener l) {
+    public void requestFollowingFeed(Context context, String url, final OnRequestFollowingFeedListener l) {
         String after = Uri.parse(url).getQueryParameter("after");
-        Call<FollowingFeed> getFeed = buildApi(buildClient()).getFollowingFeed(after);
+        Call<FollowingFeed> getFeed = buildApi(buildClient(context)).getFollowingFeed(after);
         getFeed.enqueue(new Callback<FollowingFeed>() {
             @Override
             public void onResponse(Call<FollowingFeed> call, retrofit2.Response<FollowingFeed> response) {
@@ -88,12 +89,12 @@ public class FeedService {
         call = getFeed;
     }
 
-    public void setFollowUser(String username, final boolean follow, final OnFollowListener l) {
+    public void setFollowUser(Context context, String username, final boolean follow, final OnFollowListener l) {
         Call<ResponseBody> followRequest;
         if (follow) {
-            followRequest = buildApi(buildClient()).follow(username);
+            followRequest = buildApi(buildClient(context)).follow(username);
         } else {
-            followRequest = buildApi(buildClient()).cancelFollow(username);
+            followRequest = buildApi(buildClient(context)).cancelFollow(username);
         }
         followRequest.enqueue(new Callback<ResponseBody>() {
             @Override

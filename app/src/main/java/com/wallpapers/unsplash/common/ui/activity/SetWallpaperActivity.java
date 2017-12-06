@@ -23,7 +23,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.ReadWriteActivity;
+import com.wallpapers.unsplash.common.basic.activity.ReadWriteActivity;
 import com.wallpapers.unsplash.common.ui.dialog.WallpaperWhereDialog;
 import com.wallpapers.unsplash.common.ui.popup.WallpaperAlignPopupWindow;
 import com.wallpapers.unsplash.common.ui.popup.WallpaperClipPopupWindow;

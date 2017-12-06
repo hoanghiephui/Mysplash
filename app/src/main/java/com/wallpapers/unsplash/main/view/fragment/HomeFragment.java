@@ -18,14 +18,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.LoadableFragment;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
+import com.wallpapers.unsplash.common.basic.fragment.LoadableFragment;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.interfaces.model.PagerManageModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.PagerManagePresenter;
 import com.wallpapers.unsplash.common.interfaces.presenter.ToolbarPresenter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.widget.AutoHideInkPageIndicator;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
 import com.wallpapers.unsplash.common.utils.BackToTopUtils;
@@ -58,7 +58,7 @@ import static com.wallpapers.unsplash.common.utils.DisplayUtils.getNavigationBar
 /**
  * Home fragment.
  *
- * This fragment is used to show the home page of Unsplash.
+ * This fragment is used to show the home page of UnsplashApplication.
  *
  * */
 
@@ -140,6 +140,8 @@ public class HomeFragment extends LoadableFragment<Photo>
                 p.cancelRequest();
             }
         }
+
+
     }
 /*
     @Override
@@ -177,7 +179,7 @@ public class HomeFragment extends LoadableFragment<Photo>
     }
 
     @Override
-    public void writeLargeData(MysplashActivity.BaseSavedStateFragment outState) {
+    public void writeLargeData(BaseActivity.BaseSavedStateFragment outState) {
         if (pagers[0] != null) {
             ((MainActivity.SavedStateFragment) outState).setHomeTrendingList(
                     ((HomeTrendingView) pagers[0]).getPhotos());
@@ -193,7 +195,7 @@ public class HomeFragment extends LoadableFragment<Photo>
     }
 
     @Override
-    public void readLargeData(MysplashActivity.BaseSavedStateFragment savedInstanceState) {
+    public void readLargeData(BaseActivity.BaseSavedStateFragment savedInstanceState) {
         if (pagers[0] != null) {
             ((HomeTrendingView) pagers[0]).setPhotos(
                     ((MainActivity.SavedStateFragment) savedInstanceState).getHomeTrendingList());
@@ -332,13 +334,13 @@ public class HomeFragment extends LoadableFragment<Photo>
         pageList.add(
                 new HomePhotosView(
                         (MainActivity) getActivity(),
-                        Unsplash.CATEGORY_TOTAL_NEW,
+                        UnsplashApplication.CATEGORY_TOTAL_NEW,
                         R.id.fragment_home_page_new,
                         1, pagerManagePresenter.getPagerPosition() == 1));
         pageList.add(
                 new HomePhotosView(
                         (MainActivity) getActivity(),
-                        Unsplash.CATEGORY_TOTAL_FEATURED,
+                        UnsplashApplication.CATEGORY_TOTAL_FEATURED,
                         R.id.fragment_home_page_featured,
                         2, pagerManagePresenter.getPagerPosition() == 2));
         for (int i = 0; i < pageList.size(); i ++) {
@@ -422,24 +424,24 @@ public class HomeFragment extends LoadableFragment<Photo>
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                toolbarPresenter.touchNavigatorIcon((MysplashActivity) getActivity());
+                toolbarPresenter.touchNavigatorIcon((BaseActivity) getActivity());
                 break;
         }
     }
 
     @OnClick(R.id.fragment_home_toolbar) void clickToolbar() {
-        toolbarPresenter.touchToolbar((MysplashActivity) getActivity());
+        toolbarPresenter.touchToolbar((BaseActivity) getActivity());
     }
 /*
     @OnClick(R.id.container_notification_bar_button) void clickBellBtn() {
-        IntentHelper.startNotificationActivity((MysplashActivity) getActivity());
+        IntentHelper.startNotificationActivity((BaseActivity) getActivity());
     }
 */
     // on menu item click listener.
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        return toolbarPresenter.touchMenuItem((MysplashActivity) getActivity(), item.getItemId());
+        return toolbarPresenter.touchMenuItem((BaseActivity) getActivity(), item.getItemId());
     }
 
     // on page changed listener.

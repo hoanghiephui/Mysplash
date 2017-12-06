@@ -1,8 +1,8 @@
 package com.wallpapers.unsplash.common.interfaces.presenter
 
 import android.content.Context
-import com.wallpapers.unsplash.Unsplash
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity
+import com.wallpapers.unsplash.UnsplashApplication
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity
 import com.wallpapers.unsplash.common.ui.adapter.UsersQueryAdapter
 
 /**
@@ -11,7 +11,7 @@ import com.wallpapers.unsplash.common.ui.adapter.UsersQueryAdapter
 interface UsersQueryPresenter {
     // HTTP request.
 
-    abstract fun requestUsersQuey(context: Context, @Unsplash.PageRule page: Int, refresh: Boolean, query: String)
+    abstract fun requestUsersQuey(context: Context, @UnsplashApplication.PageRule page: Int, refresh: Boolean, query: String)
     abstract fun cancelRequest()
 
     // load data interface.
@@ -28,8 +28,8 @@ interface UsersQueryPresenter {
     abstract fun canLoadMore(): Boolean
     abstract fun isRefreshing(): Boolean
     abstract fun isLoading(): Boolean
-    abstract fun setPage(@Unsplash.PageRule page: Int)
+    abstract fun setPage(@UnsplashApplication.PageRule page: Int)
     abstract fun setOver(over: Boolean)
-    abstract fun setActivityForAdapter(activity: MysplashActivity)
+    abstract fun setActivityForAdapter(activity: BaseActivity)
     abstract fun getAdapter(): UsersQueryAdapter?
 }

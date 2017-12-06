@@ -6,7 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
 
-import com.wallpapers.unsplash.Contranst;
+import com.wallpapers.unsplash.Constants;
 import com.wallpapers.unsplash.common.data.entity.table.WallpaperSource;
 import com.wallpapers.unsplash.common.utils.helper.DatabaseHelper;
 
@@ -37,7 +37,7 @@ public class MuzeiOptionManager {
     private static final String KEY_LAST_UPDATE_TIME = "last_update_time";
 
     public static final int DEFAULT_INTERVAL = 9;
-    public static final int DEFAULT_COLLECTION_ID = Contranst.ID_COLLECTION_MUZEI;
+    public static final int DEFAULT_COLLECTION_ID = Constants.ID_COLLECTION_MUZEI;
 
     private MuzeiOptionManager(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(

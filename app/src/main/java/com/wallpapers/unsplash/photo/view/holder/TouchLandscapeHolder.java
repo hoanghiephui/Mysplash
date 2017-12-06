@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoInfoAdapter;
@@ -69,18 +69,18 @@ public class TouchLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
 
     @SuppressLint("SetTextI18n")
     @Override
-    protected void onBindView(PhotoActivity photoActivity, Photo photo) {
+    protected void onBindView(PhotoActivity activity, Photo photo) {
         this.photo = photo;
 
         touchView.setSize(photo.width, photo.height);
         touchView.setShowShadow(true);
 
-        ImageHelper.loadAvatar(photoActivity, avatar, photo.user);
+        ImageHelper.loadAvatar(activity, avatar, photo.user);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             avatar.setTransitionName(photo.user.username + "-2");
         }
 
-        title.setText(photoActivity.getString(R.string.by) + " " + photo.user.name);
+        title.setText(activity.getString(R.string.by) + " " + photo.user.name);
         String locationText;
         if (photo.location == null
                 || (photo.location.city == null && photo.location.country == null)) {
@@ -89,8 +89,8 @@ public class TouchLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
             locationText = photo.location.city == null ? "" : photo.location.city + ", ";
             locationText = locationText + (photo.location.country == null ? "" : photo.location.country);
         }
-        subtitle.setText(photoActivity.getString(R.string.published_on) + " " +
-                photo.created_at.split("T")[0] + " " + photoActivity.getString(R.string.at) + " " + locationText);
+        subtitle.setText(activity.getString(R.string.published_on) + " " +
+                photo.created_at.split("T")[0] + " " + activity.getString(R.string.at) + " " + locationText);
         countDownload.setText(String.valueOf(photo.downloads));
         countLike.setText(String.valueOf(photo.likes));
         countView.setText(String.valueOf(photo.views));
@@ -109,12 +109,12 @@ public class TouchLandscapeHolder extends PhotoInfoAdapter.ViewHolder {
     @OnClick(R.id.item_photo_touch_landscape_touch)
     void clickTouchView() {
         IntentHelper.startPreviewActivity(
-                Unsplash.getInstance().getTopActivity(), activity.getPhoto(), true);
+                UnsplashApplication.getInstance().getTopActivity(), activity.getPhoto(), true);
     }
 
     @OnClick(R.id.item_photo_touch_landscape_avatar) void clickAvatar() {
         IntentHelper.startUserActivity(
-                Unsplash.getInstance().getTopActivity(),
+                UnsplashApplication.getInstance().getTopActivity(),
                 avatar,
                 photo.user,
                 UserActivity.PAGE_PHOTO);

@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.collection.model.activity.BorwsableObject;
 import com.wallpapers.unsplash.collection.model.activity.DownloadObject;
@@ -24,7 +24,7 @@ import com.wallpapers.unsplash.collection.presenter.activity.PopupManageImplemen
 import com.wallpapers.unsplash.collection.presenter.activity.SwipeBackManageImplementor;
 import com.wallpapers.unsplash.collection.presenter.activity.ToolbarImplementor;
 import com.wallpapers.unsplash.collection.view.widget.CollectionPhotosView;
-import com.wallpapers.unsplash.common._basic.activity.LoadableActivity;
+import com.wallpapers.unsplash.common.basic.activity.LoadableActivity;
 import com.wallpapers.unsplash.common.data.entity.table.WallpaperSource;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
@@ -43,7 +43,6 @@ import com.wallpapers.unsplash.common.interfaces.view.PopupManageView;
 import com.wallpapers.unsplash.common.interfaces.view.SwipeBackManageView;
 import com.wallpapers.unsplash.common.ui.adapter.PhotoAdapter;
 import com.wallpapers.unsplash.common.ui.dialog.DownloadRepeatDialog;
-import com.wallpapers.unsplash.common.ui.dialog.RequestBrowsableDataDialog;
 import com.wallpapers.unsplash.common.ui.dialog.UpdateCollectionDialog;
 import com.wallpapers.unsplash.common.ui.popup.CollectionMenuPopupWindow;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
@@ -300,7 +299,7 @@ public class CollectionActivity extends LoadableActivity<Photo>
                 description.setText(collection.description);
             }
 
-            if (Unsplash.getInstance().getActivityCount() == 1) {
+            if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                 ThemeManager.setNavigationIcon(
                         toolbar, R.drawable.ic_toolbar_home_light, R.drawable.ic_toolbar_home_dark);
             } else {
@@ -392,7 +391,7 @@ public class CollectionActivity extends LoadableActivity<Photo>
     public void onClick(View view) {
         switch (view.getId()) {
             case -1:
-                if (Unsplash.getInstance().getActivityCount() == 1) {
+                if (UnsplashApplication.getInstance().getActivityCount() == 1) {
                     browsablePresenter.visitPreviousPage();
                 }
                 toolbarPresenter.touchNavigatorIcon(this);
@@ -590,6 +589,11 @@ public class CollectionActivity extends LoadableActivity<Photo>
         initModel();
         initPresenter();
         initView(false);
+    }
+
+    @Override
+    public void drawBrowsableViewList(Object rusultList) {
+
     }
 
     @Override

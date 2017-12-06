@@ -10,9 +10,9 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.item.DownloadMission;
 import com.wallpapers.unsplash.common.ui.dialog.DownloadRepeatDialog;
 import com.wallpapers.unsplash.common.ui.widget.CircularProgressIcon;
@@ -114,11 +114,11 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
         @OnClick(R.id.item_download_card) void clickItem() {
             if (itemList.get(getAdapterPosition()).entity.downloadType == DownloadHelper.COLLECTION_TYPE) {
                 IntentHelper.startCollectionActivity(
-                        Unsplash.getInstance().getTopActivity(),
+                        UnsplashApplication.getInstance().getTopActivity(),
                         itemList.get(getAdapterPosition()).entity.title.replaceAll("#", ""));
             } else {
                 IntentHelper.startPhotoActivity(
-                        Unsplash.getInstance().getTopActivity(),
+                        UnsplashApplication.getInstance().getTopActivity(),
                         itemList.get(getAdapterPosition()).entity.title);
             }
         }
@@ -155,7 +155,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.ViewHo
                     NotificationHelper.showSnackbar(c.getString(R.string.feedback_download_repeat));
                 } else if (FileUtils.isPhotoExists(c, entity.title)
                         || FileUtils.isCollectionExists(c, entity.title)) {
-                    MysplashActivity activity = Unsplash.getInstance().getTopActivity();
+                    BaseActivity activity = UnsplashApplication.getInstance().getTopActivity();
                     if (activity != null) {
                         DownloadRepeatDialog dialog = new DownloadRepeatDialog();
                         dialog.setDownloadKey(entity);

@@ -6,7 +6,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -19,10 +18,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.FooterAdapter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.FooterAdapter;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
@@ -205,14 +204,14 @@ public class SearchPageView extends NestedScrollFrameLayout
                 this.searchModel = new SearchPhotosObject(
                         new PhotoAdapter(
                                 getContext(),
-                                new ArrayList<Photo>(Unsplash.DEFAULT_PER_PAGE),
+                                new ArrayList<Photo>(UnsplashApplication.DEFAULT_PER_PAGE),
                                 this,
                                 a, false));
                 break;
 
             case SEARCH_COLLECTIONS_TYPE:
                 this.searchModel = new SearchCollectionsObject(
-                        new CollectionAdapter(getContext(), new ArrayList<Collection>()));
+                        new CollectionAdapter(getContext(), new ArrayList<Collection>(), false));
                 break;
 
             case SEARCH_USERS_TYPE:
@@ -222,7 +221,7 @@ public class SearchPageView extends NestedScrollFrameLayout
         }
     }
 
-    private void initPresenter(MysplashActivity a, @TypeRule int type) {
+    private void initPresenter(BaseActivity a, @TypeRule int type) {
         switch (type) {
             case SEARCH_PHOTOS_TYPE:
                 this.searchPresenter = new SearchPhotosImplementor(searchModel, this);
@@ -297,9 +296,8 @@ public class SearchPageView extends NestedScrollFrameLayout
             feedbackContainer.setVisibility(GONE);
         }
 
-        ImageView feedbackImg = ButterKnife.findById(
-                this, R.id.container_searching_view_large_feedbackImg);
-        ImageHelper.loadResourceImage(getContext(), feedbackImg, R.drawable.feedback_search);
+        ImageView feedbackImg = this.findViewById(R.id.container_searching_view_large_feedbackImg);
+        ImageHelper.loadResourceImage(getContext(), feedbackImg, R.drawable.ic_bg);
 
         switch (type) {
             case SEARCH_PHOTOS_TYPE:
@@ -352,7 +350,7 @@ public class SearchPageView extends NestedScrollFrameLayout
             if (!headDirection && searchPresenter.canLoadMore()) {
                 searchPresenter.loadMore(getContext(), false);
             }
-            if (!ViewCompat.canScrollVertically(recyclerView, 1) && searchPresenter.isLoading()) {
+            if (!recyclerView.canScrollVertically(1) && searchPresenter.isLoading()) {
                 refreshLayout.setLoading(true);
             }
 
@@ -679,7 +677,7 @@ public class SearchPageView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         setForceScrolling(true);
         if (activity != null && old == LoadModel.NORMAL_STATE && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
@@ -691,7 +689,7 @@ public class SearchPageView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         setForceScrolling(true);
         if (activity != null && old == LoadModel.NORMAL_STATE && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
@@ -703,7 +701,7 @@ public class SearchPageView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         setForceScrolling(false);
         if (activity != null && old == LoadModel.LOADING_STATE && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
@@ -740,12 +738,12 @@ public class SearchPageView extends NestedScrollFrameLayout
                 && dy > 0) {
             searchPresenter.loadMore(getContext(), false);
         }
-        if (!ViewCompat.canScrollVertically(recyclerView, -1)) {
+        if (!recyclerView.canScrollVertically( -1)) {
             scrollPresenter.setToTop(true);
         } else {
             scrollPresenter.setToTop(false);
         }
-        if (!ViewCompat.canScrollVertically(recyclerView, 1) && searchPresenter.isLoading()) {
+        if (!recyclerView.canScrollVertically(1) && searchPresenter.isLoading()) {
             refreshLayout.setLoading(true);
         }
     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START xml_defaults -->
+<defaultsMap>
+    <entry>
+        <key>authen_bearer</key>
+        <value>b3b878c011d594f25e5d8ea28e1b446af2d63ea838360875779e9014f96de564</value>
+    </entry>
+    <entry>
+        <key>authen_id</key>
+        <value>c94869b36aa272dd62dfaeefed769d4115fb3189a9d1ec88ed457207747be626</value>
+    </entry>
+    <entry>
+        <key>isAds</key>
+        <value>true</value>
+    </entry>
+</defaultsMap>

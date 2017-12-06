@@ -13,9 +13,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.interfaces.model.LoadModel;
 import com.wallpapers.unsplash.common.interfaces.model.PagerModel;
@@ -168,14 +168,14 @@ public class MePhotosView extends NestedScrollFrameLayout
                            int index, boolean selected) {
         this.photosModel = new PhotosObject(
                 a,
-                new PhotoAdapter(a, new ArrayList<Photo>(Unsplash.DEFAULT_PER_PAGE), a, a, false),
+                new PhotoAdapter(a, new ArrayList<Photo>(UnsplashApplication.DEFAULT_PER_PAGE), a, a, false),
                 type);
         this.pagerModel = new PagerObject(index, selected);
         this.loadModel = new LoadObject(LoadModel.LOADING_STATE);
         this.scrollModel = new ScrollObject();
     }
 
-    private void initPresenter(MysplashActivity a) {
+    private void initPresenter(BaseActivity a) {
         this.photosPresenter = new PhotosImplementor(photosModel, this);
         this.pagerPresenter = new PagerImplementor(pagerModel, this);
         this.loadPresenter = new LoadImplementor(loadModel, this);
@@ -461,7 +461,7 @@ public class MePhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setLoadingState(@Nullable MysplashActivity activity, int old) {
+    public void setLoadingState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, false, activity.hasTranslucentNavigationBar());
@@ -472,14 +472,14 @@ public class MePhotosView extends NestedScrollFrameLayout
     }
 
     @Override
-    public void setFailedState(@Nullable MysplashActivity activity, int old) {
+    public void setFailedState(@Nullable BaseActivity activity, int old) {
         animShow(retryButton);
         animHide(progressView);
         animHide(refreshLayout);
     }
 
     @Override
-    public void setNormalState(@Nullable MysplashActivity activity, int old) {
+    public void setNormalState(@Nullable BaseActivity activity, int old) {
         if (activity != null && pagerPresenter.isSelected()) {
             DisplayUtils.setNavigationBarStyle(
                     activity, true, activity.hasTranslucentNavigationBar());

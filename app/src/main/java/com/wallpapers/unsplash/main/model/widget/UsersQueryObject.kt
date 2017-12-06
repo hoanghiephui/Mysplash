@@ -1,6 +1,6 @@
 package com.wallpapers.unsplash.main.model.widget
 
-import com.wallpapers.unsplash.Unsplash
+import com.wallpapers.unsplash.UnsplashApplication
 import com.wallpapers.unsplash.common.data.service.UserService
 import com.wallpapers.unsplash.common.interfaces.model.UsersQueryModel
 import com.wallpapers.unsplash.common.ui.adapter.UsersQueryAdapter
@@ -18,7 +18,7 @@ class UsersQueryObject(private val adapter: UsersQueryAdapter) : UsersQueryModel
 
     init {
         this.usersSevice = UserService.getService()
-        usersPage = adapter.getItemCount() / Unsplash.DEFAULT_PER_PAGE;
+        usersPage = adapter.getItemCount() / UnsplashApplication.DEFAULT_PER_PAGE;
     }
 
     override fun getAdapter(): UsersQueryAdapter {

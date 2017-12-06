@@ -3,7 +3,7 @@ package com.wallpapers.unsplash.main.presenter.widget;
 import android.content.Context;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.NotificationResult;
 import com.wallpapers.unsplash.common.interfaces.model.NotificationsModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.NotificationsPresenter;
@@ -90,7 +90,7 @@ public class NotificationsImplementor
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 

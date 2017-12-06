@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
 import com.wallpapers.unsplash.common.ui.activity.SettingsActivity;
 import com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout;
@@ -106,29 +106,29 @@ public class BackToTopUtils {
 
     public static boolean isSetBackToTop(boolean home) {
         if (home) {
-            return !SettingsOptionManager.getInstance(Unsplash.getInstance())
+            return !SettingsOptionManager.getInstance(UnsplashApplication.getInstance())
                     .getBackToTopType().equals("none");
         } else {
-            return SettingsOptionManager.getInstance(Unsplash.getInstance())
+            return SettingsOptionManager.getInstance(UnsplashApplication.getInstance())
                     .getBackToTopType().equals("all");
         }
     }
 
     private static void showSetBackToTopSnackbar() {
-        if (!SettingsOptionManager.getInstance(Unsplash.getInstance())
+        if (!SettingsOptionManager.getInstance(UnsplashApplication.getInstance())
                 .isNotifiedSetBackToTop()) {
-            final Context c = Unsplash.getInstance().getTopActivity();
+            final Context c = UnsplashApplication.getInstance().getTopActivity();
             if (c != null) {
                 SharedPreferences.Editor editor = PreferenceManager
-                        .getDefaultSharedPreferences(Unsplash.getInstance())
+                        .getDefaultSharedPreferences(UnsplashApplication.getInstance())
                         .edit();
                 editor.putBoolean(
                         c.getString(R.string.key_notified_set_back_to_top),
                         true);
                 editor.apply();
 
-                SettingsOptionManager.getInstance(Unsplash.getInstance())
-                        .setNotifiedSetBackToTop(Unsplash.getInstance(), true);
+                SettingsOptionManager.getInstance(UnsplashApplication.getInstance())
+                        .setNotifiedSetBackToTop(UnsplashApplication.getInstance(), true);
 
                 NotificationHelper.showActionSnackbar(
                         c.getString(R.string.feedback_notify_set_back_to_top),
@@ -157,7 +157,7 @@ public class BackToTopUtils {
         }
         recyclerView.smoothScrollToPosition(0);
 
-        if (!SettingsOptionManager.getInstance(Unsplash.getInstance())
+        if (!SettingsOptionManager.getInstance(UnsplashApplication.getInstance())
                 .isNotifiedSetBackToTop()) {
             BackToTopUtils.showSetBackToTopSnackbar();
         }

@@ -32,7 +32,7 @@ import java.util.Random;
 
 public class MuzeiSourceService extends RemoteMuzeiArtSource {
 
-    private static final String SOURCE_NAME = "Unsplash";
+    private static final String SOURCE_NAME = "UnsplashApplication";
 
     private static final long UNIT_UPDATE_INTERVAL = 60 * 60 * 1000;
     private static final long RETRY_INTERVAL = 15 * 60 * 1000;

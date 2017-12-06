@@ -21,15 +21,15 @@ import retrofit2.http.Query;
 
 public interface CollectionApi {
 
-    @GET("collections")
+    @GET("napi/collections")
     Call<List<Collection>> getAllCollections(@Query("page") int page,
                                              @Query("per_page") int per_page);
 
-    @GET("collections/curated")
+    @GET("napi/collections/curated")
     Call<List<Collection>> getCuratedCollections(@Query("page") int page,
                                                  @Query("per_page") int per_page);
 
-    @GET("collections/featured")
+    @GET("napi/collections/featured")
     Call<List<Collection>> getFeaturedCollections(@Query("page") int page,
                                                   @Query("per_page") int per_page);
 

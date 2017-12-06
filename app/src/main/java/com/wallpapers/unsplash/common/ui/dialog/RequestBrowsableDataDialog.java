@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  *
  * */
 
-public class RequestBrowsableDataDialog extends MysplashDialogFragment {
+public class RequestBrowsableDataDialog extends BaseDialogFragment {
 
     @BindView(R.id.dialog_request_browsable_data_container)
     CoordinatorLayout container;

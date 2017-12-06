@@ -5,9 +5,9 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.Previewable;
+import com.wallpapers.unsplash.common.basic.Previewable;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 import com.wallpapers.unsplash.common.utils.manager.SettingsOptionManager;
 
@@ -291,7 +291,7 @@ public class Photo
 
     @Override
     public String getDownloadUrl() {
-        if (SettingsOptionManager.getInstance(Unsplash.getInstance())
+        if (SettingsOptionManager.getInstance(UnsplashApplication.getInstance())
                 .getDownloadScale().equals("compact")) {
             return urls.full;
         } else {

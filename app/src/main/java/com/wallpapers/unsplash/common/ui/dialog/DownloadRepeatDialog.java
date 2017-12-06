@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.fragment.MysplashDialogFragment;
+import com.wallpapers.unsplash.common.basic.fragment.BaseDialogFragment;
 import com.wallpapers.unsplash.common.utils.DisplayUtils;
 
 import butterknife.BindView;
@@ -24,7 +24,7 @@ import butterknife.OnClick;
  *
  * */
 
-public class DownloadRepeatDialog extends MysplashDialogFragment {
+public class DownloadRepeatDialog extends BaseDialogFragment {
 
     @BindView(R.id.dialog_download_repeat_container)
     CoordinatorLayout container;

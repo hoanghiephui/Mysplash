@@ -2,14 +2,14 @@ package com.wallpapers.unsplash.me.presenter.widget;
 
 import android.content.Context;
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.User;
 import com.wallpapers.unsplash.common.data.service.UserService;
 import com.wallpapers.unsplash.common.interfaces.model.MyFollowModel;
 import com.wallpapers.unsplash.common.interfaces.presenter.MyFollowPresenter;
 import com.wallpapers.unsplash.common.interfaces.view.MyFollowView;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.adapter.MyFollowAdapter;
 import com.wallpapers.unsplash.common.utils.helper.NotificationHelper;
 import com.wallpapers.unsplash.common.utils.manager.AuthManager;
@@ -53,7 +53,7 @@ public class MyFollowImplementor
                             .requestFollowers(
                                     AuthManager.getInstance().getUsername(),
                                     page,
-                                    Unsplash.DEFAULT_PER_PAGE,
+                                    UnsplashApplication.DEFAULT_PER_PAGE,
                                     listener);
                     break;
 
@@ -64,7 +64,7 @@ public class MyFollowImplementor
                             .requestFollowing(
                                     AuthManager.getInstance().getUsername(),
                                     page,
-                                    Unsplash.DEFAULT_PER_PAGE,
+                                    UnsplashApplication.DEFAULT_PER_PAGE,
                                     listener);
                     break;
             }
@@ -130,7 +130,7 @@ public class MyFollowImplementor
     }
 
     @Override
-    public void setActivityForAdapter(MysplashActivity a) {
+    public void setActivityForAdapter(BaseActivity a) {
         model.getAdapter().setActivity(a);
     }
 
@@ -182,7 +182,7 @@ public class MyFollowImplementor
                             response.body().get(i),
                             model.getAdapter().getItemCount());
                 }
-                if (response.body().size() < Unsplash.DEFAULT_PER_PAGE) {
+                if (response.body().size() < UnsplashApplication.DEFAULT_PER_PAGE) {
                     model.setOver(true);
                     view.setPermitLoading(false);
                 }

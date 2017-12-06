@@ -1,7 +1,7 @@
 package com.wallpapers.unsplash.common.interfaces.model;
 
 
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 
 /**
  * Category manage model.
@@ -12,7 +12,7 @@ import com.wallpapers.unsplash.Unsplash;
 
 public interface CategoryManageModel {
 
-    @Unsplash.CategoryIdRule
+    @UnsplashApplication.CategoryIdRule
     int getCategoryId();
-    void setCategoryId(@Unsplash.CategoryIdRule int id);
+    void setCategoryId(@UnsplashApplication.CategoryIdRule int id);
 }

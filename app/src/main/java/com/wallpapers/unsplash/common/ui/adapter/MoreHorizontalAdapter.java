@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
 import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
 import com.wallpapers.unsplash.common.ui.widget.CircleImageView;
@@ -35,7 +35,7 @@ import butterknife.OnClick;
 
 public class MoreHorizontalAdapter extends RecyclerView.Adapter<MoreHorizontalAdapter.ViewHolder> {
 
-    private MysplashActivity a;
+    private BaseActivity a;
     private List<Collection> itemList;
 
     class ViewHolder extends RecyclerView.ViewHolder
@@ -136,7 +136,7 @@ public class MoreHorizontalAdapter extends RecyclerView.Adapter<MoreHorizontalAd
         }
     }
 
-    public MoreHorizontalAdapter(MysplashActivity a, List<Collection> list) {
+    public MoreHorizontalAdapter(BaseActivity a, List<Collection> list) {
         this.a = a;
         this.itemList = list;
     }

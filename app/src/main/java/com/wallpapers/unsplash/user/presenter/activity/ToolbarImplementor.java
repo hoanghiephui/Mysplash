@@ -4,8 +4,8 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.wallpapers.unsplash.R;
+import com.wallpapers.unsplash.common.basic.activity.BaseActivity;
 import com.wallpapers.unsplash.common.interfaces.presenter.ToolbarPresenter;
-import com.wallpapers.unsplash.common._basic.activity.MysplashActivity;
 import com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout;
 import com.wallpapers.unsplash.common.utils.ShareUtils;
 import com.wallpapers.unsplash.common.utils.helper.IntentHelper;
@@ -19,17 +19,17 @@ public class ToolbarImplementor
         implements ToolbarPresenter {
 
     @Override
-    public void touchNavigatorIcon(MysplashActivity a) {
+    public void touchNavigatorIcon(BaseActivity a) {
         a.finishActivity(SwipeBackCoordinatorLayout.DOWN_DIR);
     }
 
     @Override
-    public void touchToolbar(MysplashActivity a) {
+    public void touchToolbar(BaseActivity a) {
         // do nothing.
     }
 
     @Override
-    public boolean touchMenuItem(MysplashActivity a, int itemId) {
+    public boolean touchMenuItem(BaseActivity a, int itemId) {
         UserActivity activity = (UserActivity) a;
 
         switch (itemId) {

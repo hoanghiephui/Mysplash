@@ -4,7 +4,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.Nullable;
 
 import com.google.gson.GsonBuilder;
-import com.wallpapers.unsplash.Unsplash;
+import com.wallpapers.unsplash.UnsplashApplication;
 import com.wallpapers.unsplash.common.data.BaseOkHttpClient;
 import com.wallpapers.unsplash.common.data.api.CollectionApi;
 import com.wallpapers.unsplash.common.data.entity.unsplash.ChangeCollectionPhotoResult;
@@ -43,12 +43,12 @@ public class CollectionService {
 
     private CollectionApi buildApi(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_API_BASE_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_API_BASE_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
                                 new GsonBuilder()
-                                        .setDateFormat(Unsplash.DATE_FORMAT)
+                                        .setDateFormat(UnsplashApplication.DATE_FORMAT)
                                         .create()))
                 .build()
                 .create((CollectionApi.class));
@@ -56,21 +56,21 @@ public class CollectionService {
 
     private CollectionApi buildApiFull(OkHttpClient client) {
         return new Retrofit.Builder()
-                .baseUrl(Unsplash.UNSPLASH_URL)
+                .baseUrl(UnsplashApplication.UNSPLASH_URL)
                 .client(client)
                 .addConverterFactory(
                         GsonConverterFactory.create(
                                 new GsonBuilder()
-                                        .setDateFormat(Unsplash.DATE_FORMAT)
+                                        .setDateFormat(UnsplashApplication.DATE_FORMAT)
                                         .create()))
                 .build()
                 .create((CollectionApi.class));
     }
 
-    public void requestAllCollections(@Unsplash.PageRule int page,
-                                      @Unsplash.PerPageRule int per_page,
+    public void requestAllCollections(@UnsplashApplication.PageRule int page,
+                                      @UnsplashApplication.PerPageRule int per_page,
                                       final OnRequestCollectionsListener l) {
-        Call<List<Collection>> getAllCollections = buildApi(buildClient()).getAllCollections(page, per_page);
+        Call<List<Collection>> getAllCollections = buildApiFull(buildClient()).getAllCollections(page, per_page);
         getAllCollections.enqueue(new Callback<List<Collection>>() {
             @Override
             public void onResponse(Call<List<Collection>> call, retrofit2.Response<List<Collection>> response) {
@@ -89,10 +89,10 @@ public class CollectionService {
         call = getAllCollections;
     }
 
-    public void requestCuratedCollections(@Unsplash.PageRule int page,
-                                          @Unsplash.PerPageRule int per_page,
+    public void requestCuratedCollections(@UnsplashApplication.PageRule int page,
+                                          @UnsplashApplication.PerPageRule int per_page,
                                           final OnRequestCollectionsListener l) {
-        Call<List<Collection>> getCuratedCollections = buildApi(buildClient()).getCuratedCollections(page, per_page);
+        Call<List<Collection>> getCuratedCollections = buildApiFull(buildClient()).getCuratedCollections(page, per_page);
         getCuratedCollections.enqueue(new Callback<List<Collection>>() {
             @Override
             public void onResponse(Call<List<Collection>> call, retrofit2.Response<List<Collection>> response) {
@@ -111,10 +111,10 @@ public class CollectionService {
         call = getCuratedCollections;
     }
 
-    public void requestFeaturedCollections(@Unsplash.PageRule int page,
-                                           @Unsplash.PerPageRule int per_page,
+    public void requestFeaturedCollections(@UnsplashApplication.PageRule int page,
+                                           @UnsplashApplication.PerPageRule int per_page,
                                            final OnRequestCollectionsListener l) {
-        Call<List<Collection>> getFeaturedCollections = buildApi(buildClient()).getFeaturedCollections(page, per_page);
+        Call<List<Collection>> getFeaturedCollections = buildApiFull(buildClient()).getFeaturedCollections(page, per_page);
         getFeaturedCollections.enqueue(new Callback<List<Collection>>() {
             @Override
             public void onResponse(Call<List<Collection>> call, retrofit2.Response<List<Collection>> response) {
@@ -204,8 +204,8 @@ public class CollectionService {
     }
 
     public void requestUserCollections(String username,
-                                       @Unsplash.PageRule int page,
-                                       @Unsplash.PerPageRule int per_page,
+                                       @UnsplashApplication.PageRule int page,
+                                       @UnsplashApplication.PerPageRule int per_page,
                                        final OnRequestCollectionsListener l) {
         Call<List<Collection>> getUserCollections = buildApi(buildClient())
                 .getUserCollections(username, page, per_page);
@@ -352,8 +352,8 @@ public class CollectionService {
         }
     }
 
-    public void requestQueryCollections(@Unsplash.PageRule int page,
-                                        @Unsplash.PerPageRule int per_page, String query,
+    public void requestQueryCollections(@UnsplashApplication.PageRule int page,
+                                        @UnsplashApplication.PerPageRule int per_page, String query,
                                         final OnRequestCollectionsQueryListener listener) {
         Call<Collections> getFeaturedCollections = buildApiFull(buildClient()).getCollectionsByTag(query, page, per_page);
         getFeaturedCollections.enqueue(new Callback<Collections>() {
