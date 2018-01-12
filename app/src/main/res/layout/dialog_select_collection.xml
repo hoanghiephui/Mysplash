@@ -81,7 +81,7 @@
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription" />
 
-                <com.wallpapers.unsplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout
+                <com.wallpaper.unsplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout
                     android:id="@+id/dialog_select_collection_selectorRefreshView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -93,7 +93,7 @@
                         android:paddingTop="@dimen/little_margin"
                         android:clipToPadding="false" />
 
-                </com.wallpapers.unsplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout>
+                </com.wallpaper.unsplash.common.ui.widget.swipeRefreshView.BothWaySwipeRefreshLayout>
 
             </LinearLayout>
 

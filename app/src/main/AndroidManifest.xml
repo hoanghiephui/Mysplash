@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.wallpapers.unsplash">
+    package="com.wallpaper.unsplash">
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true"/>
 
     <application
-        android:name="com.wallpapers.unsplash.UnsplashApplication"
+        android:name=".UnsplashApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -17,8 +25,31 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,ManifestResource"
         tools:targetApi="26">
 
+        <uses-library
+            android:name="com.sec.android.app.multiwindow"
+            android:required="false"/>
+
+        <meta-data
+            android:name="com.sec.android.support.multiwindow"
+            android:value="true"/>
+        <meta-data
+            android:name="com.sec.android.multiwindow.DEFAULT_SIZE_W"
+            android:value="632.0dip"/>
+        <meta-data
+            android:name="com.sec.android.multiwindow.DEFAULT_SIZE_H"
+            android:value="598.0dip"/>
+        <meta-data
+            android:name="com.sec.android.multiwindow.MINIMUM_SIZE_W"
+            android:value="632.0dip"/>
+        <meta-data
+            android:name="com.sec.android.multiwindow.MINIMUM_SIZE_H"
+            android:value="598.0dip"/>
+        <meta-data
+            android:name="com.lge.support.SPLIT_WINDOW"
+            android:value="true"/>
+
         <activity
-            android:name="com.wallpapers.unsplash.main.view.activity.MainActivity"
+            android:name=".main.view.activity.MainActivity"
             android:theme="@style/MysplashTheme_light.Main"
             android:launchMode="singleTask"
             android:label="@string/app_name">
@@ -32,37 +63,37 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.wallpapers.unsplash.search.view.activity.SearchActivity"
+        <activity android:name=".search.view.activity.SearchActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustNothing" />
 
         <activity
-            android:name="com.wallpapers.unsplash.main.view.activity.NotificationActivity"
+            android:name=".main.view.activity.NotificationActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.wallpapers.unsplash.photo.view.activity.PhotoActivity"
+            android:name=".photo.view.activity.PhotoActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Photo"
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.wallpapers.unsplash.common.ui.activity.PreviewActivity"
+            android:name=".common.ui.activity.PreviewActivity"
             android:theme="@style/MysplashTheme_light.Translucent.TranslucentNavigation"
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.wallpapers.unsplash.collection.view.activity.CollectionActivity"
+            android:name=".collection.view.activity.CollectionActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.wallpapers.unsplash.user.view.activity.UserActivity"
+            android:name=".user.view.activity.UserActivity"
             android:theme="@style/MysplashTheme_light.Translucent.User"
             android:label="@string/app_name" />
 
-        <activity android:name="com.wallpapers.unsplash.common.ui.activity.LoginActivity"
+        <activity android:name=".common.ui.activity.LoginActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/app_name"
             android:launchMode="singleInstance">
@@ -77,7 +108,7 @@
         </activity>
 
         <activity
-            android:name="com.wallpapers.unsplash.me.view.activity.MeActivity"
+            android:name=".me.view.activity.MeActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Me"
             android:label="@string/app_name">
             <intent-filter>
@@ -87,16 +118,16 @@
         </activity>
 
         <activity
-            android:name="com.wallpapers.unsplash.me.view.activity.MyFollowActivity"
+            android:name=".me.view.activity.MyFollowActivity"
         android:theme="@style/MysplashTheme_light.Translucent.Common"
         android:label="@string/app_name" />
 
-        <activity android:name="com.wallpapers.unsplash.common.ui.activity.UpdateMeActivity"
+        <activity android:name=".common.ui.activity.UpdateMeActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/app_name" />
 
         <activity
-            android:name="com.wallpapers.unsplash.common.ui.activity.DownloadManageActivity"
+            android:name=".common.ui.activity.DownloadManageActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:launchMode="singleTask"
             android:label="@string/app_name">
@@ -107,25 +138,25 @@
         </activity>
 
         <activity
-            android:name="com.wallpapers.unsplash.common.ui.activity.SettingsActivity"
+            android:name=".common.ui.activity.SettingsActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Settings"
             android:label="@string/action_settings" />
 
         <activity
-            android:name="com.wallpapers.unsplash.about.view.activity.AboutActivity"
+            android:name=".about.view.activity.AboutActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/action_about"/>
 
         <activity
-            android:name="com.wallpapers.unsplash.common.ui.activity.IntroduceActivity"
+            android:name=".common.ui.activity.IntroduceActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/app_name" />
 
-        <activity android:name="com.wallpapers.unsplash.common.ui.activity.CustomApiActivity"
+        <activity android:name=".common.ui.activity.CustomApiActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/app_name" />
 
-        <activity android:name="com.wallpapers.unsplash.common.ui.activity.SetWallpaperActivity"
+        <activity android:name=".common.ui.activity.SetWallpaperActivity"
             android:theme="@style/MysplashTheme_dark.SetWallpaper"
             android:launchMode="singleInstance"
             android:label="@string/app_name">
@@ -138,7 +169,7 @@
         </activity>
 
         <activity
-            android:name="com.wallpapers.unsplash.common.ui.activity.MuzeiConfigurationActivity"
+            android:name=".common.ui.activity.MuzeiConfigurationActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common"
             android:label="@string/action_muzei_settings"
             android:launchMode="singleTask"
@@ -146,11 +177,11 @@
             android:windowSoftInputMode="adjustNothing" />
 
         <activity
-            android:name="com.wallpapers.unsplash.common.ui.activity.invisible.RestartActivity"
+            android:name=".common.ui.activity.invisible.RestartActivity"
             android:theme="@style/MysplashTheme_light.Translucent.Common" />
 
         <activity
-            android:name="com.wallpapers.unsplash.common.ui.activity.invisible.DispatchBrowserActionActivity"
+            android:name=".common.ui.activity.invisible.DispatchBrowserActionActivity"
             android:theme="@style/MysplashTheme_dark.Translucent.Common"
             android:launchMode="singleTask">
 
@@ -193,10 +224,12 @@
 
         </activity>
 
+        <activity android:name=".ViewerActivity"/>
+
         <!-- receiver. -->
 
         <receiver
-            android:name="com.wallpapers.unsplash.common.receiver.DownloadReceiver">
+            android:name=".common.receiver.DownloadReceiver">
             <intent-filter android:priority="1000">
                 <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
                 <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
@@ -206,7 +239,7 @@
         <!-- service. -->
 
         <service
-            android:name="com.wallpapers.unsplash.common.service.MuzeiSourceService"
+            android:name=".common.service.MuzeiSourceService"
             android:label="@string/app_name"
             android:description="@string/muzei_description"
             android:icon="@drawable/ic_bg"
@@ -226,7 +259,7 @@
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.wallpapers.unsplash"
+            android:authorities="com.wallpaper.unsplash"
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data
@@ -246,5 +279,6 @@
     <!-- Muzei. -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
 
 </manifest>

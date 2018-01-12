@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
+        <com.wallpaper.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
             android:id="@+id/item_collection_cover"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/item_collection_cover">
 
-            <com.wallpapers.unsplash.common.ui.widget.CircleImageView
+            <com.wallpaper.unsplash.common.ui.widget.CircleImageView
                 android:id="@+id/item_collection_avatar"
                 android:layout_width="@dimen/little_icon_size"
                 android:layout_height="@dimen/little_icon_size"

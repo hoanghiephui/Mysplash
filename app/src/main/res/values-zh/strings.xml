@@ -271,5 +271,7 @@
     <string name="detail_login">Access 368,096 free, high-resolution photos you can’t find anywhere else</string>
     <string name="related_photo">Related photos</string>
     <string name="action_explore">explore</string>
+    <string name="info">Information</string>
+    <string name="apply">Apply</string>
 
 </resources>

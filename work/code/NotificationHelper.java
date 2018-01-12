@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common.utils.helper;
+package com.wallpaper.unsplash.common.utils.helper;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -17,13 +17,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.wallpapers.unsplash.Mysplash;
-import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common.data.entity.table.DownloadMissionEntity;
-import com.wallpapers.unsplash.common.basic.MysplashActivity;
-import com.wallpapers.unsplash.common.utils.DisplayUtils;
-import com.wallpapers.unsplash.common.utils.manager.ThreadManager;
-import com.wallpapers.unsplash.common.basic.FlagRunnable;
+import com.wallpaper.unsplash.Mysplash;
+import com.wallpaper.unsplash.R;
+import com.wallpaper.unsplash.common.data.entity.table.DownloadMissionEntity;
+import com.wallpaper.unsplash.common.basic.MysplashActivity;
+import com.wallpaper.unsplash.common.utils.DisplayUtils;
+import com.wallpaper.unsplash.common.utils.manager.ThreadManager;
+import com.wallpaper.unsplash.common.basic.FlagRunnable;
 
 import java.util.ArrayList;
 import java.util.List;

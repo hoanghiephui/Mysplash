@@ -192,3 +192,36 @@ public static java.lang.String TABLENAME;
 
 # Muzei
 -keep class com.google.android.apps.muzei.** { *; }
+
+-keep class !android.support.v7.internal.view.menu**,** {*;}
+-keep class android.support.v7.graphics.** {*;}
+
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep public class * extends com.bumptech.glide.module.AppGlideModule
+-keep class com.bumptech.glide.GeneratedAppGlideModuleImpl
+-keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+
+-keep class android.arch.** { *; }
+
+-keep class com.google.**
+-keep class autovalue.shaded.com.google.**
+-keep class com.android.vending.billing.**
+-keep public class com.android.vending.licensing.ILicensingService
+-keep class jahirfiquitiva.libs.frames.**
+-keep class com.pluscubed.recyclerfastscroll.**
+-keep class com.hendraanggrian.reveallayout.**
+
+-dontwarn org.apache.**
+-dontwarn com.google.**
+-dontwarn autovalue.shaded.com.google.**
+-dontwarn com.android.vending.billing.**
+
+-dontwarn okhttp3.**
+-dontwarn okio.**
+-dontwarn javax.annotation.**
+
+-dontwarn
+-ignorewarnings

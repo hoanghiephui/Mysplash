@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <com.wallpapers.unsplash.common.ui.widget.CircularProgressIcon
+        <com.wallpaper.unsplash.common.ui.widget.CircularProgressIcon
             android:id="@+id/container_photo_button_bar_downloadButton"
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"
@@ -74,7 +74,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <com.wallpapers.unsplash.common.ui.widget.CircularProgressIcon
+        <com.wallpaper.unsplash.common.ui.widget.CircularProgressIcon
             android:id="@+id/container_photo_button_bar_likeButton"
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"

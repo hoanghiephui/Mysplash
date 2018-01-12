@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     tools:background="@color/colorRoot_dark">
 
-    <com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomTouchView
+    <com.wallpaper.unsplash.common.ui.widget.freedomSizeView.FreedomTouchView
         android:id="@+id/item_photo_touch_landscape_touch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,7 +107,7 @@
         android:background="@drawable/shadow"
         tools:ignore="RtlHardcoded">
 
-        <com.wallpapers.unsplash.common.ui.widget.CircleImageView
+        <com.wallpaper.unsplash.common.ui.widget.CircleImageView
             android:id="@+id/item_photo_touch_landscape_avatar"
             android:layout_width="36sp"
             android:layout_height="36sp"

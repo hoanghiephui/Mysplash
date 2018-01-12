@@ -41,4 +41,5 @@
     <dimen name="high_elevation">10dp</dimen>
     <dimen name="navigation_bar_padding">46dp</dimen><!-- navigation bar(46dp) -->
     <dimen name="bottom_navigation_height">104dp</dimen>
+    <dimen name="cards_margin">8dp</dimen>
 </resources>

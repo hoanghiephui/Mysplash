@@ -5,8 +5,14 @@
     <string name="test_admob_express_unit_id">ca-app-pub-3940256099942544/1072772517</string>
     <string name="banner_player_id">ca-app-pub-1329831382083956/2766923599</string>
     <string name="popup_id">ca-app-pub-1329831382083956/6916608514</string>
-    <string name="banner_home">ca-app-pub-1329831382083956/8541515523</string>
-    <string name="banner_home_facebook">160074087915080_160330694556086</string>
+    <string name="banner_home">ca-app-pub-1329831382083956/5136768624</string>
+    <string name="banner_home_facebook">460223537681117_534729173563886</string>
     <string name="banner_player_facebook">160074087915080_160342707888218</string>
     <string name="native_small_facebook">160074087915080_160354287887060</string>
+
+    <string name="banner_adapter">ca-app-pub-1329831382083956/7417931037</string>
+    <string name="banner_category">ca-app-pub-1329831382083956/9089290221</string>
+    
+    
+    <string name="banner_search_query_facebook">460223537681117_536122336757903</string>
 </resources>

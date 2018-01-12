@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+    <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
         android:id="@+id/fragment_collection_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
+        <com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
             android:id="@+id/fragment_collection_appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-                <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+                <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:sbv_fill_in_mode="true" />
@@ -44,7 +44,7 @@
 
             </LinearLayout>
 
-        </com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
+        </com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/fragment_collection_viewPager"
@@ -52,7 +52,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.wallpapers.unsplash.common.ui.widget.AutoHideInkPageIndicator
+        <com.wallpaper.unsplash.common.ui.widget.AutoHideInkPageIndicator
             android:id="@+id/fragment_collection_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,9 +64,9 @@
             app:dotDiameter="@dimen/little_margin"
             app:dotGap="@dimen/little_margin" />
 
-    </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+    </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
-    <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+    <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
         android:id="@+id/fragment_collection_statusBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

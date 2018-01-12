@@ -14,12 +14,12 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_navi" />
 
-    <com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout
+    <com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout
         app:cml_gradient_angle="90"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+        <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/container_nav_header_statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_margin="@dimen/normal_margin"
             tools:ignore="RtlHardcoded">
 
-            <com.wallpapers.unsplash.common.ui.widget.CircleImageView
+            <com.wallpaper.unsplash.common.ui.widget.CircleImageView
                 android:id="@+id/container_nav_header_avatar"
                 android:layout_width="@dimen/large_icon_size"
                 android:layout_height="@dimen/large_icon_size"
@@ -72,7 +72,7 @@
             android:text="@string/feedback_login_text"
             tools:ignore="RtlHardcoded" />
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/container_nav_header_button"
             android:layout_width="34dp"
             android:layout_height="34dp"
@@ -81,7 +81,7 @@
             android:layout_marginRight="@dimen/little_margin"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/little_margin"
-            android:src="@drawable/ic_plus_mini_light"
+            app:srcCompat="@drawable/ic_plus_mini_light"
             tools:ignore="ContentDescription,RtlHardcoded" />
-    </com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout>
+    </com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout>
 </RelativeLayout>

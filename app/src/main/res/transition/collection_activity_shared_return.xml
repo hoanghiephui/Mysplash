@@ -15,7 +15,7 @@
     </changeBounds>
 
     <pathMotion
-        class="com.wallpapers.unsplash.common.ui.transition.GravityArcMotion"
+        class="com.wallpaper.unsplash.common.ui.transition.GravityArcMotion"
         android:maximumAngle="50" />
 
 </transitionSet>

@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="?attr/root_color">
 
-    <view class="com.wallpapers.unsplash.common.ui.widget.SwipeSwitchLayout$RecyclerView"
+    <view class="com.wallpaper.unsplash.common.ui.widget.SwipeSwitchLayout$RecyclerView"
         android:id="@+id/item_photo_more_landscape_recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

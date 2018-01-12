@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+    <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
         android:id="@+id/activity_collection_swipeBackView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,14 +15,14 @@
         android:transitionName="@string/transition_collection_background"
         tools:ignore="UnusedAttribute">
 
-        <com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
+        <com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
             android:id="@+id/activity_collection_appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:theme="@style/MysplashToolbarTheme">
 
-            <com.wallpapers.unsplash.common.ui.widget.coverView.CoverContainerLayout
+            <com.wallpaper.unsplash.common.ui.widget.coverView.CoverContainerLayout
                 android:id="@+id/activity_collection_collectionBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -35,12 +35,12 @@
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription" />
 
-                <com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout
+                <com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cml_gradient_angle="90">
 
-                    <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+                    <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
                         android:id="@+id/activity_collection_appBarStatusBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                         tools:text="The Sample Collection Title" />
                     </android.support.v7.widget.Toolbar>
 
-                    <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+                    <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
                         android:id="@+id/activity_collection_titleStatusBar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -90,9 +90,9 @@
                         style="@style/content_text"
                         tools:text="Do not go gentle into that good night, Old age should burn and rave at close of day; Rage, rage against the dying of the light." />
 
-                </com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout>
+                </com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout>
 
-            </com.wallpapers.unsplash.common.ui.widget.coverView.CoverContainerLayout>
+            </com.wallpaper.unsplash.common.ui.widget.coverView.CoverContainerLayout>
 
             <RelativeLayout
                 android:id="@+id/activity_collection_creatorBar"
@@ -101,7 +101,7 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 tools:ignore="UselessParent">
 
-                <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+                <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
                     android:id="@+id/activity_collection_creatorBarStatusBar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
                     android:layout_below="@id/activity_collection_creatorBarStatusBar"
                     android:background="?attr/selectableItemBackground">
 
-                    <com.wallpapers.unsplash.common.ui.widget.CircleImageView
+                    <com.wallpaper.unsplash.common.ui.widget.CircleImageView
                         android:id="@+id/activity_collection_avatar"
                         android:layout_width="@dimen/little_icon_size"
                         android:layout_height="@dimen/little_icon_size"
@@ -141,17 +141,17 @@
 
             </RelativeLayout>
 
-        </com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
+        </com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
 
-        <com.wallpapers.unsplash.collection.view.widget.CollectionPhotosView
+        <com.wallpaper.unsplash.collection.view.widget.CollectionPhotosView
             android:id="@+id/activity_collection_photosView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+    </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
-    <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+    <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
         android:id="@+id/activity_collection_statusBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

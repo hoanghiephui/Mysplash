@@ -9,7 +9,7 @@
     tools:background="?attr/title_color"
     tools:ignore="RtlHardcoded">
 
-    <view class="com.wallpapers.unsplash.common.ui.widget.SwipeSwitchLayout$ViewPager"
+    <view class="com.wallpaper.unsplash.common.ui.widget.SwipeSwitchLayout$ViewPager"
         android:id="@+id/item_photo_more_viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

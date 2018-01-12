@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+    <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
         android:id="@+id/fragment_home_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
+        <com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
             android:id="@+id/fragment_home_appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
                 android:orientation="vertical"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-                <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+                <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:sbv_fill_in_mode="true" />
@@ -42,7 +42,7 @@
 
             </LinearLayout>
 
-        </com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
+        </com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/fragment_home_viewPager"
@@ -50,7 +50,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.wallpapers.unsplash.common.ui.widget.AutoHideInkPageIndicator
+        <com.wallpaper.unsplash.common.ui.widget.AutoHideInkPageIndicator
             android:id="@+id/fragment_home_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -62,14 +62,16 @@
             app:layout_behavior=".common.ui.behavior.InkPageIndicatorBehavior"
             app:pageIndicatorColor="?attr/subtitle_color" />
 
-        <LinearLayout
+        <include layout="@layout/init_ads" />
+
+        <android.support.design.widget.CoordinatorLayout
             android:id="@+id/layout_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:gravity="bottom"
-            app:layout_behavior=".common.ui.behavior.BottomNavigationBehavior"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_behavior=".common.ui.behavior.BottomNavigationBehavior">
 
             <View
                 android:id="@+id/view_shadow"
@@ -86,10 +88,13 @@
                 app:itemIconTint="@drawable/bottom_navigation_selector"
                 app:itemTextColor="@drawable/bottom_navigation_selector"
                 app:menu="@menu/menu_navigation" />
-        </LinearLayout>
-    </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
-    <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+        </android.support.design.widget.CoordinatorLayout>
+
+
+    </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+
+    <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
         android:id="@+id/fragment_home_statusBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

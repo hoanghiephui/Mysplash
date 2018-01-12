@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorAccent_dark">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
+        <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/activity_login_statusBar"
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+        <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
             android:id="@+id/activity_login_swipeBackView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -207,7 +207,7 @@
 
             </android.support.v4.widget.NestedScrollView>-->
 
-        </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+        </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     </LinearLayout>
 

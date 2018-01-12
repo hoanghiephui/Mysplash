@@ -1,4 +1,4 @@
-package com.wallpapers.unsplash.common.utils.helper;
+package com.wallpaper.unsplash.common.utils.helper;
 
 import android.app.Notification;
 import android.content.Context;
@@ -12,13 +12,13 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.liulishuo.filedownloader.model.FileDownloadStatus;
-import com.wallpapers.unsplash.Mysplash;
-import com.wallpapers.unsplash.R;
-import com.wallpapers.unsplash.common.data.entity.item.DownloadMission;
-import com.wallpapers.unsplash.common.data.entity.unsplash.Collection;
-import com.wallpapers.unsplash.common.data.entity.unsplash.Photo;
-import com.wallpapers.unsplash.common.data.entity.table.DownloadMissionEntity;
-import com.wallpapers.unsplash.common.utils.FileUtils;
+import com.wallpaper.unsplash.Mysplash;
+import com.wallpaper.unsplash.R;
+import com.wallpaper.unsplash.common.data.entity.item.DownloadMission;
+import com.wallpaper.unsplash.common.data.entity.unsplash.Collection;
+import com.wallpaper.unsplash.common.data.entity.unsplash.Photo;
+import com.wallpaper.unsplash.common.data.entity.table.DownloadMissionEntity;
+import com.wallpaper.unsplash.common.utils.FileUtils;
 
 import java.util.List;
 

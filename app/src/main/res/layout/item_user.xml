@@ -9,7 +9,7 @@
     android:stateListAnimator="@animator/touch_rise_tag"
     tools:ignore="UnusedAttribute">
 
-    <com.wallpapers.unsplash.common.ui.widget.CircleImageView
+    <com.wallpaper.unsplash.common.ui.widget.CircleImageView
         android:id="@+id/item_user_avatar"
         android:layout_width="@dimen/normal_icon_size"
         android:layout_height="@dimen/normal_icon_size"

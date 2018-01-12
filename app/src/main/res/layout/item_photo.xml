@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
+        <com.wallpaper.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
             android:id="@+id/item_photo_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -24,9 +24,9 @@
             app:fiv_shadow_position="bottom"
             tools:background="@color/colorPrimary_dark" />
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/item_photo_deleteButton"
-            android:src="@drawable/ic_item_close"
+            app:srcCompat="@drawable/ic_item_close"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:padding="@dimen/little_margin"
@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             tools:ignore="ContentDescription,RtlHardcoded" />
 
-        <com.wallpapers.unsplash.common.ui.widget.CircularProgressIcon
+        <com.wallpaper.unsplash.common.ui.widget.CircularProgressIcon
             android:id="@+id/item_photo_likeButton"
             android:layout_width="34dp"
             android:layout_height="34dp"
@@ -50,9 +50,9 @@
             android:layout_alignParentLeft="true"
             tools:ignore="ContentDescription,RtlHardcoded" />
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/item_photo_collectionButton"
-            android:src="@drawable/ic_item_collected"
+            app:srcCompat="@drawable/ic_item_collected"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:padding="@dimen/little_margin"
@@ -63,9 +63,9 @@
             android:layout_toRightOf="@id/item_photo_likeButton"
             tools:ignore="ContentDescription,RtlHardcoded" />
 
-        <ImageButton
+        <android.support.v7.widget.AppCompatImageButton
             android:id="@+id/item_photo_downloadButton"
-            android:src="@drawable/ic_item_download"
+            app:srcCompat="@drawable/ic_item_download"
             android:layout_width="34dp"
             android:layout_height="34dp"
             android:padding="@dimen/little_margin"
@@ -103,7 +103,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <com.wallpapers.unsplash.common.ui.widget.CircleImageView
+            <com.wallpaper.unsplash.common.ui.widget.CircleImageView
                 android:id="@+id/item_photo_base_avatar"
                 android:layout_width="@dimen/little_icon_size"
                 android:layout_height="@dimen/little_icon_size"

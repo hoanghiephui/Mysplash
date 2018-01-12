@@ -332,6 +332,8 @@
     <string name="related_collections">Featured in %d collections</string>
     <string name="related_photo">Related photos</string>
     <string name="action_explore">Explore</string>
+    <string name="info">Information</string>
+    <string name="apply">Apply</string>
 
 
 </resources>

@@ -15,12 +15,12 @@
     </changeBounds>
 
     <transition
-        class="com.wallpapers.unsplash.common.ui.transition.LiftOff"
+        class="com.wallpaper.unsplash.common.ui.transition.LiftOff"
         android:duration="400"
         app:initElevation="@dimen/high_elevation" />
 
     <pathMotion
-        class="com.wallpapers.unsplash.common.ui.transition.GravityArcMotion"
+        class="com.wallpaper.unsplash.common.ui.transition.GravityArcMotion"
         android:maximumAngle="50" />
 
 </transitionSet>

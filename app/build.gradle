@@ -14,7 +14,7 @@ android {
     buildToolsVersion "27.0.1"
 
     defaultConfig {
-        applicationId "com.wallpapers.unsplash"
+        applicationId "com.wallpaper.unsplash"
         minSdkVersion 19
         targetSdkVersion 27
         versionCode 323
@@ -61,6 +61,12 @@ android {
             v2SigningEnabled false
         }
     }
+    packagingOptions {
+        pickFirst 'META-INF/core_debug.kotlin_module'
+        pickFirst 'META-INF/core_release.kotlin_module'
+        pickFirst 'META-INF/library_debug.kotlin_module'
+        pickFirst 'META-INF/library_release.kotlin_module'
+    }
 }
 
 buildscript {
@@ -92,25 +98,19 @@ kapt {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.google.firebase:firebase-config:11.6.2'
-    implementation 'com.google.firebase:firebase-messaging:11.6.2'
+    implementation 'com.google.firebase:firebase-config:11.8.0'
     testCompile 'junit:junit:4.12'
-
     implementation 'com.android.support:appcompat-v7:27.0.2'
     implementation 'com.android.support:cardview-v7:27.0.2'
     implementation 'com.android.support:design:27.0.2'
     implementation 'com.android.support:support-v4:27.0.2'
     implementation 'com.android.support:customtabs:27.0.2'
-
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
-
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
-
-    implementation 'com.jakewharton:butterknife:8.8.0'
-    kapt 'com.jakewharton:butterknife-compiler:8.8.0'
-
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
     implementation 'com.pacioianu.david:ink-page-indicator:1.2.0'
     implementation 'org.greenrobot:greendao:3.2.2'
@@ -118,16 +118,16 @@ dependencies {
     implementation('com.github.ihsanbal:LoggingInterceptor:2.0.3') {
         exclude group: 'org.json', module: 'json'
     }
-    implementation "pl.droidsonroids.gif:android-gif-drawable:1.2.8"
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation 'com.balysv:material-ripple:1.0.2'
-    implementation 'com.google.firebase:firebase-ads:11.6.2'
+    implementation 'com.google.firebase:firebase-ads:11.8.0'
     implementation project(':admobadapter')
-    implementation "io.reactivex.rxjava2:rxjava:2.1.7"
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.8'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    implementation group: 'com.squareup.retrofit2', name: 'adapter-rxjava2', version: '2.3.0'
-    implementation 'com.facebook.android:audience-network-sdk:4.+'
-
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.facebook.android:audience-network-sdk:4.27.0'
+    implementation 'me.jahirfiquitiva.KAUExtensions:ziv:3e3f8d9'
 }
 repositories {
     mavenCentral()
