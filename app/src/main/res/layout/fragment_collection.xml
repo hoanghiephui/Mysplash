@@ -64,6 +64,7 @@
             app:dotDiameter="@dimen/little_margin"
             app:dotGap="@dimen/little_margin" />
 
+        <include layout="@layout/init_ads" />
     </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView

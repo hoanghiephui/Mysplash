@@ -3,7 +3,7 @@
     <string name="testDeviceID">FC62C6A7EBC75CFD8D14092BA1325173</string>
     <string name="admob_app_id">ca-app-pub-1329831382083956~2049916955</string>
     <string name="test_admob_express_unit_id">ca-app-pub-3940256099942544/1072772517</string>
-    <string name="banner_player_id">ca-app-pub-1329831382083956/2766923599</string>
+    <string name="banner_player_id">ca-app-pub-1329831382083956/7612557029</string>
     <string name="popup_id">ca-app-pub-1329831382083956/6916608514</string>
     <string name="banner_home">ca-app-pub-1329831382083956/5136768624</string>
     <string name="banner_home_facebook">460223537681117_534729173563886</string>
@@ -12,7 +12,13 @@
 
     <string name="banner_adapter">ca-app-pub-1329831382083956/7417931037</string>
     <string name="banner_category">ca-app-pub-1329831382083956/9089290221</string>
+    <string name="banner_collection">ca-app-pub-1329831382083956/7612557029</string>
+    <string name="banner_download">ca-app-pub-1329831382083956/1147221023</string>
     
     
     <string name="banner_search_query_facebook">460223537681117_536122336757903</string>
+    <string name="banner_photo_info_facebook">460223537681117_537196259983844</string>
+    <string name="banner_collection_fb">460223537681117_537350949968375</string>
+    <string name="banner_category_fb">460223537681117_537360603300743</string>
+    <string name="banner_download_fb">460223537681117_537362506633886</string>
 </resources>

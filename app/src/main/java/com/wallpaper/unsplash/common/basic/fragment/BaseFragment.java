@@ -16,6 +16,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.wallpaper.unsplash.R;
 import com.wallpaper.unsplash.common.basic.activity.BaseActivity;
 
+import static com.wallpaper.unsplash.common.utils.DisplayUtils.getNavigationBarHeight;
+
 /**
  * UnsplashApplication fragment.
  * <p>
@@ -126,6 +128,19 @@ public abstract class BaseFragment extends Fragment {
 
                 }
             });
+        }
+
+        if (getNavigationBarHeight(getActivity().getResources()) != 0) {
+
+            /*adContainer.getLayoutParams().height =
+                    LinearLayout;*/
+            adContainer.setPadding(0, 0, 0, getResources().getDimensionPixelSize(R.dimen.navigation_bar_padding));
+            adContainer.requestLayout();
+        } else {
+            /*adContainer.getLayoutParams().height =
+                    getResources().getDimensionPixelSize(android.R.dimen.app_icon_size);*/
+            adContainer.setPadding(0, 0, 0, 0);
+            adContainer.requestLayout();
         }
     }
 

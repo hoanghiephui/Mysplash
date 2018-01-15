@@ -238,9 +238,10 @@ public class CollectionAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
         }
     }
 
+
     @Override
-    public void onViewRecycled(RecyclerView.ViewHolder holder) {
-        super.onViewRecycled(holder);
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).onRecycled();
         }

@@ -17,9 +17,9 @@
             app:theme="@style/MysplashToolbarTheme">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:layout_scrollFlags="scroll|enterAlways">
 
                 <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
@@ -43,20 +43,20 @@
 
                         <TextView
                             android:id="@+id/fragment_category_title"
+                            style="@style/large_title_text"
+                            android:layout_centerVertical="true"
                             android:textColor="?attr/content_color"
                             android:textStyle="bold"
-                            android:layout_centerVertical="true"
-                            style="@style/large_title_text"
                             tools:text="Buildings" />
 
                         <ImageButton
                             android:id="@+id/fragment_category_titleBtn"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@id/fragment_category_title"
-                            android:layout_marginRight="@dimen/normal_margin"
                             style="@style/material_image_button"
-                            tools:src="@drawable/ic_menu_down_light"
-                            tools:ignore="ContentDescription,RtlHardcoded" />
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="@dimen/normal_margin"
+                            android:layout_toRightOf="@id/fragment_category_title"
+                            tools:ignore="ContentDescription,RtlHardcoded"
+                            tools:src="@drawable/ic_menu_down_light" />
 
                     </RelativeLayout>
 
@@ -72,6 +72,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <include layout="@layout/init_ads" />
     </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView

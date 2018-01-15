@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_collection_container"
@@ -52,21 +51,21 @@
                         android:layout_height="?attr/actionBarSize"
                         android:layout_below="@id/activity_collection_appBarStatusBar"
                         android:background="@android:color/transparent"
-                        app:popupTheme="@style/MysplashPopupMenuTheme" >
+                        app:popupTheme="@style/MysplashPopupMenuTheme">
 
-                    <TextView
-                        android:id="@+id/activity_collection_title"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/design_title_text_size"
-                        android:textIsSelectable="false"
-                        style="@style/title_text"
-                        android:singleLine="true"
-                        android:marqueeRepeatLimit="marquee_forever"
-                        android:ellipsize="marquee"
-                        android:scrollHorizontally="true"
-                        android:focusableInTouchMode="true"
-                        android:focusable="true"
-                        tools:text="The Sample Collection Title" />
+                        <TextView
+                            android:id="@+id/activity_collection_title"
+                            style="@style/title_text"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:textIsSelectable="false"
+                            android:textSize="@dimen/design_title_text_size"
+                            android:textStyle="bold"
+                            tools:text="The Sample Collection Title" />
                     </android.support.v7.widget.Toolbar>
 
                     <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
@@ -78,16 +77,16 @@
 
                     <TextView
                         android:id="@+id/activity_collection_description"
+                        style="@style/content_text"
+                        android:layout_width="wrap_content"
                         android:layout_below="@id/activity_collection_titleStatusBar"
                         android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
                         android:layout_marginLeft="@dimen/mini_icon_size"
                         android:layout_marginRight="@dimen/mini_icon_size"
-                        android:layout_width="wrap_content"
-                        android:layout_centerInParent="true"
                         android:lineSpacingMultiplier="1.3"
                         android:textIsSelectable="false"
                         android:textStyle="bold"
-                        style="@style/content_text"
                         tools:text="Do not go gentle into that good night, Old age should burn and rave at close of day; Rage, rage against the dying of the light." />
 
                 </com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout>
@@ -111,17 +110,17 @@
                     android:id="@+id/activity_collection_touchBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/activity_collection_creatorBarStatusBar"
                     android:layout_marginLeft="@dimen/normal_margin"
                     android:layout_marginRight="@dimen/normal_margin"
-                    android:layout_below="@id/activity_collection_creatorBarStatusBar"
                     android:background="?attr/selectableItemBackground">
 
                     <com.wallpaper.unsplash.common.ui.widget.CircleImageView
                         android:id="@+id/activity_collection_avatar"
                         android:layout_width="@dimen/little_icon_size"
                         android:layout_height="@dimen/little_icon_size"
-                        android:layout_margin="@dimen/little_margin"
                         android:layout_centerVertical="true"
+                        android:layout_margin="@dimen/little_margin"
                         android:scaleType="centerCrop"
                         android:src="?attr/line_color"
                         android:transitionName="@string/transition_collection_avatar"
@@ -129,13 +128,13 @@
 
                     <TextView
                         android:id="@+id/activity_collection_subtitle"
-                        android:maxLines="1"
-                        android:layout_toRightOf="@id/activity_collection_avatar"
+                        style="@style/subtitle_text"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/normal_margin"
-                        style="@style/subtitle_text"
-                        tools:text="By Daniil Omelchenko"
-                        tools:ignore="RtlHardcoded" />
+                        android:layout_toRightOf="@id/activity_collection_avatar"
+                        android:maxLines="1"
+                        tools:ignore="RtlHardcoded"
+                        tools:text="By Daniil Omelchenko" />
 
                 </RelativeLayout>
 
@@ -149,6 +148,7 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+        <include layout="@layout/init_ads" />
     </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView

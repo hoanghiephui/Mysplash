@@ -205,9 +205,18 @@ public class PhotoInfoAdapter extends RecyclerView.Adapter<PhotoInfoAdapter.View
         }
     }
 
-    @Override
+    /*@Override
     public void onViewRecycled(ViewHolder holder) {
         super.onViewRecycled(holder);
+        holder.onRecycled();
+        if (holder instanceof MoreHolder) {
+            this.moreHolderModel = ((MoreHolder) holder).saveModel();
+        }
+    }*/
+
+    @Override
+    public void onViewDetachedFromWindow(ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
         holder.onRecycled();
         if (holder instanceof MoreHolder) {
             this.moreHolderModel = ((MoreHolder) holder).saveModel();

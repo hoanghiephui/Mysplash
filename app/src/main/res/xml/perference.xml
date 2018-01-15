@@ -13,10 +13,10 @@
             android:entryValues="@array/back_to_top_type_values"
             android:defaultValue="all" />
 
-        <com.wallpaper.unsplash.common.ui.widget.preference.MysplashPreference
+        <!--<com.wallpaper.unsplash.common.ui.widget.preference.MysplashPreference
             android:title="@string/settings_title_custom_api_key"
             android:key="@string/key_custom_api_key"
-            android:summary="@string/settings_summary_custom_api_key" />
+            android:summary="@string/settings_summary_custom_api_key" />-->
 
         <com.wallpaper.unsplash.common.ui.widget.preference.MysplashListPreference
             android:title="@string/settings_title_language"

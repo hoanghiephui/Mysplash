@@ -1,5 +1,6 @@
 package com.wallpaper.unsplash.photo.view.holder
 
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
@@ -27,6 +28,7 @@ class FeaturedCollectionsHolder(itemView: View, activity: BaseActivity) : PhotoI
         recyclerView = itemView.findViewById(R.id.item_photo_tag) as SwipeSwitchLayout.RecyclerView
         tile = itemView.findViewById(R.id.title)
         recyclerView?.setLayoutManager(StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL))
+        recyclerView?.setHasFixedSize(true)
         val margin = activity.getResources().getDimensionPixelSize(R.dimen.little_margin)
         recyclerView?.setPadding(margin, margin, 0, 0)
     }
@@ -39,7 +41,7 @@ class FeaturedCollectionsHolder(itemView: View, activity: BaseActivity) : PhotoI
     }
 
     override fun onRecycled() {
-
+        ((recyclerView?.adapter) as CollectionAdapter).onDetachedFromRecyclerView(recyclerView)
     }
 
     fun scrollTo(x: Int, y: Int) {

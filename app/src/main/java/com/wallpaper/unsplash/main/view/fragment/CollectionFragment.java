@@ -2,6 +2,8 @@ package com.wallpaper.unsplash.main.view.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -44,10 +46,9 @@ import butterknife.OnClick;
 
 /**
  * Collection fragment.
- *
+ * <p>
  * This fragment is used to show the collections.
- *
- * */
+ */
 
 public class CollectionFragment extends BaseFragment
         implements PagerManageView,
@@ -80,15 +81,20 @@ public class CollectionFragment extends BaseFragment
     private PagerManagePresenter pagerManagePresenter;
 
     private final String KEY_COLLECTION_FRAGMENT_PAGE_POSITION = "collection_fragment_page_position";
-    
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_collection, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_collection, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         initModel(savedInstanceState);
         initPresenter();
         initView(view, savedInstanceState);
-        return view;
+        showAds(getString(R.string.banner_collection_fb), getString(R.string.banner_collection), view);
     }
 
     @Override
@@ -100,9 +106,9 @@ public class CollectionFragment extends BaseFragment
             }
         }
     }
-    
+
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_COLLECTION_FRAGMENT_PAGE_POSITION, pagerManagePresenter.getPagerPosition());
         for (PagerView p : pagers) {
@@ -231,7 +237,7 @@ public class CollectionFragment extends BaseFragment
                         UnsplashApplication.COLLECTION_TYPE_CURATED,
                         R.id.fragment_collection_page_curated,
                         2, pagerManagePresenter.getPagerPosition() == 2));
-        for (int i = 0; i < pageList.size(); i ++) {
+        for (int i = 0; i < pageList.size(); i++) {
             pagers[i] = (PagerView) pageList.get(i);
         }
 
@@ -283,7 +289,8 @@ public class CollectionFragment extends BaseFragment
         }
     }
 
-    @OnClick(R.id.fragment_collection_toolbar) void clickToolbar() {
+    @OnClick(R.id.fragment_collection_toolbar)
+    void clickToolbar() {
         toolbarPresenter.touchToolbar((BaseActivity) getActivity());
     }
 
@@ -296,7 +303,7 @@ public class CollectionFragment extends BaseFragment
 
     @Override
     public void onPageSelected(int position) {
-        for (int i = 0; i < pagers.length; i ++) {
+        for (int i = 0; i < pagers.length; i++) {
             pagers[i].setSelected(i == position);
         }
         pagerManagePresenter.setPagerPosition(position);

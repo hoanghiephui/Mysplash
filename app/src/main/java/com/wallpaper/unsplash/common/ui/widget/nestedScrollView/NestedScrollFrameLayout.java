@@ -281,7 +281,7 @@ public abstract class NestedScrollFrameLayout extends FrameLayout
         //your test devices' ids
         String[] testDevicesIds = new String[]{AdRequest.DEVICE_ID_EMULATOR};
         //when you'll be ready for release please use another ctor with admobReleaseUnitId instead.
-        adapterWrapper = new AdmobRecyclerAdapterWrapper(getContext(), getContext().getString(R.string.banner_home));
+        adapterWrapper = new AdmobRecyclerAdapterWrapper(getContext(), "ca-app-pub-1329831382083956/5509947025");
         //By default both types of ads are loaded by wrapper.
         // To set which of them to show in the list you should use an appropriate ctor
         //adapterWrapper = new AdmobRecyclerAdapterWrapper(this, testDevicesIds, EnumSet.of(EAdType.ADVANCED_INSTALLAPP));

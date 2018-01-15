@@ -33,7 +33,7 @@ class AdsViewHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdapter.V
         adRequest = AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build()
         adsView = itemView.findViewById(R.id.adViewContainer)
         adViewFacebook = com.facebook.ads.AdView(activity, activity.
-                getString(R.string.banner_home_facebook), AdSize.BANNER_HEIGHT_50)
+                getString(R.string.banner_photo_info_facebook), AdSize.BANNER_HEIGHT_50)
 
         managerMini = NativeAdsManager(activity,
                 activity.getString(R.string.native_small_facebook),
@@ -46,7 +46,7 @@ class AdsViewHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdapter.V
     }
 
     override fun onRecycled() {
-        adViewFacebook?.destroy()
+        //adViewFacebook?.destroy()
     }
 
     /**
@@ -60,7 +60,7 @@ class AdsViewHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdapter.V
             if (adsView?.parent != null) {
                 adsView?.removeAllViews()
             }
-            adsView?.addView(adViewFacebook)
+
             adViewFacebook?.loadAd()
             adViewFacebook?.setAdListener(object : com.facebook.ads.AdListener {
                 override fun onAdClicked(p0: Ad?) {
@@ -80,6 +80,7 @@ class AdsViewHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdapter.V
             })
 
             //initAdsScrollFacebook()
+            adsView?.addView(adViewFacebook)
 
         } else {
             adsView?.visibility = View.GONE
@@ -108,7 +109,6 @@ class AdsViewHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdapter.V
         val adsViewG = AdView(context!!)
         adsViewG.adSize = com.google.android.gms.ads.AdSize.SMART_BANNER
         adsViewG.adUnitId = context.getString(R.string.banner_player_id)
-        adsView?.addView(adsViewG)
 
         adsViewG.loadAd(adRequest)
         adsViewG.setAdListener(object : AdListener() {
@@ -118,7 +118,7 @@ class AdsViewHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdapter.V
             }
 
             override fun onAdFailedToLoad(errorCode: Int) {
-                adsView?.visibility = View.GONE
+                //adsView?.visibility = View.GONE
                 // Code to be executed when an ad request fails.
             }
 
@@ -134,8 +134,9 @@ class AdsViewHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdapter.V
             override fun onAdClosed() {
                 // Code to be executed when when the user is about to return
                 // to the app after tapping on an ad.
-                adsView?.visibility = View.GONE
+                //adsView?.visibility = View.GONE
             }
         })
+        adsView?.addView(adsViewG)
     }
 }

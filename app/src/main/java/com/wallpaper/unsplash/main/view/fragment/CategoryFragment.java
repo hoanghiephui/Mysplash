@@ -2,6 +2,7 @@ package com.wallpaper.unsplash.main.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -88,12 +89,17 @@ public class CategoryFragment extends LoadableFragment<Photo>
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category, container, false);
+        return inflater.inflate(R.layout.fragment_category, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         initModel(savedInstanceState);
         initPresenter();
         initView(savedInstanceState);
-        return view;
+        showAds(getString(R.string.banner_category_fb), getString(R.string.banner_category), view);
     }
 
     @Override

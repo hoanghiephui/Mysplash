@@ -137,6 +137,7 @@ public class CollectionActivity extends LoadableActivity<Photo>
         setContentView(R.layout.activity_collection);
         initModel();
         initPresenter();
+        showAds(getString(R.string.banner_collection_fb), getString(R.string.banner_collection));
     }
 
     @Override

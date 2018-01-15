@@ -88,7 +88,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
         ((MainActivity) a).changeFragment(SEARCH_QUERY_ID, title);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder
+    public class ViewHolder extends RecyclerView.ViewHolder
             implements ImageHelper.OnLoadImageListener<Photo>, View.OnClickListener {
 
         @BindView(R.id.item_photo)
@@ -186,7 +186,7 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
             setOnClick(viewHolder, position);
         }
 
-        void onRecycled() {
+        public void onRecycled() {
             ImageHelper.releaseImageView(image);
             likeButton.recycleImageView();
         }
@@ -390,8 +390,8 @@ public class PhotoAdapter extends FooterAdapter<RecyclerView.ViewHolder>
     }
 
     @Override
-    public void onViewRecycled(RecyclerView.ViewHolder holder) {
-        super.onViewRecycled(holder);
+    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
         if (holder instanceof ViewHolder) {
             ((ViewHolder) holder).onRecycled();
         }

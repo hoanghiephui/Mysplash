@@ -16,6 +16,6 @@ import retrofit2.http.POST;
 public interface NotificationApi {
 
     @Headers("content-type: application/x-www-form-urlencoded")
-    @POST(UnsplashApplication.UNSPLASH_NOTIFICATION_URL)
+    @POST(UnsplashApplication.UNSPLASH_NODE_API_URL)
     Call<NotificationFeed> getNotification(@Body RequestBody body);
 }
