@@ -32,10 +32,9 @@ import butterknife.OnClick;
 
 /**
  * User adapter.
- *
+ * <p>
  * Adapter for {@link RecyclerView} to show users.
- *
- * */
+ */
 
 public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
 
@@ -111,7 +110,8 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
 
         // interface.
 
-        @OnClick(R.id.item_user_background) void clickItem() {
+        @OnClick(R.id.item_user_background)
+        void clickItem() {
             if (a instanceof BaseActivity) {
                 IntentHelper.startUserActivity(
                         (BaseActivity) a,
@@ -121,7 +121,8 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
             }
         }
 
-        @OnClick(R.id.item_user_portfolio) void checkPortfolioWebPage() {
+        @OnClick(R.id.item_user_portfolio)
+        void checkPortfolioWebPage() {
             if (!TextUtils.isEmpty(itemList.get(getAdapterPosition()).portfolio_url)) {
                 IntentHelper.startWebActivity(a, itemList.get(getAdapterPosition()).portfolio_url);
             }
@@ -147,6 +148,7 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
     public UserAdapter(Context a, List<User> list) {
         this.a = a;
         this.itemList = list;
+        isHasHeader = false;
     }
 
     @Override
@@ -162,9 +164,17 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder) {
-            ((ViewHolder) holder).onBindView(position);
+        int viewType = getItemViewType(position);
+        switch (viewType) {
+            case CONTENT_TYPE:
+                if (holder instanceof ViewHolder) {
+                    ((ViewHolder) holder).onBindView(position);
+                }
+                break;
+            default:
+                break;
         }
+
     }
 
     @Override
@@ -180,10 +190,10 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
         return itemList.size();
     }
 
-    @Override
+    /*@Override
     public int getItemViewType(int position) {
         return position;
-    }
+    }*/
 
     @Override
     protected boolean hasFooter() {
@@ -208,7 +218,7 @@ public class UserAdapter extends FooterAdapter<RecyclerView.ViewHolder> {
     }
 
     public void updateUser(User u, boolean refreshView, boolean probablyRepeat) {
-        for (int i = 0; i < getRealItemCount(); i ++) {
+        for (int i = 0; i < getRealItemCount(); i++) {
             if (itemList.get(i).id.equals(u.id)) {
                 u.hasFadedIn = itemList.get(i).hasFadedIn;
                 itemList.set(i, u);
