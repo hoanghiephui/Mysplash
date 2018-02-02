@@ -1,0 +1,17 @@
+package com.wallpapers.unsplash.common.interfaces.presenter;
+
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
+/**
+ * Notification bar presenter.
+ * <p>
+ * A presenter which can show notification button and remind user to check the unread notifications.
+ */
+
+public interface NotificationBarPresenter {
+
+    void setImage(ImageButton bellBtn, ImageView dot);
+
+    void setVisible(ImageButton bellBtn, ImageView dot);
+}

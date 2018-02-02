@@ -37,5 +37,6 @@
     <color name="colorTextLight2nd">#f5f5f5</color>
     <color name="colorFollow">#007fff</color>
     <color name="bgBottomNavigation">#fe485a</color>
+    <color name="placeholder_bg">#dddddd</color>
 
 </resources>

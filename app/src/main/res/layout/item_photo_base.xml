@@ -51,7 +51,7 @@
             tools:ignore="RtlHardcoded"
             tools:text="ON 2016-07-23" />
 
-        <com.wallpaper.unsplash.common.ui.widget.CircleImageView
+        <com.wallpapers.unsplash.common.ui.widget.CircleImageView
             android:id="@+id/item_photo_base_avatar"
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"
@@ -68,7 +68,7 @@
 
     </RelativeLayout>
 
-    <com.wallpaper.unsplash.common.ui.widget.PhotoButtonBar
+    <com.wallpapers.unsplash.common.ui.widget.PhotoButtonBar
         android:id="@+id/item_photo_base_btnBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

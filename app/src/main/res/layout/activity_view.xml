@@ -33,7 +33,7 @@
         android:clipChildren="false"
         app:elevation="0dp">
 
-        <com.wallpaper.unsplash.CustomToolbar
+        <com.wallpapers.unsplash.CustomToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
@@ -66,7 +66,7 @@
 
             </LinearLayout>
 
-        </com.wallpaper.unsplash.CustomToolbar>
+        </com.wallpapers.unsplash.CustomToolbar>
 
     </android.support.design.widget.AppBarLayout>
 

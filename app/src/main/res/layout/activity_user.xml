@@ -12,19 +12,19 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+        <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/activity_user_statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+        <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
             android:id="@+id/activity_user_swipeBackView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/root_color"
             tools:ignore="UnusedAttribute">
 
-            <com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
+            <com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
                 android:id="@+id/activity_user_appBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                         android:scaleType="centerCrop"
                         android:src="@drawable/ic_navi" />
 
-                    <com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout
+                    <com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cml_gradient_angle="90">
@@ -119,12 +119,12 @@
                         </RelativeLayout>
 
 
-                        <com.wallpaper.unsplash.user.view.widget.UserProfileView
+                        <com.wallpapers.unsplash.user.view.widget.UserProfileView
                             android:id="@+id/activity_user_profileView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/viewAvatar" />
-                    </com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout>
+                    </com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout>
 
                 </RelativeLayout>
 
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/tab_layout_height" />
 
-            </com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
+            </com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/activity_user_viewPager"
@@ -142,7 +142,7 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+        </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     </LinearLayout>
 

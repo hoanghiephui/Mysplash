@@ -7,12 +7,12 @@
     android:layout_height="match_parent"
     android:background="@android:color/black">
 
-    <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+    <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
         android:id="@+id/activity_preview_swipeBackView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollPhotoView
+        <com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollPhotoView
             android:id="@+id/activity_preview_photoView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             android:orientation="vertical"
             app:layout_behavior=".common.ui.behavior.PreviewWidgetBehavior">
 
-            <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+            <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:sbv_fill_in_mode="true" />
@@ -230,12 +230,12 @@
 
             </LinearLayout>
             <include layout="@layout/viewer_bottom_bar" />
-            <com.wallpaper.unsplash.common.ui.widget.coordinatorView.NavigationBarView
+            <com.wallpapers.unsplash.common.ui.widget.coordinatorView.NavigationBarView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
-    </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+    </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
 </android.support.design.widget.CoordinatorLayout>

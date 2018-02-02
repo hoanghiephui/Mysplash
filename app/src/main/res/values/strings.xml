@@ -334,6 +334,8 @@
     <string name="action_explore">Explore</string>
     <string name="info">Information</string>
     <string name="apply">Apply</string>
+    <string name="ssl_no_connection">We are unable to connect to the host to establish a secure connection. Please verify your network connection and device before continuing.</string>
+    <string name="ssl_pinning_invalid">Secure connection to the host has failed. This might indicate malicious activity. Please verify your network connection and device before continuing.</string>
 
 
 </resources>

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent_dark">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+        <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/activity_login_statusBar"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
-        <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+        <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
             android:id="@+id/activity_login_swipeBackView"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -27,10 +27,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <RelativeLayout
+            <com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_login_fb">
+                app:cml_gradient_angle="90">
 
                 <LinearLayout
                     android:id="@+id/activity_login_buttonContainer"
@@ -47,7 +47,6 @@
                         android:layout_marginBottom="70dp"
                         android:gravity="center"
                         android:text="@string/detail_login"
-                        android:textColor="@android:color/white"
                         android:textSize="16sp" />
 
                     <com.balysv.materialripple.MaterialRippleLayout
@@ -90,7 +89,7 @@
                 </RelativeLayout>
 
 
-            </RelativeLayout>
+            </com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout>
 
             <!--<android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
@@ -207,7 +206,7 @@
 
             </android.support.v4.widget.NestedScrollView>-->
 
-        </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+        </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     </LinearLayout>
 

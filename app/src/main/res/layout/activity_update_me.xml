@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+        <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/activity_update_me_statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+        <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
             android:id="@+id/activity_update_me_swipeBackView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -30,7 +30,7 @@
 
             </android.support.v4.widget.NestedScrollView>
 
-        </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+        </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
     </LinearLayout>
 

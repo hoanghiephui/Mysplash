@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+    <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
         android:id="@+id/activity_photo_swipeBackView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,7 +16,7 @@
         android:transitionName="@string/transition_photo_background"
         tools:ignore="UnusedAttribute">
 
-        <com.wallpaper.unsplash.common.ui.widget.SwipeSwitchLayout
+        <com.wallpapers.unsplash.common.ui.widget.SwipeSwitchLayout
             android:id="@+id/activity_photo_swipeSwitchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -35,7 +35,7 @@
                 android:layout_height="match_parent"
                 android:background="?attr/root_color">
 
-                <com.wallpaper.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
+                <com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
                     android:id="@+id/activity_photo_image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -54,11 +54,11 @@
 
             </FrameLayout>
 
-        </com.wallpaper.unsplash.common.ui.widget.SwipeSwitchLayout>
+        </com.wallpapers.unsplash.common.ui.widget.SwipeSwitchLayout>
 
-    </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+    </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
-    <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+    <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
         android:id="@+id/activity_photo_statusBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

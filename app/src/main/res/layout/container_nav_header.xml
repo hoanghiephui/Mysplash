@@ -14,12 +14,12 @@
         android:scaleType="centerCrop"
         android:src="@drawable/ic_navi" />
 
-    <com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout
+    <com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout
         app:cml_gradient_angle="90"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+        <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
             android:id="@+id/container_nav_header_statusBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_margin="@dimen/normal_margin"
             tools:ignore="RtlHardcoded">
 
-            <com.wallpaper.unsplash.common.ui.widget.CircleImageView
+            <com.wallpapers.unsplash.common.ui.widget.CircleImageView
                 android:id="@+id/container_nav_header_avatar"
                 android:layout_width="@dimen/large_icon_size"
                 android:layout_height="@dimen/large_icon_size"
@@ -83,5 +83,5 @@
             android:padding="@dimen/little_margin"
             app:srcCompat="@drawable/ic_plus_mini_light"
             tools:ignore="ContentDescription,RtlHardcoded" />
-    </com.wallpaper.unsplash.common.ui.widget.coverView.CoverMaskLayout>
+    </com.wallpapers.unsplash.common.ui.widget.coverView.CoverMaskLayout>
 </RelativeLayout>

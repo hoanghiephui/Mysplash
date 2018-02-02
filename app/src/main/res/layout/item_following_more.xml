@@ -13,7 +13,7 @@
     android:stateListAnimator="@animator/touch_rise_avatar"
     tools:ignore="RtlHardcoded,UnusedAttribute">
 
-    <com.wallpaper.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
+    <com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
         android:id="@+id/item_following_more_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
             tools:text="3 MORE"
             tools:ignore="RtlHardcoded" />
 
-        <com.wallpaper.unsplash.common.ui.widget.CircleImageView
+        <com.wallpapers.unsplash.common.ui.widget.CircleImageView
             android:id="@+id/item_following_more_avatar"
             android:layout_width="@dimen/mini_icon_size"
             android:layout_height="@dimen/mini_icon_size"

@@ -10,7 +10,7 @@
     tools:layout_height="72dp"
     tools:ignore="RtlHardcoded,UnusedAttribute">
 
-    <com.wallpaper.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
+    <com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
         android:id="@+id/item_photo_more_page_vertical_cover"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

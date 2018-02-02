@@ -13,7 +13,7 @@
         android:textStyle="bold"
         android:layout_margin="@dimen/normal_margin"/>
 
-    <view class="com.wallpaper.unsplash.common.ui.widget.SwipeSwitchLayout$RecyclerView"
+    <view class="com.wallpapers.unsplash.common.ui.widget.SwipeSwitchLayout$RecyclerView"
         android:layout_below="@+id/title"
         android:id="@+id/item_photo_tag"
         android:layout_width="match_parent"

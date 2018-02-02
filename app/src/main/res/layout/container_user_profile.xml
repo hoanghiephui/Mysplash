@@ -20,7 +20,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.wallpaper.unsplash.common.ui.widget.rippleButton.RippleButton
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/container_user_profile_tagList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/little_margin"
+            android:clipToPadding="false"
+            android:layout_marginBottom="@dimen/little_margin"
+            tools:layout_height="24dp"
+            tools:listitem="@layout/item_tag_mini"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+        <com.wallpapers.unsplash.common.ui.widget.rippleButton.RippleButton
             android:id="@+id/container_user_profile_followBtn"
             android:layout_width="128dp"
             android:layout_height="@dimen/little_icon_size"
@@ -42,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/normal_icon_size"
             android:layout_marginRight="@dimen/normal_icon_size"
+            tools:visibility="visible"
             android:layout_centerHorizontal="true">
 
             <ImageView

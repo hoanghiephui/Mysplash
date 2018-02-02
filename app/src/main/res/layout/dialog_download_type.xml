@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_download_type_container"
     android:layout_width="match_parent"
@@ -17,9 +18,9 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/dialog_download_type_downloadIcon"
-                android:src="@drawable/ic_download_light"
+                app:srcCompat="@drawable/ic_download_light"
                 style="@style/material_icon"
                 tools:ignore="ContentDescription" />
 
@@ -42,9 +43,9 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/dialog_download_type_shareIcon"
-                android:src="@drawable/ic_send_light"
+                app:srcCompat="@drawable/ic_send_light"
                 style="@style/material_icon"
                 tools:ignore="ContentDescription" />
 
@@ -67,9 +68,9 @@
             android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/dialog_download_type_wallpaperIcon"
-                android:src="@drawable/ic_mountain_light"
+                app:srcCompat="@drawable/ic_mountain_light"
                 style="@style/material_icon"
                 tools:ignore="ContentDescription" />
 

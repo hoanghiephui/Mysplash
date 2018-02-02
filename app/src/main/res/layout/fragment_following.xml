@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
+    <com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout
         android:id="@+id/fragment_following_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
+        <com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout
             android:id="@+id/fragment_following_appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways">
 
-                <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+                <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:sbv_fill_in_mode="true" />
@@ -38,17 +38,18 @@
 
             </LinearLayout>
 
-        </com.wallpaper.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
+        </com.wallpapers.unsplash.common.ui.widget.nestedScrollView.NestedScrollAppBarLayout>
 
-        <com.wallpaper.unsplash.main.view.widget.FollowingFeedView
+        <com.wallpapers.unsplash.main.view.widget.FollowingFeedView
             android:id="@+id/fragment_following_feedView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    </com.wallpaper.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
+        <include layout="@layout/init_ads"/>
+    </com.wallpapers.unsplash.common.ui.widget.SwipeBackCoordinatorLayout>
 
-    <com.wallpaper.unsplash.common.ui.widget.coordinatorView.StatusBarView
+    <com.wallpapers.unsplash.common.ui.widget.coordinatorView.StatusBarView
         android:id="@+id/fragment_following_statusBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

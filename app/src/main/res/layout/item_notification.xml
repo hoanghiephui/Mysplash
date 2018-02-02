@@ -8,7 +8,7 @@
     android:background="?attr/selectableItemBackground"
     tools:ignore="UnusedAttribute">
 
-    <com.wallpaper.unsplash.common.ui.widget.CircleImageView
+    <com.wallpapers.unsplash.common.ui.widget.CircleImageView
         android:id="@+id/item_notification_avatar"
         android:layout_width="@dimen/little_icon_size"
         android:layout_height="@dimen/little_icon_size"
@@ -49,7 +49,7 @@
         android:background="?attr/root_color"
         tools:ignore="RtlHardcoded">
 
-        <com.wallpaper.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
+        <com.wallpapers.unsplash.common.ui.widget.freedomSizeView.FreedomImageView
             android:id="@+id/item_notification_image"
             android:layout_width="@dimen/design_icon_size"
             android:layout_height="wrap_content"

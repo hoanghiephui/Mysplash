@@ -177,7 +177,7 @@
 
     <style name="MysplashTheme_dark.Translucent.Common" parent="MysplashTheme_dark.Translucent" />
 
-    <!-- set wallpaper activity. -->
+    <!-- wallpapersaper activity. -->
 
     <style name="MysplashTheme_dark.SetWallpaper" parent="MysplashTheme_dark">
         <item name="android:statusBarColor">@android:color/transparent</item>

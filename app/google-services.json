@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "601883244548-h4huhffprk94rnt1kl7kemavq4me1i4h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wallpapers.unsplash",
+            "certificate_hash": "10fbe422946a3f4208988f62b0e1a03de3da4bb5"
+          }
+        },
+        {
           "client_id": "601883244548-9n52mlk6hchs85krdg0dl67cg8atqavg.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -58,6 +66,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "601883244548-8efekrmpnrkpcr92ruf811g49l18nh4u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wallpaper.unsplash",
+            "certificate_hash": "10fbe422946a3f4208988f62b0e1a03de3da4bb5"
+          }
+        },
         {
           "client_id": "601883244548-8r7ohjctod1ggbh94nh2u8ak29af7d94.apps.googleusercontent.com",
           "client_type": 1,

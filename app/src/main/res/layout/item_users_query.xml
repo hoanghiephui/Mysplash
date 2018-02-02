@@ -19,7 +19,7 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <com.wallpaper.unsplash.common.ui.widget.CircleImageView
+        <com.wallpapers.unsplash.common.ui.widget.CircleImageView
             android:id="@+id/item_users_avatar"
             android:layout_width="@dimen/large_icon_size"
             android:layout_height="@dimen/large_icon_size"
