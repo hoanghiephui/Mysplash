@@ -40,7 +40,9 @@ class FeaturedCollectionsHolder(itemView: View, activity: BaseActivity) : PhotoI
     }
 
     override fun onRecycled() {
-        ((recyclerView?.adapter) as CollectionAdapter).onDetachedFromRecyclerView(recyclerView)
+        recyclerView?.let {
+            ((it.adapter) as CollectionAdapter).onDetachedFromRecyclerView(it)
+        }
     }
 
     fun scrollTo(x: Int, y: Int) {

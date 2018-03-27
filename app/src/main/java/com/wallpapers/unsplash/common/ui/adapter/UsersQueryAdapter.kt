@@ -34,10 +34,10 @@ class UsersQueryAdapter(private val callBack: CallBack) : FooterAdapter<Recycler
         this.context = activity
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder? {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             CONTENT_TYPE -> {
-                return UsersViewHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_users_query, parent, false))
+                return UsersViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_users_query, parent, false))
             }
             else -> {
                 return FooterHolder.buildInstance(parent)
@@ -45,7 +45,7 @@ class UsersQueryAdapter(private val callBack: CallBack) : FooterAdapter<Recycler
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is UsersViewHolder && position < listUsers.size) {
             holder.titleUser.text = listUsers.get(position).name
             holder.nickName.text = "@" + listUsers.get(position).username

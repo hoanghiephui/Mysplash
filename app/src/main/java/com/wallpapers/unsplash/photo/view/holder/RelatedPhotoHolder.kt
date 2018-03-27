@@ -39,7 +39,9 @@ class RelatedPhotoHolder(itemView: View, activity: BaseActivity) : PhotoInfoAdap
     }
 
     override fun onRecycled() {
-        ((recyclerView?.adapter) as PhotoAdapter).onDetachedFromRecyclerView(recyclerView)
+        recyclerView?.let {
+            ((it.adapter) as PhotoAdapter).onDetachedFromRecyclerView(it)
+        }
     }
 
     fun scrollTo(x: Int, y: Int) {

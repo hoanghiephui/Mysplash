@@ -6,9 +6,7 @@
     <string name="banner_player_id">ca-app-pub-1329831382083956/7612557029</string>
     <string name="popup_id">ca-app-pub-1329831382083956/6916608514</string>
     <string name="banner_home">ca-app-pub-1329831382083956/5136768624</string>
-    <string name="banner_home_facebook">460223537681117_534729173563886</string>
-    <string name="banner_player_facebook">160074087915080_160342707888218</string>
-    <string name="native_small_facebook">160074087915080_160354287887060</string>
+
 
     <string name="banner_adapter">ca-app-pub-1329831382083956/7417931037</string>
     <string name="banner_category">ca-app-pub-1329831382083956/9089290221</string>
@@ -16,10 +14,14 @@
     <string name="banner_download">ca-app-pub-1329831382083956/1147221023</string>
     
     
-    <string name="banner_search_query_facebook">460223537681117_536122336757903</string>
-    <string name="banner_photo_info_facebook">460223537681117_537196259983844</string>
-    <string name="banner_collection_fb">460223537681117_537350949968375</string>
-    <string name="banner_category_fb">460223537681117_537360603300743</string>
-    <string name="banner_download_fb">460223537681117_537362506633886</string>
-    <string name="native_fb">460223537681117_539278693108934</string>
+    <string name="banner_search_query_facebook">363310720837565_363317277503576</string>
+    <string name="banner_photo_info_facebook">363310720837565_363317500836887</string>
+    <string name="banner_collection_fb">363310720837565_363317720836865</string>
+    <string name="banner_category_fb">363310720837565_363317900836847</string>
+    <string name="banner_download_fb">363310720837565_363317994170171</string>
+    <string name="native_fb">363310720837565_363318294170141</string>
+
+    <!--MOI THEM-->
+    <string name="banner_home_facebook">363310720837565_363311524170818</string>
+    <string name="native_small_facebook">160074087915080_160354287887060</string>
 </resources>

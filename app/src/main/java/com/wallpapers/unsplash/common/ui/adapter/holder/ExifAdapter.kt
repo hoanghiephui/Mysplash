@@ -15,11 +15,11 @@ class ExifAdapter(private val photo: Photo) : RecyclerView.Adapter<ExifHolder>()
         return 4
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ExifHolder {
-        return ExifHolder(LayoutInflater.from(parent?.getContext()).inflate(R.layout.item_photo_exif, parent, false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExifHolder {
+        return ExifHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo_exif, parent, false))
     }
 
-    override fun onBindViewHolder(holder: ExifHolder?, position: Int) {
-        holder?.drawExif(holder.itemView.context, position, photo)
+    override fun onBindViewHolder(holder: ExifHolder, position: Int) {
+        holder.drawExif(holder.itemView.context, position, photo)
     }
 }
